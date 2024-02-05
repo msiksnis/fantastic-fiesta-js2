@@ -1,0 +1,110 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brag'bout | Sign In'</title>
+    <link href="../css/output.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div
+      class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 text-slate-900"
+    >
+      <div class="flex flex-col">
+        <h2 class="mt-10 text-center text-2xl tracking-tight">
+          Sign in to your account
+        </h2>
+      </div>
+
+      <div class="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form class="space-y-6" action="#" method="POST">
+          <div
+            id="error-message"
+            class="hidden text-red-500 text-sm mb-2"
+          ></div>
+
+          <div>
+            <label for="email" class="text-sm font-medium">Email address</label>
+            <div class="mt-2">
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                placeholder="Email address"
+                class="w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between">
+              <label for="password" class="text-sm font-medium">Password</label>
+            </div>
+
+            <div class="mt-2 relative">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                required
+                placeholder="Password"
+                class="w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+              <button
+                type="button"
+                id="togglePassword"
+                class="absolute inset-y-0 right-0 pr-3 flex items-center text-xs leading-5"
+              >
+                Show
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="flex items-center justify-between text-xs font-medium text-slate-700 hover:text-slate-900"
+          >
+            <div class="flex items-center space-x-2 cursor-pointer">
+              <input
+                id="remember-me"
+                name="remember-me"
+                type="checkbox"
+                class="w-4 h-4 text-indigo-600 border-slate-500 rounded-full focus:ring-indigo-500 cursor-pointer"
+              />
+              <label for="remember-me" class="cursor-pointer"
+                >Remember me</label
+              >
+            </div>
+            <a href="#" class="">Forgot password?</a>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              class="relative overflow-hidden flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow transition duration-500"
+            >
+              <span class="z-10 relative">Sign in</span>
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+              ></div>
+              <div
+                class="hover-target absolute inset-0 bg-gradient-to-r from-indigo-400 via-purple-700 to-pink-400 opacity-0 transition-opacity duration-700"
+              ></div>
+            </button>
+            <div class="text-sm mt-2 text-center">
+              <a
+                href="/sign-up"
+                class="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-all duration-200 ease-in-out"
+              >
+                Don't have an account? Sign up
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script type="module" src="/js/auth/sign-in.js"></script>
+  </body>
+</html>
