@@ -7,20 +7,30 @@
   </head>
   <body>
     <div
-      class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 text-slate-900"
+      class="flex min-h-full flex-col justify-center px-6 lg:px-8 text-slate-900"
     >
       <div class="flex flex-col">
-        <h2 class="mt-10 text-center text-2xl tracking-tight">
+        <h2 class="mb-6 text-center text-2xl tracking-tight">
           Register for a new account
         </h2>
       </div>
 
       <div class="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
         <form class="space-y-6" action="#" method="POST">
-          <div
-            id="error-message"
-            class="hidden text-red-500 text-sm mb-2"
-          ></div>
+          <div>
+            <label for="name" class="text-sm font-medium">Name</label>
+            <div class="mt-2">
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                placeholder="Your name"
+                aria-label="Name"
+                class="w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
 
           <div>
             <label for="email" class="text-sm font-medium">Email address</label>
@@ -102,17 +112,24 @@
 
           <div
             id="strengthWrapper"
-            class="my-2 flex items-center gap-2 h-1.5 rounded-sm bg-[#181919]"
+            class="flex items-center h-1.5 rounded-full bg-slate-300 relative border"
           >
             <div
               id="bars"
-              class="h-1.5 rounded-sm transition-all duration-400"
+              class="h-1.5 rounded-full transition-all duration-400"
+            ></div>
+            <div
+              id="strengthLabel"
+              class="text-left capitalize text-slate-500 absolute top-2 left-0"
             ></div>
           </div>
-          <div
-            id="strengthLabel"
-            class="text-left h-8 capitalize text-[#868b94]"
-          ></div>
+
+          <div class="h-3">
+            <div
+              id="error-message"
+              class="hidden text-red-500 text-sm pt-1"
+            ></div>
+          </div>
 
           <div>
             <button
