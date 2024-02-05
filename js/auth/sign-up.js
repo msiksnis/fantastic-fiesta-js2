@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const repeatPassword = document.getElementById("repeatPassword");
   const errorMessage = document.getElementById("error-message");
 
-  // Moved registerUser outside the submit event listener
   async function registerUser(name, email, password) {
     const registerUrl = `${BASE_URL}/auth/register`;
 
@@ -18,27 +17,26 @@ document.addEventListener("DOMContentLoaded", function () {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // "X-Noroff-API-Key": "YOUR_API_KEY" // Uncomment and use your API key if needed
+          // "X-Noroff-API-Key": "YOUR_API_KEY"
         },
         body: JSON.stringify({
           name: name,
           email: email,
           password: password,
-          // Include other optional fields as necessary
+          // Other optional fields if needed
         }),
       });
 
-      const data = await response.json(); // Always parse the JSON first
+      const data = await response.json();
 
       if (!response.ok) {
-        // Use data.message or any specific field your API uses for error messages
         let errorDetail =
           data.message || "An error occurred during registration.";
         throw new Error(`Error: ${errorDetail}`);
       }
 
       console.log("Registration successful", data);
-      // Handle post-registration logic here, like redirecting to the login page
+      window.location.href = "/sign-in.html";
     } catch (error) {
       console.error("Registration failed:", error);
       errorMessage.textContent = error.message;
@@ -85,8 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    const name = document.getElementById("name").value; // Get the name from the form
-    // Call registerUser with the name, email, and password
+    const name = document.getElementById("name").value;
     await registerUser(
       name,
       document.getElementById("email").value,
