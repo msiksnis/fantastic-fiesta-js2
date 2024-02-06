@@ -1,3 +1,4 @@
+// Function to determine the strength of a password
 export function getStrength(password) {
   let score = 0;
   if (password.length > 8) score += 1;
@@ -16,4 +17,15 @@ export function getStrength(password) {
   };
 
   return strength[score];
+}
+
+// Function to update the UI based on the password strength
+export function updatePasswordStrength(password) {
+  const strength = getStrength(password);
+  const barsDiv = document.getElementById("bars");
+  const strengthLabel = document.getElementById("strengthLabel");
+
+  barsDiv.style.width = strength.width;
+  barsDiv.style.backgroundColor = strength.color;
+  strengthLabel.textContent = strength.text + " password";
 }

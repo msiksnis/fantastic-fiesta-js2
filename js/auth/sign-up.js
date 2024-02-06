@@ -1,11 +1,48 @@
-import { getStrength } from "./password-strength.js";
+import { updatePasswordStrength } from "./password-strength.js";
 import { togglePasswordVisibility } from "./toggle-password.js";
+import { login } from "./sign-in.js";
+
+const BASE_URL = "https://v2.api.noroff.dev";
 
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector("form");
   const password = document.getElementById("password");
   const repeatPassword = document.getElementById("repeatPassword");
   const errorMessage = document.getElementById("error-message");
+
+  async function registerUser(name, email, password) {
+    const registerUrl = `${BASE_URL}/auth/register`;
+
+    try {
+      const response = await fetch(registerUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: password,
+          // Other optional fields can be added
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        let errorDetail =
+          data.message || "An error occurred during registration.";
+        throw new Error(`Error: ${errorDetail}`);
+      }
+
+      console.log("Registration successful", data);
+      await login(email, password);
+    } catch (error) {
+      console.error("Registration failed:", error);
+      errorMessage.textContent = error.message;
+      errorMessage.classList.remove("hidden");
+    }
+  }
 
   document
     .getElementById("togglePasswordVisibility")
@@ -23,13 +60,14 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
   document.getElementById("repeatPassword").addEventListener("input", () => {
-    const password = document.getElementById("password").value;
-    const repeatPassword = document.getElementById("repeatPassword").value;
     const passwordMatchIndicator = document.getElementById(
       "passwordMatchIndicator"
     );
-
-    if (password && repeatPassword && password === repeatPassword) {
+    if (
+      password.value &&
+      repeatPassword.value &&
+      password.value === repeatPassword.value
+    ) {
       passwordMatchIndicator.classList.remove("hidden");
     } else {
       passwordMatchIndicator.classList.add("hidden");
@@ -45,30 +83,15 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    console.log(
-      "Email:",
+    const name = document.getElementById("name").value;
+    await registerUser(
+      name,
       document.getElementById("email").value,
-      "Password:",
       password.value
     );
-
-    // Proceed with form submission, e.g., calling your registration API
-    // const email = document.getElementById("email").value;
-    // Assume registration function is implemented elsewhere
-    // await registerUser(email, password.value);
   });
 
   password.addEventListener("input", () =>
     updatePasswordStrength(password.value)
   );
-
-  function updatePasswordStrength(password) {
-    const strength = getStrength(password);
-    const barsDiv = document.getElementById("bars");
-    const strengthLabel = document.getElementById("strengthLabel");
-
-    barsDiv.style.width = strength.width;
-    barsDiv.style.backgroundColor = strength.color;
-    strengthLabel.textContent = strength.text + " password";
-  }
 });
