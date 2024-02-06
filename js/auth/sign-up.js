@@ -1,5 +1,6 @@
 import { updatePasswordStrength } from "./password-strength.js";
 import { togglePasswordVisibility } from "./toggle-password.js";
+import { login } from "./sign-in.js";
 
 const BASE_URL = "https://v2.api.noroff.dev";
 
@@ -17,13 +18,12 @@ document.addEventListener("DOMContentLoaded", function () {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // "X-Noroff-API-Key": "YOUR_API_KEY"
         },
         body: JSON.stringify({
           name: name,
           email: email,
           password: password,
-          // Other optional fields if needed
+          // Other optional fields can be added
         }),
       });
 
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       console.log("Registration successful", data);
-      window.location.href = "/sign-in.html";
+      await login(email, password);
     } catch (error) {
       console.error("Registration failed:", error);
       errorMessage.textContent = error.message;

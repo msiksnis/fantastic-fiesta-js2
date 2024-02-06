@@ -2,7 +2,7 @@ import { togglePasswordVisibility } from "./toggle-password.js";
 
 const BASE_URL = "https://v2.api.noroff.dev";
 
-async function login(email, password) {
+export async function login(email, password) {
   const loginUrl = `${BASE_URL}/auth/login`;
 
   try {
@@ -43,7 +43,17 @@ document.querySelector("form").addEventListener("submit", (event) => {
   login(email, password);
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const togglePasswordButton = document.getElementById("togglePassword");
-  togglePasswordButton.addEventListener("click", togglePasswordVisibility);
-});
+function setupTogglePasswordVisibility(password, toggPasswordVisibility) {
+  document.addEventListener("DOMContentLoaded", function () {
+    const togglePasswordButton = document.getElementById(
+      toggPasswordVisibility
+    );
+    if (togglePasswordButton) {
+      togglePasswordButton.addEventListener("click", function () {
+        togglePasswordVisibility(password, toggPasswordVisibility);
+      });
+    }
+  });
+}
+
+setupTogglePasswordVisibility("password", "toggPasswordVisibility");

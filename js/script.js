@@ -1,18 +1,18 @@
-async function fetchAndLogPosts() {
-  const accessToken = localStorage.getItem("accessToken");
+const accessToken = localStorage.getItem("accessToken");
+const API_KEY = "4e529365-1137-49dd-b777-84c28348625f";
 
+async function fetchAndLogPosts() {
   if (!accessToken) {
     console.log("No access token found. Please login.");
     return;
   }
 
   try {
-    const response = await fetch("https://api.noroff.dev/api/v1/social/posts", {
+    const response = await fetch("https://v2.api.noroff.dev/social/posts", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        // API key here
-        // "X-Noroff-API-Key": "api-key-here",
+        "X-Noroff-API-Key": API_KEY,
       },
     });
 
