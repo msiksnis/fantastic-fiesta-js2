@@ -30,17 +30,16 @@ document.addEventListener("DOMContentLoaded", function () {
       const data = await response.json();
 
       if (!response.ok) {
-        let errorDetail =
-          data.message || "An error occurred during registration.";
-        throw new Error(`Error: ${errorDetail}`);
+        throw new Error("An error occurred during registration.", data.message);
       }
 
       console.log("Registration successful", data);
       await login(email, password);
     } catch (error) {
       console.error("Registration failed:", error);
-      errorMessage.textContent = error.message;
-      errorMessage.classList.remove("hidden");
+      displayError(
+        "Something went wrong. Please check your credentials and try again."
+      );
     }
   }
 
@@ -95,3 +94,12 @@ document.addEventListener("DOMContentLoaded", function () {
     updatePasswordStrength(password.value)
   );
 });
+
+function displayError(message = "Oops... Something went wrong.") {
+  const errorToast = document.getElementById("registration-error-toast");
+  errorToast.textContent = message;
+  errorToast.classList.add("active");
+  setTimeout(() => {
+    errorToast.classList.remove("active");
+  }, 3000);
+}

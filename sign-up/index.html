@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Brag'bout | Sign Up'</title>
     <link href="../css/output.css" rel="stylesheet" />
+    <link href="../css/input.css" rel="stylesheet" />
   </head>
   <body>
     <div
@@ -112,11 +113,11 @@
 
           <div
             id="strengthWrapper"
-            class="flex items-center h-1.5 rounded-full bg-slate-300 relative border"
+            class="flex items-center h-1.5 rounded-full bg-slate-300 relative"
           >
             <div
               id="bars"
-              class="h-1.5 rounded-full transition-all duration-400"
+              class="h-1.5 rounded-full transition-all duration-400 !mb-20"
             ></div>
             <div
               id="strengthLabel"
@@ -124,37 +125,35 @@
             ></div>
           </div>
 
-          <div class="h-3">
-            <div
-              id="error-message"
-              class="hidden text-red-500 text-sm pt-1"
-            ></div>
-          </div>
+          <!-- Spacer -->
+          <div class="flex"></div>
 
-          <div>
-            <button
-              type="submit"
-              class="relative overflow-hidden flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm transition duration-700"
+          <button
+            type="submit"
+            class="relative overflow-hidden flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm transition duration-700"
+          >
+            <span class="z-10 relative">Sign up</span>
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+            ></div>
+            <div
+              class="hover-target absolute inset-0 bg-gradient-to-r from-indigo-400 via-purple-700 to-pink-400 opacity-0 transition-opacity duration-700"
+            ></div>
+          </button>
+          <div class="text-sm mt-2 text-center">
+            <a
+              href="/sign-in"
+              class="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-all duration-200 ease-in-out"
             >
-              <span class="z-10 relative">Sign up</span>
-              <div
-                class="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
-              ></div>
-              <div
-                class="hover-target absolute inset-0 bg-gradient-to-r from-indigo-400 via-purple-700 to-pink-400 opacity-0 transition-opacity duration-700"
-              ></div>
-            </button>
-            <div class="text-sm mt-2 text-center">
-              <a
-                href="/sign-in"
-                class="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-all duration-200 ease-in-out"
-              >
-                Already have an account? Sign In
-              </a>
-            </div>
+              Already have an account? Sign In
+            </a>
           </div>
         </form>
       </div>
+    </div>
+
+    <div id="registration-error-toast" class="error-toast">
+      <!-- Error toast -->
     </div>
 
     <script type="module" src="/js/auth/sign-up.js"></script>

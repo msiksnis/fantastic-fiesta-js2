@@ -2,6 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-button:hover .hover-target {
+.error-toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  margin-left: 20px;
+  font-size: 1rem;
+  background-color: #f63d2f;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  z-index: 10000;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.error-toast.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.button:hover .hover-target {
   opacity: 1;
 }

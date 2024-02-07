@@ -29,8 +29,7 @@ export async function login(email, password) {
 
     window.location.href = "/index.html";
   } catch (error) {
-    console.error("Error during login:", error);
-    // Handle login error (e.g., show a message to the user)
+    displayError("Wrong email or password. Please try again.");
   }
 }
 
@@ -57,3 +56,12 @@ function setupTogglePasswordVisibility(password, toggPasswordVisibility) {
 }
 
 setupTogglePasswordVisibility("password", "toggPasswordVisibility");
+
+function displayError(message = "Oops... Something went wrong.") {
+  const errorToast = document.getElementById("error-toast");
+  errorToast.textContent = message;
+  errorToast.classList.add("active");
+  setTimeout(() => {
+    errorToast.classList.remove("active");
+  }, 3000);
+}
