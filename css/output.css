@@ -1049,10 +1049,6 @@ select {
   top: 0.5rem;
 }
 
-.top-20 {
-  top: 5rem;
-}
-
 .isolate {
   isolation: isolate;
 }
@@ -1114,15 +1110,6 @@ select {
   margin-right: auto;
 }
 
-.my-0 {
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
-.\!mb-20 {
-  margin-bottom: 5rem !important;
-}
-
 .mb-6 {
   margin-bottom: 1.5rem;
 }
@@ -1153,22 +1140,6 @@ select {
 
 .mt-8 {
   margin-top: 2rem;
-}
-
-.mb-20 {
-  margin-bottom: 5rem;
-}
-
-.mb-2 {
-  margin-bottom: 0.5rem;
-}
-
-.mb-0 {
-  margin-bottom: 0px;
-}
-
-.mb-0\.5 {
-  margin-bottom: 0.125rem;
 }
 
 .box-border {
@@ -2375,16 +2346,6 @@ select {
   background-color: rgb(203 213 225 / var(--tw-bg-opacity));
 }
 
-.bg-amber-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(180 83 9 / var(--tw-bg-opacity));
-}
-
-.bg-orange-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(249 115 22 / var(--tw-bg-opacity));
-}
-
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
@@ -2576,14 +2537,6 @@ select {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-
-.pb-20 {
-  padding-bottom: 5rem;
-}
-
-.pb-2 {
-  padding-bottom: 0.5rem;
 }
 
 .pb-0 {
@@ -3199,6 +3152,13 @@ select {
 
 .forced-color-adjust-none {
   forced-color-adjust: none;
+}
+
+body {
+  min-height: 100vh;
+  background-image: url('/assets/icons/bg.svg');
+  background-size: cover;
+  background-repeat: repeat;
 }
 
 .error-toast {

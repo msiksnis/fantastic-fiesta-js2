@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply bg-[url('/assets/icons/bg.svg')] min-h-screen bg-cover bg-repeat;
+}
+
 .error-toast {
   position: fixed;
   bottom: 20px;
