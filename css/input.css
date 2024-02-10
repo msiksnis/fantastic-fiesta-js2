@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    font-family: "Poppins", sans-serif;
+  }
+}
+
 body {
   @apply bg-[url('/assets/icons/bg.svg')] min-h-screen bg-cover bg-repeat;
 }
@@ -26,8 +32,4 @@ body {
 .error-toast.active {
   opacity: 1;
   transform: translateY(0);
-}
-
-.button:hover .hover-target {
-  opacity: 1;
 }
