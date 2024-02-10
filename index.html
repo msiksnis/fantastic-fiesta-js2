@@ -3,6 +3,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Brag!</title>
+    <link rel="icon" href="/assets/favicon.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -31,10 +32,28 @@
       <div
         class="fixed bottom-4 left-1/2 -translate-x-1/2 grid grid-cols-4 gap-10 z-50 md:sticky md:top-4"
       >
-        <img src="./assets/icons/home.svg" alt="Home icon" class="w-6" />
-        <img src="./assets/icons/chat.svg" alt="Chat icon" class="w-6" />
-        <img src="./assets/icons/bell.svg " alt="Bell icon" class="w-6" />
-        <img src="./assets/icons/heart.svg " alt="Heart icon" class="w-6" />
+        <div class="group relative transition-all duration-500 ease-in-out">
+          <img
+            src="./assets/icons/home.svg"
+            alt="Home icon"
+            class="w-6 cursor-pointer group-hover:scale-110 transition-all duration-300 ease-in-out"
+          />
+        </div>
+        <img
+          src="./assets/icons/chat.svg"
+          alt="Chat icon"
+          class="group w-6 cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out"
+        />
+        <img
+          src="./assets/icons/bell.svg "
+          alt="Bell icon"
+          class="group w-6 cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out"
+        />
+        <img
+          src="./assets/icons/heart.svg "
+          alt="Heart icon"
+          class="group w-6 cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out"
+        />
       </div>
       <div
         class="flex items-center md:p-1 md:pr-3 bg-white border border-black md:border-slate-300 rounded-full"
