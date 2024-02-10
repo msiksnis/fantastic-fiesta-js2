@@ -4,7 +4,7 @@ const API_KEY = "4e529365-1137-49dd-b777-84c28348625f";
 async function fetchAndLogPosts() {
   if (!accessToken) {
     console.log("No access token found. Please login.");
-    return;
+    window.location.href = "/sign-in";
   }
 
   try {
