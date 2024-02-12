@@ -8,7 +8,7 @@ async function fetchAndLogPosts() {
   }
 
   try {
-    const response = await fetch("https://v2.api.noroff.dev/social/posts", {
+    const response = await fetch("https://v2.api.noroff.dev/social/profiles", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -27,4 +27,4 @@ async function fetchAndLogPosts() {
   }
 }
 
-fetchAndLogPosts();
+// fetchAndLogPosts();
