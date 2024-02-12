@@ -6,6 +6,8 @@ module.exports = {
     extend: {
       colors: {
         "accent-yellow": "#FEFD00",
+        bg: "#F4F4F5",
+        card: "#FFFEFE",
       },
     },
   },

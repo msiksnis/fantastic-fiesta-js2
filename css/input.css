@@ -9,7 +9,8 @@
 }
 
 body {
-  @apply bg-[url('/assets/icons/bg.svg')] min-h-screen bg-cover bg-repeat;
+  /* @apply bg-[url('/assets/icons/bg.svg')] min-h-screen bg-cover bg-repeat; */
+  @apply bg-bg min-h-screen;
 }
 
 .error-toast {
@@ -32,4 +33,13 @@ body {
 .error-toast.active {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* To hide the scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar.overflow-auto {
+  scrollbar-width: none; /* Firefox */
 }
