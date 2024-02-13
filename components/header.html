@@ -1,18 +1,10 @@
-<header class="sticky flex justify-between items-center m-4 md:mx-10">
+<div class="sticky flex justify-between items-center m-4 md:mx-10">
   <div class="flex items-center">
     <img
       src="../assets/yellow-logo.svg"
       alt="Brag'bout logo"
       class="w-32 object-cover -rotate-6"
     />
-    <!-- <div class="ml-20">
-        <input
-          type="text"
-          id="search-input"
-          placeholder="Explore"
-          class="border border-slate-300 focus:outline-none focus:border-black focus:ring-1 focus:ring-black bg-white rounded-full py-1 px-4 w-60 placeholder:text-xs"
-        />
-      </div> -->
   </div>
   <div
     class="fixed bottom-4 left-1/2 -translate-x-1/2 grid grid-cols-4 gap-10 z-50 md:sticky md:top-4"
@@ -59,23 +51,45 @@
     </a>
   </div>
   <div
-    class="flex items-center md:p-1 md:pr-3 bg-white border border-black md:border-slate-300 rounded-full"
+    class="hidden md:flex items-center md:p-0.5 bg-white border border-black md:border-slate-300 rounded-full cursor-pointer hover:shadow-md transition-all duration-200 ease-in-out hover:border-black group"
   >
-    <!-- <img
+    <div class="flex items-center">
+      <img
+        src="../assets/logo-linear-77.png"
+        alt="Profile image"
+        class="w-8 rounded-full"
+      />
+      <div class="flex flex-col">
+        <p
+          id="log-out-text-desktop"
+          class="opacity-0 -translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 text-sm font-semibold pl-6 pr-7 text-center"
+        >
+          Log Out
+        </p>
+        <p
+          id="profile-name"
+          class="hidden md:block group-hover:translate-y-4 group-hover:opacity-0 transition-all duration-300 text-sm font-semibold px-4 -mt-[18px] group-hover:-mt-6 pb-0.5 max-w-40 text-center truncate"
+        >
+          Marty
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
+    id="profile-container"
+    class="md:hidden flex items-center bg-white border border-black rounded-full group transition-all duration-500 w-8 max-w-32 group"
+  >
+    <img
+      id="profile-image"
       src="../assets/logo-linear-77.png"
       alt="Profile image"
       class="w-8 rounded-full"
-    /> -->
-    <img
-      src="https://i.pravatar.cc/300"
-      alt="Profile image"
-      class="w-8 rounded-full"
     />
-    <p class="hidden md:block text-sm font-semibold px-4">Marty</p>
-    <img
-      src="../assets/icons/down.svg "
-      alt="Down icon"
-      class="hidden md:block w-6"
-    />
+    <p
+      id="log-out-text"
+      class="text-xs font-semibold pl-6 pr-7 hidden justify-center items-center -translate-x-1 whitespace-nowrap transition-all duration-500"
+    >
+      Log Out
+    </p>
   </div>
-</header>
+</div>
