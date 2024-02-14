@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("header-container").innerHTML = data;
       setActiveLink();
       logout();
+      displayUserProfile();
       addProfileToggle();
     });
 });
@@ -44,3 +45,29 @@ function logout() {
     window.location.href = "/";
   });
 }
+
+function displayUserProfile() {
+  const userProfileStr = localStorage.getItem("userProfile");
+  if (userProfileStr) {
+    const userProfile = JSON.parse(userProfileStr);
+    const profileName = document.getElementById("profile-name");
+    const profileImage = document.getElementById("profile-image");
+    const mobileProfileImage = document.getElementById("mobile-profile-image");
+
+    if (profileName) {
+      profileName.textContent = userProfile.name;
+    }
+
+    if (profileImage && userProfile.avatar && userProfile.avatar.url) {
+      profileImage.src = userProfile.avatar.url;
+      profileImage.alt = userProfile.avatar.alt;
+    }
+
+    if (mobileProfileImage && userProfile.avatar && userProfile.avatar.url) {
+      mobileProfileImage.src = userProfile.avatar.url;
+      mobileProfileImage.alt = userProfile.avatar.alt;
+    }
+  }
+}
+
+displayUserProfile();

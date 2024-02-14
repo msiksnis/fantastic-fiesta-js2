@@ -21,13 +21,21 @@ export async function login(email, password) {
       throw new Error("Login failed");
     }
 
-    const data = await response.json();
+    const { data } = await response.json();
 
     console.log("Login successful", data);
 
-    localStorage.setItem("accessToken", data.data.accessToken);
+    localStorage.setItem("accessToken", data.accessToken);
 
-    window.location.href = "/index.html";
+    const userProfile = {
+      name: data.name,
+      email: data.email,
+      avatar: data.avatar,
+      banner: data.banner,
+    };
+    localStorage.setItem("userProfile", JSON.stringify(userProfile));
+
+    window.location.href = "/";
   } catch (error) {
     displayError("Wrong email or password. Please try again.");
   }

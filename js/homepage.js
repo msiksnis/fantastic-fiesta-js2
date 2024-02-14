@@ -1,7 +1,7 @@
 const accessToken = localStorage.getItem("accessToken");
 const API_KEY = "4e529365-1137-49dd-b777-84c28348625f";
 
-async function fetchAndLogPosts() {
+async function fetchProfiles() {
   if (!accessToken) {
     console.log("No access token found. Please login.");
     window.location.href = "/sign-in";
@@ -17,14 +17,33 @@ async function fetchAndLogPosts() {
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch posts: ${response.statusText}`);
+      throw new Error(`Failed to fetch profiles: ${response.statusText}`);
     }
 
-    const posts = await response.json();
-    console.log(posts);
+    const data = await response.json();
   } catch (error) {
-    console.error("Error fetching posts:", error);
+    console.error("Error fetching profiles:", error);
   }
 }
 
-// fetchAndLogPosts();
+fetchProfiles();
+
+function displayUserProfile() {
+  const userProfileStr = localStorage.getItem("userProfile");
+  if (userProfileStr) {
+    const userProfile = JSON.parse(userProfileStr);
+    const profileName = document.getElementById("profile-name");
+    const profileImage = document.getElementById("profile-picture");
+
+    if (profileName) {
+      profileName.textContent = userProfile.name;
+    }
+
+    if (profileImage && userProfile.avatar && userProfile.avatar.url) {
+      profileImage.src = userProfile.avatar.url;
+      profileImage.alt = userProfile.avatar.alt;
+    }
+  }
+}
+
+displayUserProfile();

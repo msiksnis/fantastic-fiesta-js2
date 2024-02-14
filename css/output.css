@@ -1195,6 +1195,14 @@ html {
   margin-top: 2rem;
 }
 
+.mr-7 {
+  margin-right: 1.75rem;
+}
+
+.ml-6 {
+  margin-left: 1.5rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -3222,6 +3230,10 @@ html {
 
 .underline-offset-4 {
   text-underline-offset: 4px;
+}
+
+.underline-offset-2 {
+  text-underline-offset: 2px;
 }
 
 .antialiased {
