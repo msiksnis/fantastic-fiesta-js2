@@ -18,11 +18,18 @@
         <!-- Header component -->
       </div>
     </header>
-    <main class="md:mt-10">
-      <div class="grid mx-auto max-w-2xl space-y-5">
+    <main
+      class="grid grid-cols-11 gap-x-2 md:gap-x-5 md:mt-8 px-4 lg:px-8 xl:px-10"
+    >
+      <div
+        class="hidden sm:block sm:col-span-4 lg:col-span-3 border border-red-500"
+      >
+        profile
+      </div>
+      <div class="col-span-11 sm:col-span-7 lg:col-span-5">
         <template id="online-friend-template">
           <div
-            class="flex flex-col items-center justify-center w-16 mr-2 first-of-type:ml-3 first-of-type:md:ml-0"
+            class="flex flex-col items-center justify-center w-16 mr-2 first-of-type:ml-3 first-of-type:md:ml-0 mb-5"
           >
             <img
               src=""
@@ -41,7 +48,7 @@
           id="online-friends-container"
           class="flex flex-row overflow-scroll no-scrollbar"
         ></div>
-        <div class="px-4 md:px-0">
+        <div class="px-4 sm:px-0">
           <div class="bg-card shadow rounded-2xl p-3">
             <div class="flex justify-center space-x-4">
               <div
@@ -96,6 +103,7 @@
         </div>
         <span id="user-name"></span>
       </div>
+      <div class="hidden lg:block col-span-3 border border-red-500">asxasx</div>
     </main>
     <script type="module" src="js/homepage.js"></script>
     <script type="module" src="js/fetch-users.js"></script>

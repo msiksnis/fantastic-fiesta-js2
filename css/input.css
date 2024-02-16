@@ -9,8 +9,8 @@
 }
 
 body {
-  /* @apply bg-[url('/assets/icons/bg.svg')] min-h-screen bg-cover bg-repeat; */
-  @apply bg-bg min-h-screen;
+  @apply bg-[url('/assets/icons/bg.svg')] max-w-[1536px] mx-auto min-h-screen bg-cover bg-repeat;
+  /* @apply bg-bg min-h-screen max-w-[1536px] mx-auto; */
 }
 
 .error-toast {

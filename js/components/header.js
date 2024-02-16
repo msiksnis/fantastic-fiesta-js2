@@ -32,6 +32,7 @@ function addProfileToggle() {
 
     logoutText.addEventListener("click", () => {
       localStorage.removeItem("accessToken");
+      localStorage.removeItem("userProfile");
       window.location.href = "/";
     });
   });
@@ -42,6 +43,7 @@ function logout() {
 
   logoutTextDesktop.addEventListener("click", () => {
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("userProfile");
     window.location.href = "/";
   });
 }
