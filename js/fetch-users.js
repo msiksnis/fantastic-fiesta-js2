@@ -39,7 +39,12 @@ async function displayOnlineFriends() {
       const instance = document.importNode(template, true);
       instance.querySelector("img").src = user.avatar.url;
       instance.querySelector("img").alt = `${user.name}'s avatar`;
-      instance.querySelector("#friends-name").textContent = user.name;
+      const friendsNameElement = instance.querySelector("#friends-name");
+      friendsNameElement.textContent = user.name;
+      friendsNameElement.addEventListener("click", function () {
+        const profileUrl = `/profile/?profile=${encodeURIComponent(user.name)}`; // Ensure you're using the correct property here
+        window.location.href = profileUrl;
+      });
       container.appendChild(instance);
     });
   } catch (error) {

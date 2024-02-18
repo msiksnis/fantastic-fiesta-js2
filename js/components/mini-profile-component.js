@@ -9,11 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
       );
       miniProfileContainer.innerHTML = data;
 
-      // Ensure the profile name element is correctly targeted after being dynamically loaded
       const profileNameElement =
         miniProfileContainer.querySelector("#profile-name");
       profileNameElement.addEventListener("click", function () {
-        const profileName = this.innerText.trim(); // Trim to remove any extra whitespace
+        const profileName = this.innerText.trim();
         const profileUrl = `/profile/?profile=${encodeURIComponent(
           profileName
         )}`;
