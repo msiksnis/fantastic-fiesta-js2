@@ -30,6 +30,7 @@ export async function login(email, password) {
     const userProfile = {
       name: data.name,
       email: data.email,
+      bio: data.bio,
       avatar: data.avatar,
       banner: data.banner,
     };

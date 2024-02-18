@@ -1,3 +1,5 @@
+// import { displayUserProfile } from "./profile-data";
+
 const accessToken = localStorage.getItem("accessToken");
 const API_KEY = "4e529365-1137-49dd-b777-84c28348625f";
 
@@ -8,16 +10,13 @@ async function fetchPosts() {
   }
 
   try {
-    const response = await fetch(
-      "https://v2.api.noroff.dev/social/posts?_author=true",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "X-Noroff-API-Key": API_KEY,
-        },
-      }
-    );
+    const response = await fetch("https://v2.api.noroff.dev/social/profiles", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": API_KEY,
+      },
+    });
 
     if (!response.ok) {
       throw new Error(`Failed to fetch posts: ${response.statusText}`);
@@ -32,22 +31,49 @@ async function fetchPosts() {
 
 fetchPosts();
 
-function displayUserProfile() {
-  const userProfileStr = localStorage.getItem("userProfile");
-  if (userProfileStr) {
-    const userProfile = JSON.parse(userProfileStr);
-    const profileName = document.getElementById("profile-name");
-    const profileImage = document.getElementById("profile-picture");
+async function fetchCountData() {
+  const userProfileString = localStorage.getItem("userProfile");
+  if (!accessToken || !userProfileString) {
+    console.log("No access token found or user profile missing. Please login.");
+    window.location.href = "/sign-in";
+    return;
+  }
 
-    // if (profileName) {
-    //   profileName.textContent = userProfile.name;
-    // }
+  try {
+    const userProfile = JSON.parse(userProfileString);
+    const username = userProfile.name;
 
-    if (profileImage && userProfile.avatar && userProfile.avatar.url) {
-      profileImage.src = userProfile.avatar.url;
-      profileImage.alt = userProfile.avatar.alt;
+    const response = await fetch(
+      `https://v2.api.noroff.dev/social/profiles/${username}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "X-Noroff-API-Key": API_KEY,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch profile data");
     }
+
+    const profileData = await response.json();
+    localStorage.setItem("userProfile", JSON.stringify(profileData.data));
+  } catch (error) {
+    console.error("Error fetching profile data:", error);
   }
 }
 
-displayUserProfile();
+fetchCountData();
+
+document.addEventListener("DOMContentLoaded", function () {
+  const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+
+  const profileAvatarElement = document.getElementById("profile-avatar");
+
+  if (profileAvatarElement && userProfile.avatar) {
+    profileAvatarElement.src = userProfile.avatar.url;
+    profileAvatarElement.alt = userProfile.avatar.alt || "User avatar";
+  }
+});

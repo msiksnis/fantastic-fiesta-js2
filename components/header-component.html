@@ -55,38 +55,40 @@
   >
     <div class="flex items-center">
       <img
-        id="profile-image"
-        src=""
+        id="profile-avatar"
+        src="../assets/logo-linear-77.png"
         alt="Profile image"
         class="w-8 rounded-full"
       />
       <div class="flex flex-col">
         <p
           id="log-out-text-desktop"
-          class="opacity-0 -translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 text-sm font-semibold pl-6 pr-7 text-center hover:underline underline-offset-2"
+          class="log-out-text opacity-0 -translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 text-sm font-semibold pl-6 pr-7 text-center hover:underline underline-offset-2"
         >
           Log Out
         </p>
         <p
           id="profile-name"
           class="hidden md:block group-hover:translate-y-4 group-hover:opacity-0 transition-all duration-300 text-sm font-semibold px-4 -mt-[18px] group-hover:-mt-6 pb-0.5 max-w-40 text-center truncate"
-        ></p>
+        >
+          Users Name
+        </p>
       </div>
     </div>
   </div>
   <div
     id="profile-container"
-    class="md:hidden flex items-center bg-white border border-black rounded-full group transition-all duration-500 w-8 max-w-32 group"
+    class="md:hidden flex items-center bg-white border border-black rounded-full group transition-all duration-500 w-8 group"
   >
     <img
-      id="mobile-profile-image"
+      id="mobile-profile-avatar"
       src="../assets/logo-linear-77.png"
       alt="Profile image"
-      class="w-8 rounded-full"
+      class="w-8 rounded-full cursor-pointer"
     />
     <p
       id="log-out-text"
-      class="text-xs font-semibold ml-6 mr-7 hidden justify-center items-center -translate-x-1 whitespace-nowrap transition-all duration-500 hover:underline underline-offset-2 cursor-pointer"
+      class="log-out-text text-xs font-semibold ml-6 mr-7 hidden justify-center items-center -translate-x-1 whitespace-nowrap transition-all duration-500 hover:underline underline-offset-2 cursor-pointer"
     >
       Log Out
     </p>

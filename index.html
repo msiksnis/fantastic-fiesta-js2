@@ -19,12 +19,13 @@
       </div>
     </header>
     <main
-      class="grid grid-cols-11 gap-x-2 md:gap-x-5 md:mt-8 px-4 lg:px-8 xl:px-10"
+      class="grid grid-cols-11 gap-x-2 md:gap-x-5 md:mt-8 sm:px-4 lg:px-8 xl:px-10"
     >
       <div
-        class="hidden sm:block sm:col-span-4 lg:col-span-3 border border-red-500"
+        id="mini-profile-container"
+        class="hidden sm:block sm:col-span-4 lg:col-span-3 bg-card shadow rounded-2xl"
       >
-        profile
+        <!-- Mini profile component -->
       </div>
       <div class="col-span-11 sm:col-span-7 lg:col-span-5">
         <template id="online-friend-template">
@@ -55,9 +56,9 @@
                 class="relative h-[3.4rem] aspect-square bg-accent-yellow border border-slate-700 rounded-full"
               >
                 <img
-                  id="profile-picture"
+                  id="profile-avatar"
                   src=""
-                  alt="profile picture"
+                  alt=""
                   class="absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 rounded-full h-12 w-12"
                 />
               </div>
@@ -101,12 +102,15 @@
             </div>
           </div>
         </div>
-        <span id="user-name"></span>
       </div>
       <div class="hidden lg:block col-span-3 border border-red-500">asxasx</div>
     </main>
     <script type="module" src="js/homepage.js"></script>
     <script type="module" src="js/fetch-users.js"></script>
-    <script src="js/components/header.js"></script>
+    <script
+      type="module"
+      src="js/components/mini-profile-component.js"
+    ></script>
+    <script type="module" src="js/components/header-component.js"></script>
   </body>
 </html>
