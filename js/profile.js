@@ -29,19 +29,18 @@ async function fetchUserProfile(userName) {
     console.log("Profile data:", data);
 
     document.getElementById("dynamic-profile-name").textContent = data.name;
-    document.getElementById("dynamic-profile-email").textContent = data.email;
-    document.getElementById("dynamic-profile-bio").textContent =
-      data.bio || "No bio available";
+    // document.getElementById("dynamic-profile-email").textContent = data.email;
+    document.getElementById("dynamic-profile-bio").textContent = data.bio;
     document.getElementById("dynamic-profile-avatar").src = data.avatar.url;
     document.getElementById("dynamic-profile-avatar").alt = data.avatar.alt;
     document.getElementById("dynamic-profile-cover").src = data.banner.url;
     document.getElementById("dynamic-profile-cover").alt = data.banner.alt;
     document.getElementById("dynamic-profile-followers").textContent =
-      data._count.followers + " Followers";
+      data._count.followers;
     document.getElementById("dynamic-profile-following").textContent =
-      data._count.following + " Following";
+      data._count.following;
     document.getElementById("dynamic-profile-posts").textContent =
-      data._count.posts + " Posts";
+      data._count.posts;
   } catch (error) {
     console.error("Error fetching profile data:", error);
   }
