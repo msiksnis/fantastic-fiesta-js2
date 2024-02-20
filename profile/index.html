@@ -18,76 +18,106 @@
         <!-- Header component -->
       </div>
     </header>
-    <div
-      id="dynamic-profile-container"
-      class="px-4 md:px-6 lg:px-10 mt-4 md:mt-6"
-    >
-      <div class="relative">
-        <img
-          id="dynamic-profile-cover"
-          src=""
-          alt="User's Cover Image"
-          class="w-full h-52 md:h-[30rem] object-cover bg-card border border-slate-400 rounded-3xl"
-        />
-        <img
-          id="dynamic-profile-avatar"
-          src=""
-          alt="User's Avatar"
-          class="absolute bottom-0 left-6 md:left-14 transform translate-y-1/2 w-28 md:w-44 h-28 md:h-44 object-cover rounded-full border-4 border-card bg-card shadow-lg"
-        />
-      </div>
-      <div class="flex flex-col lg:flex-row items-center justify-between">
-        <h1
-          id="dynamic-profile-name"
-          class="text-2xl md:text-3xl/10 md:font-semibold text-center lg:text-start ml-6 my-6 lg:ml-64 md:mt-6 overflow-hidden whitespace-nowrap truncate md:w-auto"
-        >
-          User Name
-        </h1>
-        <div
-          class="flex w-full md:w-fit justify-between mt-4 md:space-x-10 lg:space-x-10 xl:space-x-20 text-sm/4 md:text-base/5"
-        >
-          <div
-            class="flex space-x-1 items-center justify-center w-28 md:w-32 border border-slate-400 px-4 pb-1 pt-1.5 rounded-full hover:border-slate-700 hover:shadow-md transition-all cursor-pointer"
+    <main class="pb-40">
+      <div
+        id="dynamic-profile-container"
+        class="px-4 md:px-6 lg:px-10 mt-4 md:mt-6"
+      >
+        <div class="relative">
+          <img
+            id="dynamic-profile-cover"
+            src=""
+            alt="User's Cover Image"
+            class="w-full h-52 md:h-[30rem] object-cover bg-card border border-slate-400 rounded-3xl"
+          />
+          <img
+            id=""
+            src=""
+            alt="User's Avatar"
+            class="dynamic-profile-avatar absolute bottom-0 left-6 md:left-14 transform translate-y-1/2 w-28 md:w-44 h-28 md:h-44 object-cover rounded-full border-4 border-card bg-card shadow-lg"
+          />
+        </div>
+        <div class="flex flex-col lg:flex-row items-center justify-between">
+          <h1
+            id="dynamic-profile-name"
+            class="text-2xl md:text-3xl/10 md:font-semibold text-center lg:text-start ml-6 my-6 lg:ml-64 mt-4 md:mt-6 overflow-hidden whitespace-nowrap truncate md:w-auto"
           >
-            <p id="dynamic-profile-posts" class="font-semibold"></p>
-            <div class="">Posts</div>
-          </div>
+            User Name
+          </h1>
           <div
-            class="flex space-x-1 items-center justify-center w-28 md:w-32 border border-slate-400 px-4 pb-1 pt-1.5 rounded-full hover:border-slate-700 hover:shadow-md transition-all cursor-pointer"
+            class="flex w-full md:w-fit justify-around mt-4 md:space-x-10 lg:space-x-10 xl:space-x-20 text-sm/4 md:text-base/5"
           >
-            <p id="dynamic-profile-followers" class="font-semibold"></p>
-            <div class="">Followers</div>
-          </div>
-          <div
-            class="flex space-x-1 items-center justify-center w-28 md:w-32 border border-slate-400 px-4 pb-1 pt-1.5 rounded-full hover:border-slate-700 hover:shadow-md transition-all cursor-pointer"
-          >
-            <p id="dynamic-profile-following" class="font-semibold"></p>
-            <div class="">Following</div>
+            <div
+              class="flex space-x-1 items-center justify-center w-28 md:w-32 border border-slate-400 px-4 pb-1 pt-1.5 rounded-full hover:border-slate-700 hover:shadow-md transition-all cursor-pointer"
+            >
+              <p id="dynamic-profile-posts" class="font-semibold"></p>
+              <div class="">Posts</div>
+            </div>
+            <div
+              class="flex space-x-1 items-center justify-center w-28 md:w-32 border border-slate-400 px-4 pb-1 pt-1.5 rounded-full hover:border-slate-700 hover:shadow-md transition-all cursor-pointer"
+            >
+              <p id="dynamic-profile-followers" class="font-semibold"></p>
+              <div class="">Followers</div>
+            </div>
+            <div
+              class="flex space-x-1 items-center justify-center w-28 md:w-32 border border-slate-400 px-4 pb-1 pt-1.5 rounded-full hover:border-slate-700 hover:shadow-md transition-all cursor-pointer"
+            >
+              <p id="dynamic-profile-following" class="font-semibold"></p>
+              <div class="">Following</div>
+            </div>
           </div>
         </div>
+        <p id="dynamic-profile-email"></p>
+        <p id="dynamic-profile-bio"></p>
       </div>
-      <p id="dynamic-profile-email"></p>
-      <p id="dynamic-profile-bio"></p>
-    </div>
 
-    <div class="px-4 sm:px-6 md:px-10">
-      <div
+      <div class="px-4 sm:px-6 md:px-10">
+        <div
+          id="dynamic-profile-posts-container"
+          class="columns-1 sm:columns-2 lg:columns-3 space-y-5 mt-14 md:mt-20"
+        >
+          <!-- <div
         id="dynamic-profile-posts-container"
-        class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-14 md:mt-20"
-      >
-        <template id="post-template">
-          <div class="bg-card border border-slate-400 rounded-3xl">
-            <div class="flex w-full justify-between items-end">
-              <h2 id="post-title" class="text-lg">Post Title</h2>
-              <div id="post-date" class="text-xs/6 opacity-60">Post date</div>
+        class="flex flex-col sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-14 md:mt-20"
+      > -->
+          <template id="post-template">
+            <div
+              class="bg-card w-full border border-slate-300 hover:border-slate-400 shadow-md hover:shadow-xl transition-all duration-300 rounded-2xl cursor-pointer"
+            >
+              <div class="flex items-center space-x-2 py-4 px-4">
+                <img
+                  id="post-author-avatar"
+                  src=""
+                  alt="Author's Avatar"
+                  class="w-8 h-8 rounded-full object-cover"
+                />
+                <div class="flex items-center justify-between w-full">
+                  <p id="post-author-name" class="text-base/5 font-medium">
+                    Author's name
+                  </p>
+                  <div id="post-date" class="text-xs/6 opacity-60">
+                    Post date
+                  </div>
+                </div>
+              </div>
+              <div class="px-4 pb-2">
+                <h2 id="post-title" class="text-base">Post Title</h2>
+                <div id="post-tags" class="text-xs lowercase opacity-50">
+                  Post tags
+                </div>
+              </div>
+              <img
+                id="post-media"
+                src=""
+                alt="Post media"
+                class="hidden h-80 w-full object-cover"
+              />
+              <p id="post-body" class="truncate p-4 peer">Post body</p>
             </div>
-            <p id="post-body">Post body</p>
-            <img id="post-media" src="" alt="Post media" class="hidden" />
-            <div id="post-tags">Post tags</div>
-          </div>
-        </template>
+          </template>
+        </div>
       </div>
-    </div>
+    </main>
 
     <script type="module" src="../js/components/header-component.js"></script>
     <script type="module" src="../js/profile.js"></script>

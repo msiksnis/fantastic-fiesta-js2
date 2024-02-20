@@ -1,3 +1,5 @@
+import { timeSince } from "./utils/helper-functions.js";
+
 const accessToken = localStorage.getItem("accessToken");
 const API_KEY = "4e529365-1137-49dd-b777-84c28348625f";
 
@@ -22,8 +24,8 @@ async function fetchUserProfile(userName) {
     document.getElementById("dynamic-profile-name").textContent = data.name;
     // document.getElementById("dynamic-profile-email").textContent = data.email;
     document.getElementById("dynamic-profile-bio").textContent = data.bio;
-    document.getElementById("dynamic-profile-avatar").src = data.avatar.url;
-    document.getElementById("dynamic-profile-avatar").alt = data.avatar.alt;
+    document.querySelector(".dynamic-profile-avatar").src = data.avatar.url;
+    document.querySelector(".dynamic-profile-avatar").alt = data.avatar.alt;
     document.getElementById("dynamic-profile-cover").src = data.banner.url;
     document.getElementById("dynamic-profile-cover").alt = data.banner.alt;
     document.getElementById("dynamic-profile-followers").textContent =
@@ -40,7 +42,7 @@ async function fetchUserProfile(userName) {
 }
 
 async function fetchUserPosts(userName) {
-  const postsAPIURL = `https://v2.api.noroff.dev/social/profiles/${userName}/posts`;
+  const postsAPIURL = `https://v2.api.noroff.dev/social/profiles/${userName}/posts?_author=true`;
   try {
     const response = await fetch(postsAPIURL, {
       method: "GET",
@@ -73,6 +75,19 @@ function displayUserPosts(posts) {
   posts.forEach((post) => {
     const postClone = document.importNode(postTemplate, true);
 
+    const postAuthor = postClone.querySelector("#post-author-name");
+    if (post.author) {
+      postAuthor.textContent = post.author.name;
+      postAuthor.href = `profile.html?profile=${post.author.name}`;
+    }
+    const postAuthorAvatar = postClone.querySelector("#post-author-avatar");
+    if (post.author && post.author.avatar && post.author.avatar.url) {
+      postAuthorAvatar.src = post.author.avatar.url;
+      postAuthorAvatar.alt = post.author.avatar.alt || "Author avatar";
+    } else {
+      postAuthorAvatar.remove();
+    }
+
     postClone.querySelector("#post-title").textContent = post.title;
     postClone.querySelector("#post-body").textContent = post.body;
 
@@ -85,10 +100,11 @@ function displayUserPosts(posts) {
       postMedia.remove();
     }
 
-    postClone.querySelector("#post-tags").textContent = post.tags.join(", ");
-    postClone.querySelector("#post-date").textContent = new Date(
-      post.created
-    ).toLocaleDateString();
+    const formattedTags = post.tags
+      .map((tag) => "#" + tag.replace(/\s+/g, "").toLowerCase())
+      .join(", ");
+    postClone.querySelector("#post-tags").textContent = formattedTags;
+    postClone.querySelector("#post-date").textContent = timeSince(post.created);
 
     postsContainer.appendChild(postClone);
   });
