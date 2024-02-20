@@ -33,7 +33,7 @@ async function displayOnlineFriends() {
 
   try {
     const response = await fetchUsers();
-    const users = response.data.slice(0, 15);
+    const users = response.data.slice(0, 25);
 
     users.forEach((user) => {
       const instance = document.importNode(template, true);
