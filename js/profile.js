@@ -22,7 +22,6 @@ async function fetchUserProfile(userName) {
     console.log("Profile data:", data);
 
     document.getElementById("dynamic-profile-name").textContent = data.name;
-    // document.getElementById("dynamic-profile-email").textContent = data.email;
     document.getElementById("dynamic-profile-bio").textContent = data.bio;
     document.querySelector(".dynamic-profile-avatar").src = data.avatar.url;
     document.querySelector(".dynamic-profile-avatar").alt = data.avatar.alt;
