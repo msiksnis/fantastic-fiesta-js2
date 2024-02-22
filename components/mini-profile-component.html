@@ -5,7 +5,7 @@
       id="profile-avatar"
       src=""
       alt=""
-      class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-20 h-20 rounded-full border-4 border-white"
+      class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-24 h-24 rounded-full border-4 border-white hover:-rotate-[10deg] transition-all duration-500 shadow-lg"
     />
   </div>
   <div id="" class="flex justify-around mt-2">
@@ -18,19 +18,26 @@
       <div class="text-xs">Following</div>
     </div>
   </div>
-  <a href="#" id="profile-name" class="profile-name flex justify-center mt-6"
-    >Profile Name</a
+  <a
+    href="#"
+    id="profile-name"
+    class="profile-name flex justify-center mt-4 hover:underline underline-offset-[3px] transition-all duration-300 text-xl font-semibold truncate"
   >
+    Profile Name
+  </a>
   <div
     id="profile-bio"
-    class="flex justify-center mt-4 text-center px-6 text-sm/5 text-slate-600"
-  ></div>
-  <div class="border-t m-4"></div>
-  <div class="flex justify-center mb-4 mx-4">
+    class="flex justify-center mt-4 text-center px-6 text-base/5 text-slate-600"
+  >
+    Bio
+  </div>
+  <div class="border-t m-6"></div>
+  <div class="flex justify-center mb-6 mx-4">
     <a
       href="#"
-      class="block text-center text-sm/5 text-slate-800 py-2 w-full rounded-xl border border-slate-300 hover:bg-yellow-50 hover:border-slate-700 hover:shadow transition-all duration-300"
-      >Edit Profile</a
+      class="block text-center text-sm/5 text-slate-800 py-2 w-full rounded-xl border border-slate-300 hover:bg-yellow-50 hover:border-slate-700 hover:shadow transition-all duration-300 edit-profile-button"
     >
+      Edit Profile
+    </a>
   </div>
 </div>

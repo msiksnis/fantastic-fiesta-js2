@@ -12,13 +12,24 @@ document.addEventListener("DOMContentLoaded", function () {
       const profileNameElement =
         miniProfileContainer.querySelector("#profile-name");
       profileNameElement.addEventListener("click", function () {
-        const profileName = this.innerText.trim();
-        const profileUrl = `/profile/?profile=${encodeURIComponent(
-          profileName
-        )}`;
-        window.location.href = profileUrl;
+        navigateToProfile(this.innerText.trim());
+      });
+
+      const editProfileButton = miniProfileContainer.querySelector(
+        ".edit-profile-button"
+      );
+      editProfileButton.addEventListener("click", function () {
+        const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+        if (userProfile && userProfile.name) {
+          navigateToProfile(userProfile.name);
+        }
       });
 
       displayUserProfile(miniProfileContainer);
     });
 });
+
+function navigateToProfile(profileName) {
+  const profileUrl = `/profile/?profile=${encodeURIComponent(profileName)}`;
+  window.location.href = profileUrl;
+}
