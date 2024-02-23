@@ -23,8 +23,6 @@ async function fetchUserProfile(userName) {
 
     document.getElementById("dynamic-profile-name").textContent = data.name;
     document.getElementById("dynamic-profile-bio").textContent = data.bio;
-    document.getElementById("dynamic-profile-bio-desktop").textContent =
-      data.bio;
     document.querySelector(".dynamic-profile-avatar").src = data.avatar.url;
     document.querySelector(".dynamic-profile-avatar").alt = data.avatar.alt;
     document.getElementById("dynamic-profile-cover").src = data.banner.url;
@@ -111,11 +109,46 @@ function displayUserPosts(posts) {
   });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+function copyProfileUrlToClipboard() {
   const urlParams = new URLSearchParams(window.location.search);
   const profileName = urlParams.get("profile");
 
+  const profileUrl = `${
+    window.location.origin
+  }/profile/?profile=${encodeURIComponent(profileName)}`;
+  navigator.clipboard
+    .writeText(profileUrl)
+    .then(() => {
+      displaySuccess("Profile URL copied to clipboard!");
+    })
+    .catch((err) => {
+      console.error("Failed to copy profile URL.", err);
+    });
+}
+
+function displaySuccess(message) {
+  const successToast = document.getElementById("success-toast");
+  if (successToast) {
+    successToast.textContent = message;
+    successToast.classList.remove("translate-y-20", "opacity-0");
+    successToast.classList.add("translate-y-0", "opacity-100");
+
+    setTimeout(() => {
+      successToast.classList.remove("translate-y-0", "opacity-100");
+      successToast.classList.add("translate-y-20", "opacity-0");
+    }, 3000);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const profileName = urlParams.get("profile");
   if (profileName) {
     fetchUserProfile(profileName);
+  }
+
+  const shareButton = document.getElementById("share-profile-button");
+  if (shareButton) {
+    shareButton.addEventListener("click", copyProfileUrlToClipboard);
   }
 });

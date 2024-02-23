@@ -1,17 +1,8 @@
-import { displayUserProfile, logoutUser } from "../profile-data.js";
-
-document.addEventListener("DOMContentLoaded", function () {
-  fetch("../../components/header-component.html")
-    .then((response) => response.text())
-    .then((data) => {
-      const headerContainer = document.getElementById("header-container");
-      headerContainer.innerHTML = data;
-      displayUserProfile(headerContainer);
-      setActiveLink();
-      addProfileToggle();
-      logout();
-    });
-});
+import {
+  displayUserProfile,
+  getUserProfile,
+  logoutUser,
+} from "../profile-data.js";
 
 function setActiveLink() {
   const icons = document.querySelectorAll(".active-icon");
@@ -24,6 +15,7 @@ function setActiveLink() {
     }
   });
 }
+
 function addProfileToggle() {
   const profileContainer = document.getElementById("profile-container");
   const logoutText = document.getElementById("log-out-text");
@@ -39,6 +31,31 @@ function addProfileToggle() {
     window.location.href = "/";
   });
 }
+
+function updateProfileLink(userProfile) {
+  const profileLink = document.querySelector('a[href="/profile/"]');
+  if (userProfile && userProfile.name && profileLink) {
+    profileLink.href = `/profile/?profile=${encodeURIComponent(
+      userProfile.name
+    )}`;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  fetch("../../components/header-component.html")
+    .then((response) => response.text())
+    .then((data) => {
+      const headerContainer = document.getElementById("header-container");
+      headerContainer.innerHTML = data;
+
+      const userProfile = getUserProfile();
+      updateProfileLink(userProfile);
+      displayUserProfile(headerContainer);
+      setActiveLink();
+      addProfileToggle();
+      logout();
+    });
+});
 
 function logout() {
   const logoutText = document.querySelector(".log-out-text");

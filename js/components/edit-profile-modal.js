@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch("../../components/edit-profile-modal.html")
     .then((response) => response.text())
     .then((data) => {
-      document.body.innerHTML += data;
+      document.body.insertAdjacentHTML("beforeend", data);
       initializeEditProfileModal();
     });
 });
