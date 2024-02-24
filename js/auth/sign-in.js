@@ -1,6 +1,7 @@
 import { togglePasswordVisibility } from "./toggle-password.js";
 
 const BASE_URL = "https://v2.api.noroff.dev";
+const API_KEY = "4e529365-1137-49dd-b777-84c28348625f";
 
 export async function login(email, password) {
   const loginUrl = `${BASE_URL}/auth/login`;
@@ -27,18 +28,26 @@ export async function login(email, password) {
 
     localStorage.setItem("accessToken", data.accessToken);
 
+    const [followersData, followingData, profileData] = await Promise.all([
+      fetchFollowers(data.name),
+      fetchFollowing(data.name),
+      fetchProfileDataWithCounts(data.name),
+    ]);
+
     const userProfile = {
-      name: data.name,
-      email: data.email,
-      bio: data.bio,
-      avatar: data.avatar,
-      banner: data.banner,
+      ...data,
+      followers: followersData,
+      following: followingData,
+      _count: profileData._count,
     };
+
     localStorage.setItem("userProfile", JSON.stringify(userProfile));
 
     window.location.href = "/";
   } catch (error) {
-    displayError("Wrong email or password. Please try again.");
+    displayError(
+      "Something is wrong. Please check your credentials and try again."
+    );
   }
 }
 
@@ -66,11 +75,73 @@ function setupTogglePasswordVisibility(password, toggPasswordVisibility) {
 
 setupTogglePasswordVisibility("password", "toggPasswordVisibility");
 
+async function fetchFollowers(userName) {
+  const url = `${BASE_URL}/social/profiles/${userName}/?_followers=true`;
+  try {
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        "X-Noroff-API-Key": API_KEY,
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch followers");
+    }
+    const { data } = await response.json();
+    return data.followers || [];
+  } catch (error) {
+    console.error("Error fetching followers:", error);
+    return [];
+  }
+}
+
+async function fetchFollowing(userName) {
+  const url = `${BASE_URL}/social/profiles/${userName}/?_following=true`;
+  try {
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        "X-Noroff-API-Key": API_KEY,
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch following");
+    }
+    const { data } = await response.json();
+    return data.following || [];
+  } catch (error) {
+    console.error("Error fetching following:", error);
+    return [];
+  }
+}
+
+async function fetchProfileDataWithCounts(userName) {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/social/profiles/${userName}?_count=true`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "X-Noroff-API-Key": API_KEY,
+        },
+      }
+    );
+    if (!response.ok) throw new Error("Failed to fetch profile counts");
+    const { data } = await response.json();
+    return data; // Assuming this includes the counts
+  } catch (error) {
+    console.error("Error fetching profile data with counts:", error);
+    return null; // Handle error appropriately
+  }
+}
+
 function displayError(message = "Oops... Something went wrong.") {
   const errorToast = document.getElementById("error-toast");
   errorToast.textContent = message;
-  errorToast.classList.add("active");
+  errorToast.classList.remove("translate-y-24", "opacity-0");
+  errorToast.classList.add("translate-y-0", "opacity-100");
   setTimeout(() => {
-    errorToast.classList.remove("active");
+    errorToast.classList.remove("translate-y-0", "opacity-100");
+    errorToast.classList.add("translate-y-24", "opacity-0");
   }, 3000);
 }

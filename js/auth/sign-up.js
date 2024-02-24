@@ -98,8 +98,10 @@ document.addEventListener("DOMContentLoaded", function () {
 function displayError(message = "Oops... Something went wrong.") {
   const errorToast = document.getElementById("registration-error-toast");
   errorToast.textContent = message;
-  errorToast.classList.add("active");
+  errorToast.classList.remove("-translate-y-20", "opacity-0");
+  errorToast.classList.add("translate-y-0", "opacity-100");
   setTimeout(() => {
-    errorToast.classList.remove("active");
+    errorToast.classList.remove("translate-y-0", "opacity-100");
+    errorToast.classList.add("-translate-y-20", "opacity-0");
   }, 3000);
 }

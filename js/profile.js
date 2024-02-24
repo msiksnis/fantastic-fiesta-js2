@@ -2,6 +2,90 @@ import { timeSince } from "./utils/helper-functions.js";
 
 const accessToken = localStorage.getItem("accessToken");
 const API_KEY = "4e529365-1137-49dd-b777-84c28348625f";
+const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+const userName = userProfile ? userProfile.name : null;
+
+document.addEventListener("DOMContentLoaded", async function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const profileName = urlParams.get("profile");
+  if (profileName) {
+    await fetchUserProfile(profileName);
+    // fetchUserProfile(profileName);
+    checkFollowingStatus(profileName);
+  }
+
+  if (userName) {
+    fetchProfileData(userName);
+  }
+
+  const shareButton = document.getElementById("share-profile-button");
+  if (shareButton) {
+    shareButton.addEventListener("click", copyProfileUrlToClipboard);
+  }
+
+  toggleEditFollowButtons(profileName);
+
+  const followButton = document.getElementById("follow-button");
+  console.log("Assigning event listener to follow button");
+
+  if (followButton) {
+    followButton.addEventListener("click", async function () {
+      console.log("Follow button clicked");
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const profileNameToFollow = urlParams.get("profile");
+      console.log("Profile to follow:", profileNameToFollow);
+
+      let currentUser = JSON.parse(localStorage.getItem("userProfile"));
+      // Ensure currentUser is valid and initialize following if necessary
+      if (!currentUser) {
+        console.log("No current user found.");
+        return; // Exit function if no current user
+      }
+      if (!currentUser.following) {
+        console.log("Initializing following array.");
+        currentUser.following = []; // Initialize following as an empty array if it doesn't exist
+      }
+
+      const isFollowing = currentUser.following.some(
+        (profile) => profile.name === profileNameToFollow
+      );
+      console.log("Is following:", isFollowing);
+
+      if (isFollowing) {
+        console.log("Attempting to unfollow...");
+        await unfollowProfile(profileNameToFollow);
+        followButton.textContent = "Follow";
+        displaySuccess(`You have unfollowed ${profileNameToFollow}.`);
+        console.log("Unfollowed successfully.");
+      } else {
+        console.log("Attempting to follow...");
+        await followProfile(profileNameToFollow);
+        followButton.textContent = "Unfollow";
+        displaySuccess(`Now you are folloving ${profileNameToFollow}!`);
+        console.log(`Followed ${profileNameToFollow} successfully.`);
+      }
+
+      // Consider re-fetching or directly updating the local storage here
+    });
+  }
+});
+
+function toggleEditFollowButtons(profileName) {
+  const loggedInUser = JSON.parse(localStorage.getItem("userProfile"));
+  const editButton = document.getElementById("edit-user-button");
+  const followButton = document.getElementById("follow-button");
+
+  if (loggedInUser && loggedInUser.name === profileName) {
+    // The profile belongs to the logged-in user
+    if (editButton) editButton.classList.remove("hidden");
+    if (followButton) followButton.classList.add("hidden");
+  } else {
+    // The profile belongs to another user
+    if (editButton) editButton.classList.add("hidden");
+    if (followButton) followButton.classList.remove("hidden", "flex");
+  }
+}
 
 async function fetchUserProfile(userName) {
   const API_URL = `https://v2.api.noroff.dev/social/profiles/${userName}`;
@@ -126,29 +210,223 @@ function copyProfileUrlToClipboard() {
     });
 }
 
+// Utility function to get user profile from local storage
+function getUserProfileFromLocalStorage() {
+  const userProfileStr = localStorage.getItem("userProfile");
+  return userProfileStr ? JSON.parse(userProfileStr) : null;
+}
+
+// Utility function to set user profile in local storage
+function setUserProfileInLocalStorage(userProfile) {
+  const userProfileStr = JSON.stringify(userProfile);
+  localStorage.setItem("userProfile", userProfileStr);
+}
+
+// Function to increment or decrement the following count
+function adjustFollowingCount(userProfile, increment = true) {
+  const adjustment = increment ? 1 : -1;
+  userProfile._count.following = Math.max(
+    0,
+    userProfile._count.following + adjustment
+  );
+  return userProfile;
+}
+
+// Function to increment or decrement the followers count
+function adjustFollowersCount(userProfile, increment = true) {
+  const adjustment = increment ? 1 : -1;
+  userProfile._count.followers = Math.max(
+    0,
+    userProfile._count.followers + adjustment
+  );
+  return userProfile;
+}
+
+// Update local storage user profile
+function updateUserProfileInLocalStorage(updateFunction) {
+  let userProfile = getUserProfileFromLocalStorage();
+  if (userProfile) {
+    userProfile = updateFunction(userProfile);
+    setUserProfileInLocalStorage(userProfile);
+  }
+}
+
+async function followProfile(profileName) {
+  try {
+    const response = await fetch(
+      `https://v2.api.noroff.dev/social/profiles/${profileName}/follow`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "X-Noroff-API-Key": API_KEY,
+        },
+      }
+    );
+
+    if (!response.ok) throw new Error("Failed to follow profile");
+
+    let currentUserProfile = JSON.parse(localStorage.getItem("userProfile"));
+    if (!currentUserProfile.following) {
+      currentUserProfile.following = [];
+    }
+    currentUserProfile.following.push({ name: profileName });
+
+    localStorage.setItem("userProfile", JSON.stringify(currentUserProfile));
+
+    updateUserProfileInLocalStorage((userProfile) => {
+      // Add the new profile to the following array
+      userProfile.following.push({ name: profileName });
+      // Increment the following count
+      return adjustFollowingCount(userProfile, true);
+    });
+
+    document.getElementById("follow-button").textContent = "Unfollow";
+    updateFollowingCountUI(true);
+    updateFollowersCountUI(true);
+  } catch (error) {
+    console.error("Error following profile:", error);
+  }
+}
+
+async function unfollowProfile(profileName) {
+  try {
+    const response = await fetch(
+      `https://v2.api.noroff.dev/social/profiles/${profileName}/unfollow`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "X-Noroff-API-Key": API_KEY,
+        },
+      }
+    );
+
+    if (!response.ok) throw new Error("Failed to unfollow profile");
+
+    updateFollowingCountUI(false);
+    updateFollowersCountUI(false);
+
+    let currentUserProfile = JSON.parse(localStorage.getItem("userProfile"));
+    currentUserProfile.following = currentUserProfile.following.filter(
+      (profile) => profile.name !== profileName
+    );
+    localStorage.setItem("userProfile", JSON.stringify(currentUserProfile));
+
+    updateUserProfileInLocalStorage((userProfile) => {
+      // Remove the profile from the following array
+      userProfile.following = userProfile.following.filter(
+        (profile) => profile.name !== profileName
+      );
+      // Decrement the following count
+      return adjustFollowingCount(userProfile, false);
+    });
+
+    document.getElementById("follow-button").textContent = "Follow";
+  } catch (error) {
+    console.error("Error unfollowing profile:", error);
+  }
+}
+
+async function fetchProfileData(userName) {
+  try {
+    // Fetch basic profile information
+    const profileResponse = await fetch(
+      `https://v2.api.noroff.dev/social/profiles/${userName}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "X-Noroff-API-Key": API_KEY,
+        },
+      }
+    );
+    if (!profileResponse.ok) throw new Error("Failed to fetch profile data");
+    const { data: profileData } = await profileResponse.json();
+
+    // Fetch following information
+    const followingResponse = await fetch(
+      `https://v2.api.noroff.dev/social/profiles/${userName}?_following=true`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "X-Noroff-API-Key": API_KEY,
+        },
+      }
+    );
+    if (!followingResponse.ok)
+      throw new Error("Failed to fetch following data");
+    const { data: followingData } = await followingResponse.json();
+
+    // Fetch followers information
+    const followersResponse = await fetch(
+      `https://v2.api.noroff.dev/social/profiles/${userName}?_followers=true`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "X-Noroff-API-Key": API_KEY,
+        },
+      }
+    );
+    if (!followersResponse.ok)
+      throw new Error("Failed to fetch followers data");
+    const { data: followersData } = await followersResponse.json();
+
+    // Now you have profileData, followingData, and followersData
+    // Here you would typically update the UI with this data
+    console.log("Following data", followingData);
+    console.log("Followers data", followersData);
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+function checkFollowingStatus(profileNameToCheck) {
+  const currentUser = JSON.parse(localStorage.getItem("userProfile"));
+  if (!currentUser || !currentUser.following) {
+    console.log("No current user data or following list found.");
+    return;
+  }
+  const isFollowing = currentUser.following.some(
+    (profile) => profile.name === profileNameToCheck
+  );
+  const followButton = document.getElementById("follow-button");
+  if (followButton) {
+    followButton.textContent = isFollowing ? "Unfollow" : "Follow";
+  }
+}
+
+function updateFollowingCountUI(isFollow) {
+  let countElement = document.getElementById("dynamic-profile-following-count");
+  if (countElement) {
+    let currentCount = parseInt(countElement.textContent) || 0;
+    countElement.textContent = isFollow
+      ? currentCount + 1
+      : Math.max(0, currentCount - 1);
+  }
+}
+
+function updateFollowersCountUI(isFollowAction) {
+  const followersCountElement = document.getElementById(
+    "dynamic-profile-followers"
+  );
+  if (followersCountElement) {
+    let currentCount = parseInt(followersCountElement.textContent, 10) || 0;
+    followersCountElement.textContent = isFollowAction
+      ? currentCount + 1
+      : Math.max(0, currentCount - 1);
+  }
+}
+
 function displaySuccess(message) {
   const successToast = document.getElementById("success-toast");
   if (successToast) {
     successToast.textContent = message;
-    successToast.classList.remove("translate-y-20", "opacity-0");
+    successToast.classList.remove("-translate-y-20", "opacity-0");
     successToast.classList.add("translate-y-0", "opacity-100");
 
     setTimeout(() => {
       successToast.classList.remove("translate-y-0", "opacity-100");
-      successToast.classList.add("translate-y-20", "opacity-0");
+      successToast.classList.add("-translate-y-20", "opacity-0");
     }, 3000);
   }
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  const urlParams = new URLSearchParams(window.location.search);
-  const profileName = urlParams.get("profile");
-  if (profileName) {
-    fetchUserProfile(profileName);
-  }
-
-  const shareButton = document.getElementById("share-profile-button");
-  if (shareButton) {
-    shareButton.addEventListener("click", copyProfileUrlToClipboard);
-  }
-});

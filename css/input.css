@@ -12,28 +12,6 @@ body {
   @apply bg-[url('/assets/icons/bg.svg')] max-w-[1536px] mx-auto min-h-screen bg-cover bg-repeat;
 }
 
-.error-toast {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  margin-left: 20px;
-  font-size: 1rem;
-  background-color: #000000d0;
-  color: #f94c40;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  z-index: 10000;
-  transform: translateY(20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.error-toast.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 /* To hide the scrollbar */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
