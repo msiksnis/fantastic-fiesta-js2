@@ -1,5 +1,7 @@
 import { timeSince } from "./utils/helper-functions.js";
 
+const BASE_PROFILE_URL = "https://v2.api.noroff.dev/social/profiles/";
+
 const accessToken = localStorage.getItem("accessToken");
 const API_KEY = "4e529365-1137-49dd-b777-84c28348625f";
 const userProfile = JSON.parse(localStorage.getItem("userProfile"));
@@ -10,7 +12,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   const profileName = urlParams.get("profile");
   if (profileName) {
     await fetchUserProfile(profileName);
-    // fetchUserProfile(profileName);
     checkFollowingStatus(profileName);
   }
 
@@ -37,14 +38,13 @@ document.addEventListener("DOMContentLoaded", async function () {
       console.log("Profile to follow:", profileNameToFollow);
 
       let currentUser = JSON.parse(localStorage.getItem("userProfile"));
-      // Ensure currentUser is valid and initialize following if necessary
       if (!currentUser) {
         console.log("No current user found.");
-        return; // Exit function if no current user
+        return;
       }
       if (!currentUser.following) {
         console.log("Initializing following array.");
-        currentUser.following = []; // Initialize following as an empty array if it doesn't exist
+        currentUser.following = [];
       }
 
       const isFollowing = currentUser.following.some(
@@ -65,8 +65,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         displaySuccess(`Now you are folloving ${profileNameToFollow}!`);
         console.log(`Followed ${profileNameToFollow} successfully.`);
       }
-
-      // Consider re-fetching or directly updating the local storage here
     });
   }
 });
@@ -77,18 +75,16 @@ function toggleEditFollowButtons(profileName) {
   const followButton = document.getElementById("follow-button");
 
   if (loggedInUser && loggedInUser.name === profileName) {
-    // The profile belongs to the logged-in user
     if (editButton) editButton.classList.remove("hidden");
     if (followButton) followButton.classList.add("hidden");
   } else {
-    // The profile belongs to another user
     if (editButton) editButton.classList.add("hidden");
     if (followButton) followButton.classList.remove("hidden", "flex");
   }
 }
 
 async function fetchUserProfile(userName) {
-  const API_URL = `https://v2.api.noroff.dev/social/profiles/${userName}`;
+  const API_URL = `${BASE_PROFILE_URL}${userName}`;
   try {
     const response = await fetch(API_URL, {
       method: "GET",
@@ -125,7 +121,7 @@ async function fetchUserProfile(userName) {
 }
 
 async function fetchUserPosts(userName) {
-  const postsAPIURL = `https://v2.api.noroff.dev/social/profiles/${userName}/posts?_author=true`;
+  const postsAPIURL = `${BASE_PROFILE_URL}${userName}/posts?_author=true`;
   try {
     const response = await fetch(postsAPIURL, {
       method: "GET",
@@ -253,16 +249,13 @@ function updateUserProfileInLocalStorage(updateFunction) {
 
 async function followProfile(profileName) {
   try {
-    const response = await fetch(
-      `https://v2.api.noroff.dev/social/profiles/${profileName}/follow`,
-      {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "X-Noroff-API-Key": API_KEY,
-        },
-      }
-    );
+    const response = await fetch(`${BASE_PROFILE_URL}${profileName}/follow`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": API_KEY,
+      },
+    });
 
     if (!response.ok) throw new Error("Failed to follow profile");
 
@@ -291,16 +284,13 @@ async function followProfile(profileName) {
 
 async function unfollowProfile(profileName) {
   try {
-    const response = await fetch(
-      `https://v2.api.noroff.dev/social/profiles/${profileName}/unfollow`,
-      {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "X-Noroff-API-Key": API_KEY,
-        },
-      }
-    );
+    const response = await fetch(`${BASE_PROFILE_URL}${profileName}/unfollow`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": API_KEY,
+      },
+    });
 
     if (!response.ok) throw new Error("Failed to unfollow profile");
 
@@ -331,21 +321,18 @@ async function unfollowProfile(profileName) {
 async function fetchProfileData(userName) {
   try {
     // Fetch basic profile information
-    const profileResponse = await fetch(
-      `https://v2.api.noroff.dev/social/profiles/${userName}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "X-Noroff-API-Key": API_KEY,
-        },
-      }
-    );
+    const profileResponse = await fetch(`${BASE_PROFILE_URL}${userName}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": API_KEY,
+      },
+    });
     if (!profileResponse.ok) throw new Error("Failed to fetch profile data");
     const { data: profileData } = await profileResponse.json();
 
     // Fetch following information
     const followingResponse = await fetch(
-      `https://v2.api.noroff.dev/social/profiles/${userName}?_following=true`,
+      `${BASE_PROFILE_URL}${userName}?_following=true`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -359,7 +346,7 @@ async function fetchProfileData(userName) {
 
     // Fetch followers information
     const followersResponse = await fetch(
-      `https://v2.api.noroff.dev/social/profiles/${userName}?_followers=true`,
+      `${BASE_PROFILE_URL}${userName}?_followers=true`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

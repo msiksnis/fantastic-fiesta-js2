@@ -23,7 +23,9 @@ function addProfileToggle() {
   profileContainer.addEventListener("click", () => {
     profileContainer.classList.toggle("w-32");
     profileContainer.classList.toggle("w-8");
-    logoutText.classList.toggle("group-hover:flex");
+    setTimeout(() => {
+      logoutText.classList.toggle("group-hover:flex");
+    }, 200);
   });
 
   logoutText.addEventListener("click", () => {

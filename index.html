@@ -18,18 +18,28 @@
         <!-- Header component -->
       </div>
     </header>
-    <main
+    <!-- <main
       class="grid grid-cols-11 gap-x-2 md:gap-x-5 md:mt-8 sm:px-4 lg:px-8 xl:px-10"
+    > -->
+    <main
+      class="flex justify-center w-full md:gap-x-5 mt-8 sm:px-4 lg:px-8 xl:px-10"
     >
       <div
         id="mini-profile-container"
-        class="hidden sm:block sm:col-span-4 lg:col-span-3 bg-card shadow rounded-2xl"
+        class="hidden sm:block w-1/4 bg-card shadow rounded-2xl"
       >
+        <!-- <div
+        id="mini-profile-container"
+        class="hidden sm:block sm:col-span-4 lg:col-span-3 bg-card shadow rounded-2xl"
+        > -->
         <!-- Mini profile component -->
       </div>
-      <div class="col-span-11 sm:col-span-7 lg:col-span-5">
+      <div class="grid w-full sm:w-2/4 h-fit">
+        <!-- <div class="col-span-11 sm:col-span-7 lg:col-span-5"> -->
         <template id="online-friend-template">
-          <div
+          <a
+            href="#"
+            id="online-friends"
             class="flex flex-col items-center justify-center w-16 mr-2 first-of-type:ml-3 first-of-type:md:ml-0 mb-5"
           >
             <img
@@ -37,14 +47,13 @@
               alt="profile picture"
               class="h-14 w-14 object-cover rounded-2xl border border-black opacity-90"
             />
-            <a
-              href="#"
+            <div
               id="friends-name"
               class="text-xs w-16 truncate text-center mt-1 opacity-60"
             >
               Name
-            </a>
-          </div>
+            </div>
+          </a>
         </template>
         <div
           id="online-friends-container"
@@ -104,7 +113,7 @@
           </div>
         </div>
       </div>
-      <div class="hidden lg:block col-span-3 border border-red-500">asxasx</div>
+      <!-- <div class="hidden lg:block col-span-3 border border-red-500">asxasx</div> -->
     </main>
     <script type="module" src="js/homepage.js"></script>
     <script type="module" src="js/fetch-users.js"></script>

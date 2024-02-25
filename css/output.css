@@ -1093,14 +1093,6 @@ html {
   top: 1rem;
 }
 
-.bottom-4 {
-  bottom: 1rem;
-}
-
-.top-6 {
-  top: 1.5rem;
-}
-
 .isolate {
   isolation: isolate;
 }
@@ -1117,12 +1109,28 @@ html {
   z-index: 50;
 }
 
+.z-0 {
+  z-index: 0;
+}
+
 .col-span-11 {
   grid-column: span 11 / span 11;
 }
 
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
+
 .col-span-3 {
   grid-column: span 3 / span 3;
+}
+
+.col-span-4 {
+  grid-column: span 4 / span 4;
+}
+
+.col-span-8 {
+  grid-column: span 8 / span 8;
 }
 
 .float-start {
@@ -1196,6 +1204,11 @@ html {
 .my-6 {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+}
+
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
 }
 
 .\!mt-2 {
@@ -1272,6 +1285,18 @@ html {
 
 .mt-8 {
   margin-top: 2rem;
+}
+
+.mr-5 {
+  margin-right: 1.25rem;
+}
+
+.ml-5 {
+  margin-left: 1.25rem;
+}
+
+.mr-4 {
+  margin-right: 1rem;
 }
 
 .box-border {
@@ -1518,13 +1543,25 @@ html {
   width: weird-and-invalid;
 }
 
+.w-full {
+  width: 100%;
+}
+
+.w-1\/4 {
+  width: 25%;
+}
+
+.w-3\/4 {
+  width: 75%;
+}
+
+.w-2\/4 {
+  width: 50%;
+}
+
 .w-fit {
   width: -moz-fit-content;
   width: fit-content;
-}
-
-.w-full {
-  width: 100%;
 }
 
 .max-w-40 {
@@ -1535,8 +1572,8 @@ html {
   max-width: 56rem;
 }
 
-.max-w-\[90\%\] {
-  max-width: 90%;
+.max-w-\[95\%\] {
+  max-width: 95%;
 }
 
 .max-w-md {
@@ -1545,10 +1582,6 @@ html {
 
 .max-w-xl {
   max-width: 36rem;
-}
-
-.max-w-\[95\%\] {
-  max-width: 95%;
 }
 
 .flex-shrink {
@@ -1633,11 +1666,6 @@ html {
 
 .translate-y-20 {
   --tw-translate-y: 5rem;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.-translate-y-0 {
-  --tw-translate-y: -0px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1970,6 +1998,10 @@ html {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.grid-cols-8 {
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+
 .flex-row {
   flex-direction: row;
 }
@@ -2173,6 +2205,11 @@ html {
 .gap-x-2 {
   -moz-column-gap: 0.5rem;
        column-gap: 0.5rem;
+}
+
+.gap-x-4 {
+  -moz-column-gap: 1rem;
+       column-gap: 1rem;
 }
 
 .space-x-1 > :not([hidden]) ~ :not([hidden]) {
@@ -2716,9 +2753,9 @@ html {
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
 
-.border-green-300 {
+.border-green-500 {
   --tw-border-opacity: 1;
-  border-color: rgb(134 239 172 / var(--tw-border-opacity));
+  border-color: rgb(34 197 94 / var(--tw-border-opacity));
 }
 
 .border-red-500 {
@@ -2750,11 +2787,6 @@ html {
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
-.border-green-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(34 197 94 / var(--tw-border-opacity));
-}
-
 .bg-\[rgb\(255\2c 0\2c 0\)\] {
   --tw-bg-opacity: 1;
   background-color: rgb(255 0 0 / var(--tw-bg-opacity));
@@ -2769,8 +2801,8 @@ html {
   background-color: rgb(0 0 0 / 0.7);
 }
 
-.bg-black\/85 {
-  background-color: rgb(0 0 0 / 0.85);
+.bg-black\/90 {
+  background-color: rgb(0 0 0 / 0.9);
 }
 
 .bg-card {
@@ -2814,10 +2846,6 @@ html {
 
 .bg-white\/85 {
   background-color: rgb(255 255 255 / 0.85);
-}
-
-.bg-black\/90 {
-  background-color: rgb(0 0 0 / 0.9);
 }
 
 .bg-gradient-to-r {
@@ -3055,6 +3083,11 @@ html {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
 }
 
 .pb-0 {
@@ -4131,20 +4164,24 @@ body {
     display: block;
   }
 
-  .sm\:w-full {
-    width: 100%;
-  }
-
   .sm\:w-auto {
     width: auto;
   }
 
-  .sm\:max-w-sm {
-    max-width: 24rem;
+  .sm\:w-full {
+    width: 100%;
+  }
+
+  .sm\:w-2\/4 {
+    width: 50%;
   }
 
   .sm\:max-w-\[90\%\] {
     max-width: 90%;
+  }
+
+  .sm\:max-w-sm {
+    max-width: 24rem;
   }
 
   .sm\:grid-cols-2 {
@@ -4316,16 +4353,6 @@ body {
     padding-bottom: 0px;
   }
 
-  .md\:py-2 {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-
-  .md\:py-2\.5 {
-    padding-top: 0.625rem;
-    padding-bottom: 0.625rem;
-  }
-
   .md\:text-center {
     text-align: center;
   }
@@ -4340,29 +4367,14 @@ body {
     line-height: 2.25rem;
   }
 
-  .md\:text-base\/5 {
-    font-size: 1rem;
-    line-height: 1.25rem;
-  }
-
-  .md\:text-3xl\/5 {
-    font-size: 1.875rem;
-    line-height: 1.25rem;
-  }
-
-  .md\:text-3xl\/7 {
-    font-size: 1.875rem;
-    line-height: 1.75rem;
-  }
-
-  .md\:text-3xl\/9 {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-  }
-
   .md\:text-3xl\/10 {
     font-size: 1.875rem;
     line-height: 2.5rem;
+  }
+
+  .md\:text-base\/5 {
+    font-size: 1rem;
+    line-height: 1.25rem;
   }
 
   .md\:font-semibold {
