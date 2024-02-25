@@ -26,7 +26,7 @@
     >
       <div
         id="mini-profile-container"
-        class="hidden sm:block w-2/5 md:w-2/6 lg:w-1/4 bg-card shadow rounded-2xl"
+        class="hidden sm:block w-2/5 md:w-2/6 lg:w-1/4 bg-card shadow rounded-2xl h-fit"
       >
         <!-- <div
         id="mini-profile-container"
@@ -55,12 +55,16 @@
             </div>
           </a>
         </template>
+
         <div
           id="online-friends-container"
           class="flex flex-row overflow-scroll no-scrollbar"
         ></div>
+
         <div class="px-4 sm:px-0">
-          <div class="bg-card shadow rounded-2xl p-3">
+          <div
+            class="bg-card border hover:border-slate-300 shadow hover:shadow-md transition-all duration-300 rounded-2xl p-3"
+          >
             <div class="flex justify-center space-x-4">
               <div
                 class="relative h-[3.4rem] aspect-square bg-accent-yellow border border-slate-700 rounded-full"
@@ -111,16 +115,64 @@
               </div>
             </div>
           </div>
+          <div
+            id="brags-container"
+            class="mt-5 grid grid-cols-1 gap-y-5 sm:gap-y-8"
+          >
+            <template id="brag-template">
+              <div
+                class="bg-card w-full h-fit border hover:border-slate-300 shadow hover:shadow-md transition-all duration-300 rounded-2xl cursor-pointer"
+              >
+                <div class="flex items-center py-4 px-4">
+                  <div class="flex items-center justify-between w-full">
+                    <a
+                      href="#"
+                      id="brag-author"
+                      class="flex items-center space-x-2 group"
+                    >
+                      <img
+                        id="brag-author-avatar"
+                        src=""
+                        alt="Author's Avatar"
+                        class="w-8 h-8 rounded-full object-cover"
+                      />
+                      <p
+                        id="brag-author-name"
+                        class="text-base/5 font-medium group-hover:underline underline-offset-4"
+                      >
+                        Author's name
+                      </p>
+                    </a>
+                    <div id="brag-date" class="text-xs/6 opacity-60">
+                      Post date
+                    </div>
+                  </div>
+                </div>
+                <div class="px-4 pb-2">
+                  <h2 id="brag-title" class="text-base">Post Title</h2>
+                  <div id="brag-tags" class="text-xs lowercase opacity-50">
+                    Post tags
+                  </div>
+                </div>
+                <img
+                  id="brag-media"
+                  src=""
+                  alt="Brag media"
+                  class="hidden h-80 w-full object-cover"
+                />
+                <p id="brag-body" class="truncate p-4 peer">Post body</p>
+              </div>
+            </template>
+          </div>
         </div>
       </div>
-      <!-- <div class="hidden lg:block col-span-3 border border-red-500">asxasx</div> -->
     </main>
-    <script type="module" src="js/homepage.js"></script>
     <script type="module" src="js/fetch-users.js"></script>
     <script
       type="module"
       src="js/components/mini-profile-component.js"
     ></script>
     <script type="module" src="js/components/header-component.js"></script>
+    <script type="module" src="js/homepage.js"></script>
   </body>
 </html>
