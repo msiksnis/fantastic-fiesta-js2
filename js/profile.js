@@ -1,3 +1,7 @@
+import {
+  setupDeletePostListeners,
+  confirmDeletePost,
+} from "./components/delete-post.js";
 import { timeSince } from "./utils/helper-functions.js";
 
 const BASE_PROFILE_URL = "https://v2.api.noroff.dev/social/profiles/";
@@ -67,7 +71,23 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
     });
   }
+
+  fetchConfirmationModal();
 });
+
+function fetchConfirmationModal() {
+  fetch("../components/confirmation-modal.html")
+    .then((response) => response.text())
+    .then((html) => {
+      document.body.insertAdjacentHTML("beforeend", html);
+      // Ensure modal elements are in the DOM
+      console.log("Modal loaded, setting up listeners...");
+      setupDeletePostListeners();
+    })
+    .catch((error) =>
+      console.error("Failed to load the confirmation modal", error)
+    );
+}
 
 function toggleEditFollowButtons(profileName) {
   const loggedInUser = JSON.parse(localStorage.getItem("userProfile"));
@@ -148,11 +168,20 @@ function displayUserPosts(posts) {
     "dynamic-profile-posts-container"
   );
   const postTemplate = document.getElementById("post-template").content;
+  const currentUser = JSON.parse(localStorage.getItem("userProfile"));
 
   postsContainer.innerHTML = "";
 
+  // setupDeletePostListeners();
+
   posts.forEach((post) => {
     const postClone = document.importNode(postTemplate, true);
+
+    const deleteButton = postClone.querySelector("#delete-post");
+    if (post.author.name === currentUser.name) {
+      deleteButton.classList.remove("hidden");
+      deleteButton.addEventListener("click", () => confirmDeletePost(post.id));
+    }
 
     const postAuthor = postClone.querySelector("#post-author-name");
     if (post.author) {

@@ -1,86 +1,74 @@
+import { API_BASE, API_POSTS, API_KEY } from "../constants.js";
+
 const accessToken = localStorage.getItem("accessToken");
-const API_KEY = "4e529365-1137-49dd-b777-84c28348625f";
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Assuming your modal HTML is located at "../../components/new-brag-modal.html"
-  fetch("../../components/new-brag-modal.html")
-    .then((response) => response.text())
-    .then((data) => {
-      document.body.insertAdjacentHTML("beforeend", data);
-      initializeNewBragModal();
-    });
+  loadModal();
 });
 
+async function loadModal() {
+  try {
+    const modalHTML = await fetch("../../components/new-brag-modal.html").then(
+      (response) => response.text()
+    );
+    document.body.insertAdjacentHTML("beforeend", modalHTML);
+    initializeNewBragModal();
+  } catch (error) {
+    console.error("Error loading modal:", error);
+    // Optionally, handle this error in the UI.
+  }
+}
+
 function initializeNewBragModal() {
-  const openModalButton = document.getElementById("open-new-brag-modal");
-  const closeModalButton = document.getElementById("close-modal");
-  const modal = document.getElementById("new-brag-modal");
-
-  if (openModalButton) {
-    openModalButton.addEventListener("click", function () {
-      modal.classList.remove("hidden");
-    });
-  }
-
-  if (closeModalButton) {
-    closeModalButton.addEventListener("click", function () {
-      modal.classList.add("hidden");
-    });
-  }
-
-  window.addEventListener("click", function (event) {
-    if (event.target === modal) {
-      modal.classList.add("hidden");
-    }
+  document
+    .getElementById("open-new-brag-modal")
+    .addEventListener("click", () => showModal(true));
+  document
+    .getElementById("close-modal")
+    .addEventListener("click", () => showModal(false));
+  window.addEventListener("click", (event) => {
+    if (event.target.id === "new-brag-modal") showModal(false);
   });
+  document
+    .getElementById("new-brag-form")
+    .addEventListener("submit", submitNewBragForm);
+}
 
-  const form = document.getElementById("new-brag-form");
-  if (form) {
-    form.addEventListener("submit", submitNewBragForm);
-  }
+function showModal(show) {
+  document.getElementById("new-brag-modal").classList.toggle("hidden", !show);
 }
 
 async function submitNewBragForm(e) {
   e.preventDefault();
-
-  const mediaUrl = document.getElementById("new-brag-media-url").value;
-  const mediaAlt = document.getElementById("new-brag-media-alt").value;
   const title = document.getElementById("new-brag-title").value;
   const body = document.getElementById("new-brag-body").value;
-  const tagsInput = document.getElementById("new-brag-tags").value;
+  const tags = document
+    .getElementById("new-brag-tags")
+    .value.split(",")
+    .map((tag) => tag.trim());
+  const mediaUrl = document.getElementById("new-brag-media-url").value;
+  const mediaAlt = document.getElementById("new-brag-media-alt").value;
 
-  const tags = tagsInput.split(",").map((tag) => tag.trim()); // Ensure tags are correctly formatted
-
-  const payload = {
+  const postData = {
     title,
     body,
-    tags: tagsInput.split(",").map((tag) => tag.trim()),
+    tags,
     media: { url: mediaUrl, alt: mediaAlt },
   };
-  console.log("Payload being sent:", payload);
 
   try {
-    const response = await fetch("https://v2.api.noroff.dev/social/posts", {
-      method: "POST",
+    const response = await fetch(API_BASE + API_POSTS, {
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
         "X-Noroff-API-Key": API_KEY,
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        title,
-        // body,
-        // tags,
-        // media: {
-        //   url: mediaUrl,
-        //   alt: mediaAlt,
-        // },
-      }),
+      method: "POST",
+      body: JSON.stringify(postData),
     });
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error("Error details:", errorData);
       throw new Error(
         `Failed to post a new brag: ${
           errorData.message || JSON.stringify(errorData)
