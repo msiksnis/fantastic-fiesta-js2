@@ -132,16 +132,28 @@
                     Post date
                   </div>
                 </div>
-                <button
-                  id="delete-post"
-                  class="hidden -mt-4 p-1.5 rounded-full opacity-85 bg-transparent hover:bg-red-50 hover:scale-105 hover:opacity-100 transition-all duration-300"
-                >
-                  <img
-                    src="../assets/icons/delete.svg"
-                    alt="delete post"
-                    class="w-5"
-                  />
-                </button>
+                <div class="">
+                  <button
+                    id="edit-post"
+                    class="hidden -mt-4 p-1.5 rounded-full opacity-85 bg-transparent hover:bg-green-50 hover:scale-105 hover:opacity-100 transition-all duration-300"
+                  >
+                    <img
+                      src="../assets/icons/edit.svg"
+                      alt="edit post"
+                      class="w-5"
+                    />
+                  </button>
+                  <button
+                    id="delete-post"
+                    class="hidden -mt-4 p-1.5 rounded-full opacity-85 bg-transparent hover:bg-red-50 hover:scale-105 hover:opacity-100 transition-all duration-300"
+                  >
+                    <img
+                      src="../assets/icons/delete.svg"
+                      alt="delete post"
+                      class="w-5"
+                    />
+                  </button>
+                </div>
               </div>
               <div class="px-4 pb-2">
                 <h2 id="post-title" class="text-base">Post Title</h2>
@@ -153,7 +165,7 @@
                 id="post-media"
                 src=""
                 alt="Post media"
-                class="hidden h-80 w-full object-cover"
+                class="hidden h-full w-full object-contain"
               />
               <p id="post-body" class="truncate p-4 peer">Post body</p>
             </div>
@@ -166,5 +178,6 @@
     <script type="module" src="../js/components/header-component.js"></script>
     <script type="module" src="../js/components/edit-profile-modal.js"></script>
     <script type="module" src="../js/components/delete-post.js"></script>
+    <script type="module" src="../js/components/edit-post.js"></script>
   </body>
 </html>

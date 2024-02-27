@@ -2,6 +2,10 @@ import {
   setupDeletePostListeners,
   confirmDeletePost,
 } from "./components/delete-post.js";
+import {
+  openEditModalWithPostData,
+  setupEditPostListeners,
+} from "./components/edit-post.js";
 import { timeSince } from "./utils/helper-functions.js";
 
 const BASE_PROFILE_URL = "https://v2.api.noroff.dev/social/profiles/";
@@ -71,9 +75,22 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
     });
   }
-
+  fetchEditPostModal();
   fetchConfirmationModal();
 });
+
+function fetchEditPostModal() {
+  fetch("../components/edit-post-modal.html")
+    .then((response) => response.text())
+    .then((html) => {
+      document.body.insertAdjacentHTML("beforeend", html);
+      console.log("Modal loaded, setting up listeners...");
+      setupEditPostListeners();
+    })
+    .catch((error) =>
+      console.error("Failed to load the confirmation modal", error)
+    );
+}
 
 function fetchConfirmationModal() {
   fetch("../components/confirmation-modal.html")
@@ -172,8 +189,6 @@ function displayUserPosts(posts) {
 
   postsContainer.innerHTML = "";
 
-  // setupDeletePostListeners();
-
   posts.forEach((post) => {
     const postClone = document.importNode(postTemplate, true);
 
@@ -181,6 +196,14 @@ function displayUserPosts(posts) {
     if (post.author.name === currentUser.name) {
       deleteButton.classList.remove("hidden");
       deleteButton.addEventListener("click", () => confirmDeletePost(post.id));
+    }
+
+    const editButton = postClone.querySelector("#edit-post");
+    if (post.author.name === currentUser.name) {
+      editButton.classList.remove("hidden");
+      editButton.addEventListener("click", () =>
+        openEditModalWithPostData(post.id, post)
+      );
     }
 
     const postAuthor = postClone.querySelector("#post-author-name");
@@ -210,7 +233,7 @@ function displayUserPosts(posts) {
 
     const formattedTags = post.tags
       .map((tag) => "#" + tag.replace(/\s+/g, "").toLowerCase())
-      .join(", ");
+      .join(" ");
     postClone.querySelector("#post-tags").textContent = formattedTags;
     postClone.querySelector("#post-date").textContent = timeSince(post.created);
 
