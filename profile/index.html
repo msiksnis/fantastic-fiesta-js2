@@ -96,10 +96,7 @@
         </div>
       </div>
       <!-- This is a success toast -->
-      <div
-        id="success-toast"
-        class="rounded-md px-2 sm:px-4 md:px-6 lg:px-10 py-2 bg-black/90 border-2 border-green-500 text-white text-center shadow-md text-sm z-50 w-full sm:w-auto max-w-[95%] sm:max-w-[90%] md:max-w-[85%] fixed top-4 left-1/2 transform -translate-x-1/2 translate-y-0 transition-all duration-300 opacity-0"
-      ></div>
+      <div id="success-toast" class="success-toast"></div>
 
       <div class="px-4 sm:px-6 md:px-10">
         <div
@@ -155,29 +152,32 @@
                   </button>
                 </div>
               </div>
-              <div class="px-4 pb-2">
-                <h2 id="post-title" class="text-base">Post Title</h2>
-                <div id="post-tags" class="text-xs lowercase opacity-50">
-                  Post tags
+              <a id="view-post" href="#" class="">
+                <div class="px-4 pb-2">
+                  <h2 id="post-title" class="text-base">Post Title</h2>
+                  <div id="post-tags" class="text-xs lowercase opacity-50">
+                    Post tags
+                  </div>
                 </div>
-              </div>
-              <img
-                id="post-media"
-                src=""
-                alt="Post media"
-                class="hidden h-full w-full object-contain"
-              />
-              <p id="post-body" class="truncate p-4 peer">Post body</p>
+                <img
+                  id="post-media"
+                  src=""
+                  alt="Post media"
+                  class="hidden h-fit w-full object-contain"
+                />
+                <p id="post-body" class="truncate p-4 peer">Post body</p>
+              </a>
             </div>
           </template>
         </div>
+        <div id="error-toast" class="error-toast"></div>
       </div>
     </main>
-
     <script type="module" src="../js/profile.js"></script>
     <script type="module" src="../js/components/header-component.js"></script>
     <script type="module" src="../js/components/edit-profile-modal.js"></script>
     <script type="module" src="../js/components/delete-post.js"></script>
     <script type="module" src="../js/components/edit-post.js"></script>
+    <script type="module" src="../js/components/view-post.js"></script>
   </body>
 </html>

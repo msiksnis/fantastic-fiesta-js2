@@ -1,8 +1,30 @@
 import { timeSince } from "../js/utils/helper-functions.js";
+import { displayError } from "./utils/toasts.js";
+import { API_BASE, API_POSTS, API_KEY, API_PARAMS } from "./constants.js";
+import {
+  fetchConfirmationModal,
+  // fetchViewPostModal,
+} from "./utils/fetchModals.js";
+// import { openEditModalWithPostData } from "./components/edit-post.js";
+// import { confirmDeletePost } from "./components/delete-post.js";
+// import { openViewPostModalWithPostData } from "./components/view-post.js";
 
-const BASE_URL = "https://v2.api.noroff.dev";
 const accessToken = localStorage.getItem("accessToken");
-const API_KEY = "4e529365-1137-49dd-b777-84c28348625f";
+
+document.addEventListener("DOMContentLoaded", function () {
+  const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+
+  const profileAvatarElement = document.getElementById("profile-avatar");
+
+  if (profileAvatarElement && userProfile.avatar) {
+    profileAvatarElement.src = userProfile.avatar.url;
+    profileAvatarElement.alt = userProfile.avatar.alt || "User avatar";
+  }
+
+  fetchPosts();
+  // fetchViewPostModal();
+  fetchConfirmationModal();
+});
 
 async function fetchPosts() {
   if (!accessToken) {
@@ -12,11 +34,12 @@ async function fetchPosts() {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/social/posts?_author=true`, {
+    const response = await fetch(API_BASE + API_POSTS + API_PARAMS, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${accessToken}`,
         "X-Noroff-API-Key": API_KEY,
+        "Content-Type": "application/json",
       },
     });
 
@@ -28,6 +51,7 @@ async function fetchPosts() {
     displayPosts(data);
   } catch (error) {
     console.error("Error fetching posts:", error);
+    displayError("Could not fetch the posts. Please try again.");
   }
 }
 
@@ -39,6 +63,25 @@ function displayPosts(posts) {
 
   posts.forEach((post) => {
     const bragClone = document.importNode(bragTemplate, true);
+
+    // const deleteButton = postClone.querySelector("#view-post-delete-button");
+    // if (post.author.name === currentUser.name) {
+    //   deleteButton.classList.remove("hidden");
+    //   deleteButton.addEventListener("click", () => confirmDeletePost(post.id));
+    // }
+
+    // const editButton = postClone.querySelector("#view-post-edit-button");
+    // if (post.author.name === currentUser.name) {
+    //   editButton.classList.remove("hidden");
+    //   editButton.addEventListener("click", () =>
+    //     openEditModalWithPostData(post.id, post)
+    //   );
+    // }
+
+    // const viewPost = postClone.querySelector("#view-post");
+    // viewPost.addEventListener("click", () =>
+    //   openViewPostModalWithPostData(post)
+    // );
 
     const authorAvatar = bragClone.querySelector("#brag-author-avatar");
     const authorName = bragClone.querySelector("#brag-author-name");
@@ -71,16 +114,3 @@ function displayPosts(posts) {
     bragsContainer.appendChild(bragClone);
   });
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  const userProfile = JSON.parse(localStorage.getItem("userProfile"));
-
-  const profileAvatarElement = document.getElementById("profile-avatar");
-
-  if (profileAvatarElement && userProfile.avatar) {
-    profileAvatarElement.src = userProfile.avatar.url;
-    profileAvatarElement.alt = userProfile.avatar.alt || "User avatar";
-  }
-
-  fetchPosts();
-});

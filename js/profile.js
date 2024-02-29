@@ -1,14 +1,21 @@
 import {
-  setupDeletePostListeners,
-  confirmDeletePost,
-} from "./components/delete-post.js";
+  API_BASE,
+  API_FOLLOWING_FOLLOWERS,
+  API_PROFILES,
+} from "./constants.js";
+import { confirmDeletePost } from "./components/delete-post.js";
+import { openEditModalWithPostData } from "./components/edit-post.js";
 import {
-  openEditModalWithPostData,
-  setupEditPostListeners,
-} from "./components/edit-post.js";
-import { timeSince } from "./utils/helper-functions.js";
+  copyProfileUrlToClipboard,
+  timeSince,
+} from "./utils/helper-functions.js";
+import {
+  fetchConfirmationModal,
+  fetchEditPostModal,
+} from "./utils/fetchModals.js";
+import { displayError, displaySuccess } from "./utils/toasts.js";
 
-const BASE_PROFILE_URL = "https://v2.api.noroff.dev/social/profiles/";
+const BASE_PROFILE_URL = `${API_BASE}${API_PROFILES}/`;
 
 const accessToken = localStorage.getItem("accessToken");
 const API_KEY = "4e529365-1137-49dd-b777-84c28348625f";
@@ -24,7 +31,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   if (userName) {
-    fetchProfileData(userName);
+    fetchProfileDataWithFollowingAndFollowersData(userName);
   }
 
   const shareButton = document.getElementById("share-profile-button");
@@ -35,15 +42,11 @@ document.addEventListener("DOMContentLoaded", async function () {
   toggleEditFollowButtons(profileName);
 
   const followButton = document.getElementById("follow-button");
-  console.log("Assigning event listener to follow button");
 
   if (followButton) {
     followButton.addEventListener("click", async function () {
-      console.log("Follow button clicked");
-
       const urlParams = new URLSearchParams(window.location.search);
       const profileNameToFollow = urlParams.get("profile");
-      console.log("Profile to follow:", profileNameToFollow);
 
       let currentUser = JSON.parse(localStorage.getItem("userProfile"));
       if (!currentUser) {
@@ -51,60 +54,27 @@ document.addEventListener("DOMContentLoaded", async function () {
         return;
       }
       if (!currentUser.following) {
-        console.log("Initializing following array.");
         currentUser.following = [];
       }
 
       const isFollowing = currentUser.following.some(
         (profile) => profile.name === profileNameToFollow
       );
-      console.log("Is following:", isFollowing);
 
       if (isFollowing) {
-        console.log("Attempting to unfollow...");
         await unfollowProfile(profileNameToFollow);
         followButton.textContent = "Follow";
         displaySuccess(`You have unfollowed ${profileNameToFollow}.`);
-        console.log("Unfollowed successfully.");
       } else {
-        console.log("Attempting to follow...");
         await followProfile(profileNameToFollow);
         followButton.textContent = "Unfollow";
         displaySuccess(`Now you are folloving ${profileNameToFollow}!`);
-        console.log(`Followed ${profileNameToFollow} successfully.`);
       }
     });
   }
   fetchEditPostModal();
   fetchConfirmationModal();
 });
-
-function fetchEditPostModal() {
-  fetch("../components/edit-post-modal.html")
-    .then((response) => response.text())
-    .then((html) => {
-      document.body.insertAdjacentHTML("beforeend", html);
-      console.log("Modal loaded, setting up listeners...");
-      setupEditPostListeners();
-    })
-    .catch((error) =>
-      console.error("Failed to load the confirmation modal", error)
-    );
-}
-
-function fetchConfirmationModal() {
-  fetch("../components/confirmation-modal.html")
-    .then((response) => response.text())
-    .then((html) => {
-      document.body.insertAdjacentHTML("beforeend", html);
-      // Ensure modal elements are in the DOM
-      console.log("Modal loaded, setting up listeners...");
-      setupDeletePostListeners();
-    })
-    .catch((error) =>
-      console.error("Failed to load the confirmation modal", error)
-    );
-}
 
 function toggleEditFollowButtons(profileName) {
   const loggedInUser = JSON.parse(localStorage.getItem("userProfile"));
@@ -136,7 +106,6 @@ async function fetchUserProfile(userName) {
     }
 
     const { data } = await response.json();
-    console.log("Profile data:", data);
 
     document.getElementById("dynamic-profile-name").textContent = data.name;
     document.getElementById("dynamic-profile-bio").textContent = data.bio;
@@ -154,6 +123,7 @@ async function fetchUserProfile(userName) {
     await fetchUserPosts(userName);
   } catch (error) {
     console.error("Error fetching profile data:", error);
+    displayError("Could not fetch profile data");
   }
 }
 
@@ -177,6 +147,7 @@ async function fetchUserPosts(userName) {
     displayUserPosts(data);
   } catch (error) {
     console.error("Error fetching user posts:", error);
+    displayError("Could not fetch user posts");
   }
 }
 
@@ -241,36 +212,16 @@ function displayUserPosts(posts) {
   });
 }
 
-function copyProfileUrlToClipboard() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const profileName = urlParams.get("profile");
-
-  const profileUrl = `${
-    window.location.origin
-  }/profile/?profile=${encodeURIComponent(profileName)}`;
-  navigator.clipboard
-    .writeText(profileUrl)
-    .then(() => {
-      displaySuccess("Profile URL copied to clipboard!");
-    })
-    .catch((err) => {
-      console.error("Failed to copy profile URL.", err);
-    });
-}
-
-// Utility function to get user profile from local storage
 function getUserProfileFromLocalStorage() {
   const userProfileStr = localStorage.getItem("userProfile");
   return userProfileStr ? JSON.parse(userProfileStr) : null;
 }
 
-// Utility function to set user profile in local storage
 function setUserProfileInLocalStorage(userProfile) {
   const userProfileStr = JSON.stringify(userProfile);
   localStorage.setItem("userProfile", userProfileStr);
 }
 
-// Function to increment or decrement the following count
 function adjustFollowingCount(userProfile, increment = true) {
   const adjustment = increment ? 1 : -1;
   userProfile._count.following = Math.max(
@@ -280,17 +231,6 @@ function adjustFollowingCount(userProfile, increment = true) {
   return userProfile;
 }
 
-// Function to increment or decrement the followers count
-function adjustFollowersCount(userProfile, increment = true) {
-  const adjustment = increment ? 1 : -1;
-  userProfile._count.followers = Math.max(
-    0,
-    userProfile._count.followers + adjustment
-  );
-  return userProfile;
-}
-
-// Update local storage user profile
 function updateUserProfileInLocalStorage(updateFunction) {
   let userProfile = getUserProfileFromLocalStorage();
   if (userProfile) {
@@ -320,9 +260,9 @@ async function followProfile(profileName) {
     localStorage.setItem("userProfile", JSON.stringify(currentUserProfile));
 
     updateUserProfileInLocalStorage((userProfile) => {
-      // Add the new profile to the following array
+      // Adds the new profile to the following array
       userProfile.following.push({ name: profileName });
-      // Increment the following count
+      // Increments the following count
       return adjustFollowingCount(userProfile, true);
     });
 
@@ -331,6 +271,7 @@ async function followProfile(profileName) {
     updateFollowersCountUI(true);
   } catch (error) {
     console.error("Error following profile:", error);
+    displayError("Something went wrong. Please reload the page and try again.");
   }
 }
 
@@ -370,21 +311,10 @@ async function unfollowProfile(profileName) {
   }
 }
 
-async function fetchProfileData(userName) {
+async function fetchProfileDataWithFollowingAndFollowersData(userName) {
   try {
-    // Fetch basic profile information
-    const profileResponse = await fetch(`${BASE_PROFILE_URL}${userName}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "X-Noroff-API-Key": API_KEY,
-      },
-    });
-    if (!profileResponse.ok) throw new Error("Failed to fetch profile data");
-    const { data: profileData } = await profileResponse.json();
-
-    // Fetch following information
-    const followingResponse = await fetch(
-      `${BASE_PROFILE_URL}${userName}?_following=true`,
+    const followingAndFollowersResposnse = await fetch(
+      `${BASE_PROFILE_URL}${userName}${API_FOLLOWING_FOLLOWERS}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -392,28 +322,16 @@ async function fetchProfileData(userName) {
         },
       }
     );
-    if (!followingResponse.ok)
-      throw new Error("Failed to fetch following data");
-    const { data: followingData } = await followingResponse.json();
+    if (!followingAndFollowersResposnse.ok)
+      throw new Error("Failed to fetch following and followers data");
 
-    // Fetch followers information
-    const followersResponse = await fetch(
-      `${BASE_PROFILE_URL}${userName}?_followers=true`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "X-Noroff-API-Key": API_KEY,
-        },
-      }
+    const { data: followingAndFollowersData } =
+      await followingAndFollowersResposnse.json();
+
+    console.log(
+      "Profile with Following and Followers data",
+      followingAndFollowersData
     );
-    if (!followersResponse.ok)
-      throw new Error("Failed to fetch followers data");
-    const { data: followersData } = await followersResponse.json();
-
-    // Now you have profileData, followingData, and followersData
-    // Here you would typically update the UI with this data
-    console.log("Following data", followingData);
-    console.log("Followers data", followersData);
   } catch (error) {
     console.error(error.message);
   }
@@ -453,19 +371,5 @@ function updateFollowersCountUI(isFollowAction) {
     followersCountElement.textContent = isFollowAction
       ? currentCount + 1
       : Math.max(0, currentCount - 1);
-  }
-}
-
-function displaySuccess(message) {
-  const successToast = document.getElementById("success-toast");
-  if (successToast) {
-    successToast.textContent = message;
-    successToast.classList.remove("-translate-y-20", "opacity-0");
-    successToast.classList.add("translate-y-0", "opacity-100");
-
-    setTimeout(() => {
-      successToast.classList.remove("translate-y-0", "opacity-100");
-      successToast.classList.add("-translate-y-20", "opacity-0");
-    }, 3000);
   }
 }

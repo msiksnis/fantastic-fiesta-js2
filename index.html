@@ -147,19 +147,21 @@
                     </div>
                   </div>
                 </div>
-                <div class="px-4 pb-2">
-                  <h2 id="brag-title" class="text-base">Post Title</h2>
-                  <div id="brag-tags" class="text-xs lowercase opacity-50">
-                    Post tags
+                <a href="#" id="view-post">
+                  <div class="px-4 pb-2">
+                    <h2 id="brag-title" class="text-base">Post Title</h2>
+                    <div id="brag-tags" class="text-xs lowercase opacity-50">
+                      Post tags
+                    </div>
                   </div>
-                </div>
-                <img
-                  id="brag-media"
-                  src=""
-                  alt="Brag media"
-                  class="hidden h-80 w-full object-cover"
-                />
-                <p id="brag-body" class="truncate p-4 peer">Post body</p>
+                  <img
+                    id="brag-media"
+                    src=""
+                    alt="Brag media"
+                    class="hidden h-fit w-full object-cover"
+                  />
+                  <p id="brag-body" class="truncate p-4 peer">Post body</p>
+                </a>
               </div>
             </template>
           </div>
@@ -167,6 +169,7 @@
       </div>
     </main>
     <script type="module" src="js/components/new-brag-modal.js"></script>
+    <script type="module" src="js/components/view-post.js"></script>
     <script type="module" src="js/fetch-users.js"></script>
     <script
       type="module"

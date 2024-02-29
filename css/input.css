@@ -9,7 +9,7 @@
 }
 
 body {
-  @apply bg-[url('/assets/icons/bg.svg')] max-w-[1536px] mx-auto min-h-screen bg-cover bg-repeat;
+  @apply bg-[url('/assets/bg.svg')] max-w-[1536px] mx-auto min-h-screen bg-cover bg-repeat-y;
 }
 
 /* To hide the scrollbar */
@@ -19,4 +19,14 @@ body {
 
 .no-scrollbar.overflow-auto {
   scrollbar-width: none; /* Firefox */
+}
+
+@layer components {
+  .error-toast {
+    @apply rounded-2xl px-2 sm:px-4 md:px-6 lg:px-10 py-2 bg-red-100/90 border-2 border-red-500 text-black text-center shadow-md text-sm z-50 w-full sm:w-auto max-w-[95%] sm:max-w-[90%] md:max-w-[85%] fixed bottom-6 left-1/2 transform -translate-x-1/2 translate-y-24 transition-all duration-300 opacity-0;
+  }
+
+  .success-toast {
+    @apply rounded-2xl px-2 sm:px-4 md:px-6 lg:px-10 py-2 bg-black/90 border-2 border-green-500 text-white text-center shadow-md text-sm z-50 w-full sm:w-auto max-w-[95%] sm:max-w-[90%] md:max-w-[85%] fixed top-4 left-1/2 transform -translate-x-1/2 translate-y-0 transition-all duration-300 opacity-0;
+  }
 }

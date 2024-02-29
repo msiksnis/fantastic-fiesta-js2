@@ -1,6 +1,7 @@
 import { updatePasswordStrength } from "./password-strength.js";
 import { togglePasswordVisibility } from "./toggle-password.js";
 import { login } from "./sign-in.js";
+import { displayError } from "../utils/toasts.js";
 
 const BASE_URL = "https://v2.api.noroff.dev";
 
@@ -94,14 +95,3 @@ document.addEventListener("DOMContentLoaded", function () {
     updatePasswordStrength(password.value)
   );
 });
-
-function displayError(message = "Oops... Something went wrong.") {
-  const errorToast = document.getElementById("registration-error-toast");
-  errorToast.textContent = message;
-  errorToast.classList.remove("-translate-y-20", "opacity-0");
-  errorToast.classList.add("translate-y-0", "opacity-100");
-  setTimeout(() => {
-    errorToast.classList.remove("translate-y-0", "opacity-100");
-    errorToast.classList.add("-translate-y-20", "opacity-0");
-  }, 3000);
-}

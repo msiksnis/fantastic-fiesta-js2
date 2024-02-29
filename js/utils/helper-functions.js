@@ -1,8 +1,4 @@
-// This function formats the date to a format like "Jan 1, 2020"
-export function formatDate(dateString) {
-  const options = { year: "numeric", month: "short", day: "numeric" };
-  return new Date(dateString).toLocaleDateString(undefined, options);
-}
+import { displaySuccess } from "./toasts.js";
 
 // This function formats the date to show how long ago it was posted
 export function timeSince(dateString) {
@@ -31,4 +27,21 @@ export function timeSince(dateString) {
     return Math.floor(interval) + " minutes ago";
   }
   return Math.floor(seconds) + " seconds ago";
+}
+
+export function copyProfileUrlToClipboard() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const profileName = urlParams.get("profile");
+
+  const profileUrl = `${
+    window.location.origin
+  }/profile/?profile=${encodeURIComponent(profileName)}`;
+  navigator.clipboard
+    .writeText(profileUrl)
+    .then(() => {
+      displaySuccess("Profile URL copied to clipboard!");
+    })
+    .catch((err) => {
+      console.error("Failed to copy profile URL.", err);
+    });
 }

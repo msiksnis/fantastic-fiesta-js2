@@ -1,4 +1,5 @@
 import { API_BASE, API_POSTS, API_KEY } from "../constants.js";
+import { displayError, displaySuccess } from "../utils/toasts.js";
 
 const accessToken = localStorage.getItem("accessToken");
 
@@ -48,9 +49,9 @@ async function updatePost(id, postData) {
     const response = await fetch(`${API_BASE}${API_POSTS}/${id}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
         "X-Noroff-API-Key": API_KEY,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(postData),
     });
@@ -58,10 +59,11 @@ async function updatePost(id, postData) {
     if (!response.ok) throw new Error("Failed to update post");
 
     console.log("Post updated successfully");
+    displaySuccess("Post updated successfully!");
     document.getElementById("edit-post-modal").classList.add("hidden");
-    // Optionally, refresh the post in the UI or reload the page to show the updated post
+    window.location.reload();
   } catch (error) {
     console.error("Error updating post:", error);
-    // Show an error message to the user if needed
+    displayError("Failed to update post. Please try again.");
   }
 }
