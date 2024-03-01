@@ -1,6 +1,5 @@
 import {
   copyPostUrlToClipboard,
-  copyProfileUrlToClipboard,
   timeSince,
 } from "../js/utils/helper-functions.js";
 import { displayError } from "./utils/toasts.js";
