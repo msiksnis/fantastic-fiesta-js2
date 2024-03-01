@@ -45,3 +45,17 @@ export function copyProfileUrlToClipboard() {
       console.error("Failed to copy profile URL.", err);
     });
 }
+
+export function copyPostUrlToClipboard(id) {
+  const postUrl = `${window.location.origin}/social/posts/${encodeURIComponent(
+    id
+  )}`;
+  navigator.clipboard
+    .writeText(postUrl)
+    .then(() => {
+      displaySuccess("Post URL copied to clipboard!");
+    })
+    .catch((err) => {
+      console.error("Failed to copy post URL.", err);
+    });
+}

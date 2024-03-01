@@ -1,4 +1,8 @@
-import { timeSince } from "../js/utils/helper-functions.js";
+import {
+  copyPostUrlToClipboard,
+  copyProfileUrlToClipboard,
+  timeSince,
+} from "../js/utils/helper-functions.js";
 import { displayError } from "./utils/toasts.js";
 import { API_BASE, API_POSTS, API_KEY, API_PARAMS } from "./constants.js";
 import { fetchConfirmationModal } from "./utils/fetchModals.js";
@@ -61,6 +65,14 @@ function displayPosts(posts) {
     const authorAvatar = bragClone.querySelector("#brag-author-avatar");
     const authorName = bragClone.querySelector("#brag-author-name");
     const authorContainer = bragClone.querySelector("#brag-author");
+    const shareIcon = bragClone.querySelector(".brag-share");
+    if (shareIcon) {
+      shareIcon.dataset.postId = post.id;
+      shareIcon.addEventListener("click", function (event) {
+        const postId = event.currentTarget.dataset.postId;
+        copyPostUrlToClipboard(postId);
+      });
+    }
 
     authorAvatar.src = post.author.avatar.url;
     authorAvatar.alt = `${post.author.name}'s avatar`;
