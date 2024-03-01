@@ -5,28 +5,28 @@ export function timeSince(dateString) {
   const date = new Date(dateString);
   const seconds = Math.floor((new Date() - date) / 1000);
 
-  let interval = seconds / 31536000;
+  let interval = Math.floor(seconds / 31536000);
 
-  if (interval > 1) {
-    return Math.floor(interval) + " years ago";
+  if (interval >= 1) {
+    return interval + " year" + (interval > 1 ? "s" : "");
   }
-  interval = seconds / 2592000;
-  if (interval > 1) {
-    return Math.floor(interval) + " months ago";
+  interval = Math.floor(seconds / 2592000);
+  if (interval >= 1) {
+    return interval + " month" + (interval > 1 ? "s" : "");
   }
-  interval = seconds / 86400;
-  if (interval > 1) {
-    return Math.floor(interval) + " days ago";
+  interval = Math.floor(seconds / 86400);
+  if (interval >= 1) {
+    return interval + " day" + (interval > 1 ? "s" : "");
   }
-  interval = seconds / 3600;
-  if (interval > 1) {
-    return Math.floor(interval) + " hours ago";
+  interval = Math.floor(seconds / 3600);
+  if (interval >= 1) {
+    return interval + " hour" + (interval > 1 ? "s" : "");
   }
-  interval = seconds / 60;
-  if (interval > 1) {
-    return Math.floor(interval) + " minutes ago";
+  interval = Math.floor(seconds / 60);
+  if (interval >= 1) {
+    return interval + " minute" + (interval > 1 ? "s" : "");
   }
-  return Math.floor(seconds) + " seconds ago";
+  return "Just now";
 }
 
 export function copyProfileUrlToClipboard() {

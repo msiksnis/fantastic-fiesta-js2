@@ -1,11 +1,5 @@
-// post-manager.js
-
 import { API_BASE, API_KEY, API_PARAMS, API_PROFILES } from "./constants.js";
 import { displayError } from "./utils/toasts.js";
-import {
-  fetchConfirmationModal,
-  fetchEditPostModal,
-} from "./utils/fetchModals.js";
 import { confirmDeletePost } from "./components/delete-post.js";
 import { openEditModalWithPostData } from "./components/edit-post.js";
 import { timeSince } from "./utils/helper-functions.js";

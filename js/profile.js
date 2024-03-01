@@ -6,7 +6,6 @@ import {
 import { displaySuccess } from "./utils/toasts.js";
 import {
   checkFollowingStatus,
-  // fetchProfileDataWithFollowingAndFollowersData,
   fetchUserProfile,
   followProfile,
   toggleEditFollowButtons,
@@ -23,10 +22,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     await fetchUserProfile(profileName);
     checkFollowingStatus(profileName);
   }
-
-  // if (userName) {
-  //   fetchProfileDataWithFollowingAndFollowersData(userName);
-  // }
 
   const shareButton = document.getElementById("share-profile-button");
   if (shareButton) {

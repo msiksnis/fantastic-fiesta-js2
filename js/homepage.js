@@ -1,13 +1,7 @@
 import { timeSince } from "../js/utils/helper-functions.js";
 import { displayError } from "./utils/toasts.js";
 import { API_BASE, API_POSTS, API_KEY, API_PARAMS } from "./constants.js";
-import {
-  fetchConfirmationModal,
-  // fetchViewPostModal,
-} from "./utils/fetchModals.js";
-// import { openEditModalWithPostData } from "./components/edit-post.js";
-// import { confirmDeletePost } from "./components/delete-post.js";
-// import { openViewPostModalWithPostData } from "./components/view-post.js";
+import { fetchConfirmationModal } from "./utils/fetchModals.js";
 
 const accessToken = localStorage.getItem("accessToken");
 
@@ -22,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   fetchPosts();
-  // fetchViewPostModal();
   fetchConfirmationModal();
 });
 
@@ -48,6 +41,7 @@ async function fetchPosts() {
     }
 
     const { data } = await response.json();
+    console.log("Posts fetched successfully:", data);
     displayPosts(data);
   } catch (error) {
     console.error("Error fetching posts:", error);
@@ -63,25 +57,6 @@ function displayPosts(posts) {
 
   posts.forEach((post) => {
     const bragClone = document.importNode(bragTemplate, true);
-
-    // const deleteButton = postClone.querySelector("#view-post-delete-button");
-    // if (post.author.name === currentUser.name) {
-    //   deleteButton.classList.remove("hidden");
-    //   deleteButton.addEventListener("click", () => confirmDeletePost(post.id));
-    // }
-
-    // const editButton = postClone.querySelector("#view-post-edit-button");
-    // if (post.author.name === currentUser.name) {
-    //   editButton.classList.remove("hidden");
-    //   editButton.addEventListener("click", () =>
-    //     openEditModalWithPostData(post.id, post)
-    //   );
-    // }
-
-    // const viewPost = postClone.querySelector("#view-post");
-    // viewPost.addEventListener("click", () =>
-    //   openViewPostModalWithPostData(post)
-    // );
 
     const authorAvatar = bragClone.querySelector("#brag-author-avatar");
     const authorName = bragClone.querySelector("#brag-author-name");
@@ -99,10 +74,17 @@ function displayPosts(posts) {
 
     bragClone.querySelector("#brag-title").textContent = post.title;
     bragClone.querySelector("#brag-body").textContent = post.body;
+    bragClone.querySelector("#brag-reactions").textContent =
+      post._count.reactions;
+    bragClone.querySelector("#brag-comments").textContent =
+      post._count.comments;
     bragClone.querySelector("#brag-date").textContent = timeSince(
       new Date(post.created)
     );
-    bragClone.querySelector("#brag-tags").textContent = post.tags.join(", ");
+    const formattedTags = post.tags
+      .map((tag) => "#" + tag.replace(/\s+/g, "").toLowerCase())
+      .join(" ");
+    bragClone.querySelector("#brag-tags").textContent = formattedTags;
 
     if (post.media && post.media.url) {
       const bragMedia = bragClone.querySelector("#brag-media");

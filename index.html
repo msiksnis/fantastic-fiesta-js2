@@ -120,7 +120,7 @@
           <div id="brags-container" class="mt-5 grid grid-cols-1 gap-y-4">
             <template id="brag-template">
               <div
-                class="bg-card w-full h-fit border hover:border-slate-300 shadow hover:shadow-md transition-all duration-300 rounded-2xl cursor-pointer"
+                class="bg-card w-full h-fit border hover:border-slate-300 shadow hover:shadow-md transition-all duration-300 rounded-2xl"
               >
                 <div class="flex items-center py-4 px-4">
                   <div class="flex items-center justify-between w-full">
@@ -147,21 +147,51 @@
                     </div>
                   </div>
                 </div>
-                <!-- <a href="#" id="view-post"> -->
-                <div class="px-4 pb-2">
-                  <h2 id="brag-title" class="text-base">Post Title</h2>
-                  <div id="brag-tags" class="text-xs lowercase opacity-50">
-                    Post tags
+                <a href="#" id="view-post">
+                  <div class="px-4 pb-2">
+                    <h2 id="brag-title" class="text-base">Post Title</h2>
+                    <div id="brag-tags" class="text-xs lowercase opacity-50">
+                      Post tags
+                    </div>
+                  </div>
+                  <img
+                    id="brag-media"
+                    src=""
+                    alt="Brag media"
+                    class="hidden h-fit max-h-80 w-full object-cover"
+                  />
+                  <p id="brag-body" class="truncate p-4 peer">Post body</p>
+                </a>
+                <div class="px-4">
+                  <div class="border-t"></div>
+                </div>
+                <div class="flex justify-between items-start p-4">
+                  <div class="flex space-x-4">
+                    <div class="flex flex-col justify-center items-center">
+                      <img
+                        src="./assets/icons/reactions.svg"
+                        alt="Heart icon"
+                        class="w-5"
+                      />
+                      <div id="brag-reactions" class="text-xs/6">0</div>
+                    </div>
+                    <div class="flex flex-col justify-center items-center">
+                      <img
+                        src="./assets/icons/comment.svg"
+                        alt="Comment icon"
+                        class="w-5"
+                      />
+                      <div id="brag-comments" class="text-xs/6">0</div>
+                    </div>
+                  </div>
+                  <div id="brag-share" class="flex">
+                    <img
+                      src="./assets/icons/share.svg"
+                      alt="Share icon"
+                      class="w-5 -rotate-45"
+                    />
                   </div>
                 </div>
-                <img
-                  id="brag-media"
-                  src=""
-                  alt="Brag media"
-                  class="hidden h-fit w-full object-cover"
-                />
-                <p id="brag-body" class="truncate p-4 peer">Post body</p>
-                <!-- </a> -->
               </div>
             </template>
           </div>
