@@ -1,6 +1,7 @@
-const profiles = "https://v2.api.noroff.dev/social/profiles";
+import { API_KEY, API_BASE, API_PROFILES } from "./constants.js";
+
 const accessToken = localStorage.getItem("accessToken");
-const API_KEY = "4e529365-1137-49dd-b777-84c28348625f";
+const profiles = `${API_BASE}${API_PROFILES}`;
 
 async function fetchUsers() {
   if (!accessToken) {
@@ -27,15 +28,21 @@ async function fetchUsers() {
   }
 }
 
-async function displayOnlineFriends() {
+async function displayFriends() {
   const container = document.getElementById("online-friends-container");
   const template = document.getElementById("online-friend-template").content;
+  const DEFAULT_AVATAR_URL =
+    "https://images.unsplash.com/photo-1579547945413-497e1b99dac0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&h=400&w=400";
 
   try {
     const response = await fetchUsers();
-    const users = response.data.slice(0, 25);
+    // Filter out users with the default avatar
+    const customAvatarUsers = response.data.filter(
+      (user) => user.avatar.url !== DEFAULT_AVATAR_URL
+    );
+    const usersToShow = customAvatarUsers.slice(0, 25);
 
-    users.forEach((user) => {
+    usersToShow.forEach((user) => {
       const instance = document.importNode(template, true);
       instance.querySelector("img").src = user.avatar.url;
       instance.querySelector("img").alt = `${user.name}'s avatar`;
@@ -57,4 +64,4 @@ async function displayOnlineFriends() {
   }
 }
 
-displayOnlineFriends();
+displayFriends();

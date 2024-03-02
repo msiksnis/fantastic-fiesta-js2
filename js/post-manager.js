@@ -89,6 +89,10 @@ export function displayUserPosts(posts) {
     postClone.querySelector("#post-tags").textContent = formattedTags;
     postClone.querySelector("#post-date").textContent = timeSince(post.created);
 
+    // To view the single post with a query parameter
+    const viewPostLink = postClone.querySelector("#view-single-post");
+    viewPostLink.href = `/post/?id=${post.id}`;
+
     postsContainer.appendChild(postClone);
   });
 }

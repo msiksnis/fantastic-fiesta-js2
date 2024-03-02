@@ -12,7 +12,7 @@
     />
     <link href="./css/output.css" rel="stylesheet" />
   </head>
-  <body>
+  <body class="bg-contain">
     <div id="success-toast" class="success-toast">jsbciusdbc isduhc isuh</div>
     <header>
       <div id="header-container">
@@ -142,10 +142,13 @@
                     </div>
                   </div>
                 </div>
-                <a href="#" id="view-post">
+                <a href="#" id="view-single-post">
                   <div class="px-4 pb-2">
                     <h2 id="brag-title" class="text-base">Post Title</h2>
-                    <div id="brag-tags" class="text-xs lowercase opacity-50">
+                    <div
+                      id="brag-tags"
+                      class="text-xs lowercase opacity-50 italic"
+                    >
                       Post tags
                     </div>
                   </div>
@@ -206,7 +209,6 @@
       </div>
     </main>
     <script type="module" src="js/components/new-brag-modal.js"></script>
-    <script type="module" src="js/components/view-post.js"></script>
     <script type="module" src="js/fetch-users.js"></script>
     <script
       type="module"

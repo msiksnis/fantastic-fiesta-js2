@@ -104,6 +104,10 @@ function displayPosts(posts) {
       bragMedia.style.display = "block";
     }
 
+    // To view the single post with a query parameter
+    const viewPostLink = bragClone.querySelector("#view-single-post");
+    viewPostLink.href = `/post/?id=${post.id}`;
+
     bragsContainer.appendChild(bragClone);
   });
 }

@@ -47,9 +47,7 @@ export function copyProfileUrlToClipboard() {
 }
 
 export function copyPostUrlToClipboard(id) {
-  const postUrl = `${window.location.origin}/social/posts/${encodeURIComponent(
-    id
-  )}`;
+  const postUrl = `${window.location.origin}/post/${encodeURIComponent(id)}`;
   navigator.clipboard
     .writeText(postUrl)
     .then(() => {
