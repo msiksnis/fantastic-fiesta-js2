@@ -1,3 +1,4 @@
+import { API_KEY } from "../constants.js";
 import { displaySuccess } from "./toasts.js";
 
 // This function formats the date to show how long ago it was posted
@@ -47,7 +48,9 @@ export function copyProfileUrlToClipboard() {
 }
 
 export function copyPostUrlToClipboard(id) {
-  const postUrl = `${window.location.origin}/post/${encodeURIComponent(id)}`;
+  const postUrl = `${window.location.origin}/post/?id=${encodeURIComponent(
+    id
+  )}`;
   navigator.clipboard
     .writeText(postUrl)
     .then(() => {
@@ -56,4 +59,44 @@ export function copyPostUrlToClipboard(id) {
     .catch((err) => {
       console.error("Failed to copy post URL.", err);
     });
+}
+
+export function triggerConfetti() {
+  console.log("Triggering confetti!");
+  confetti({
+    particleCount: 150,
+    spread: 70,
+    startVelocity: 90,
+    decay: 0.9,
+    shapes: ["square", "circle", "triangle", "line", "heart", "star"],
+    origin: { y: 1 },
+  });
+}
+
+export async function togglePostReaction(postId, symbol, accessToken) {
+  try {
+    const response = await fetch(
+      `/social/posts/${postId}/react/${encodeURIComponent(symbol)}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "X-Noroff-API-Key": API_KEY,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to toggle reaction");
+    }
+
+    const data = await response.json();
+    console.log("Reaction toggled successfully:", data);
+    triggerConfetti();
+    return data; // Return the data for further processing if needed
+  } catch (error) {
+    console.error("Error toggling reaction:", error);
+    throw error; // Rethrow to handle it in the calling context
+  }
 }

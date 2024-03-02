@@ -14,19 +14,90 @@
     />
     <link href="../css/output.css" rel="stylesheet" />
   </head>
-  <body class="">
+  <body>
+    <div id="success-toast" class="success-toast"></div>
     <header>
       <div id="header-container">
         <!-- Header component -->
       </div>
     </header>
 
-    <main class="mt-52">
-      <div id="single-post-container">
-        <template id="single-post-template">
-          <div>
-            <h1 id="single-post-title" class="text-5xl text-red-500"></h1>
-            <!-- Other placeholders -->
+    <main class="mt-8 md:mt-10 pb-20 px-4">
+      <div id="brag-container" class="grid mx-auto max-w-3xl">
+        <template id="brag-template">
+          <div
+            class="bg-card w-full h-fit border hover:border-slate-300 shadow hover:shadow-md transition-all duration-300 rounded-2xl"
+          >
+            <div class="flex items-center py-4 px-4">
+              <div class="flex items-center justify-between w-full">
+                <a
+                  href="#"
+                  id="brag-author"
+                  class="flex items-center space-x-2 group"
+                >
+                  <img
+                    id="brag-author-avatar"
+                    src=""
+                    alt="Author's Avatar"
+                    class="w-8 h-8 rounded-full object-cover group-hover:-rotate-[10deg] transition-all duration-500"
+                  />
+                  <p
+                    id="brag-author-name"
+                    class="text-base/5 font-medium group-hover:underline underline-offset-2"
+                  >
+                    Author's name
+                  </p>
+                </a>
+                <div id="brag-date" class="text-xs/6 opacity-60">Post date</div>
+              </div>
+            </div>
+            <div class="px-4 pb-2">
+              <h1 id="brag-title" class="text-base">Post Title</h1>
+              <div id="brag-tags" class="text-xs lowercase opacity-50 italic">
+                Post tags
+              </div>
+            </div>
+            <img
+              id="brag-media"
+              src=""
+              alt="Brag media"
+              class="hidden object-cover"
+            />
+            <p id="brag-body" class="p-4">Post body</p>
+            <div class="px-4">
+              <div class="border-t"></div>
+            </div>
+            <div class="flex justify-between items-start p-4">
+              <div class="flex space-x-4">
+                <div class="flex flex-col justify-center items-center">
+                  <button
+                    id="celebrate-button"
+                    class="text-lg/5 hover:scale-110 transition-all transform duration-500"
+                  >
+                    🎉
+                  </button>
+                  <div id="brag-reactions" class="text-xs/6 mr-1">0</div>
+                </div>
+                <div class="flex flex-col justify-center items-center">
+                  <img
+                    src="../assets/icons/comment.svg"
+                    alt="Comment icon"
+                    class="w-5"
+                  />
+                  <div id="brag-comments" class="text-xs/6">0</div>
+                </div>
+              </div>
+              <div
+                id="brag-share"
+                class="brag-share cursor-pointer hover:scale-105 hover:translate-x-1 hover:-translate-y-1 transition-all transform origin-center duration-500"
+              >
+                <img
+                  src="../assets/icons/share.svg"
+                  alt="Share icon"
+                  class="w-5 -rotate-45"
+                />
+              </div>
+            </div>
           </div>
         </template>
       </div>
@@ -34,5 +105,6 @@
 
     <script type="module" src="../js/components/header-component.js"></script>
     <script type="module" src="../js/post.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   </body>
 </html>

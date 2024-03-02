@@ -109,15 +109,18 @@
             >
               <div class="flex items-center justify-between py-4 px-4">
                 <div class="flex flex-col">
-                  <div class="flex space-x-2">
+                  <div class="flex space-x-2 group">
                     <img
                       id="post-author-avatar"
                       src=""
                       alt="Author's Avatar"
-                      class="w-8 h-8 rounded-full object-cover"
+                      class="w-8 h-8 rounded-full object-cover group-hover:-rotate-[10deg] transition-all duration-500"
                     />
                     <div class="flex items-center justify-between w-full">
-                      <p id="post-author-name" class="text-base/5 font-medium">
+                      <p
+                        id="post-author-name"
+                        class="text-base/5 font-medium group-hover:underline underline-offset-2"
+                      >
                         Author's name
                       </p>
                     </div>

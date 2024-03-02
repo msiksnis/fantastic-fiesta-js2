@@ -1,6 +1,7 @@
 import {
   copyPostUrlToClipboard,
   timeSince,
+  togglePostReaction,
 } from "../js/utils/helper-functions.js";
 import { displayError } from "./utils/toasts.js";
 import { API_BASE, API_POSTS, API_KEY, API_PARAMS } from "./constants.js";
@@ -20,6 +21,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
   fetchPosts();
   fetchConfirmationModal();
+
+  document
+    .getElementById("brags-container")
+    .addEventListener("click", async function (event) {
+      if (event.target.classList.contains("celebrate-button")) {
+        event.preventDefault();
+
+        // Correctly retrieve postId from the dataset of the clicked button
+        const postId = event.target.dataset.postId;
+        const symbol = "🎉"; // The emoji or symbol you want to use for the reaction
+
+        try {
+          // Call the function to toggle reaction and handle the response
+          const data = await togglePostReaction(postId, symbol, accessToken);
+          console.log("Reaction toggled successfully:", data);
+          // Optionally trigger confetti or update UI based on 'data.reactions'
+        } catch (error) {
+          console.error("Error toggling reaction:", error);
+          // Handle any errors, such as showing an error message
+        }
+      }
+    });
 });
 
 async function fetchPosts() {
@@ -107,6 +130,9 @@ function displayPosts(posts) {
     // To view the single post with a query parameter
     const viewPostLink = bragClone.querySelector("#view-single-post");
     viewPostLink.href = `/post/?id=${post.id}`;
+
+    const celebrateButton = bragClone.querySelector(".celebrate-button");
+    celebrateButton.dataset.postId = post.id.toString();
 
     bragsContainer.appendChild(bragClone);
   });
