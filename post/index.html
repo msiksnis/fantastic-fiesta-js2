@@ -26,7 +26,7 @@
       <div id="brag-container" class="grid mx-auto max-w-3xl">
         <template id="brag-template">
           <div
-            class="bg-card w-full h-fit border hover:border-slate-300 shadow hover:shadow-md transition-all duration-300 rounded-2xl"
+            class="bg-card w-full h-fit border hover:border-slate-300 shadow hover:shadow-md transition-all duration-300 rounded-2xl pb-4"
           >
             <div class="flex items-center py-4 px-4">
               <div class="flex items-center justify-between w-full">
@@ -68,85 +68,82 @@
               <div class="border-t"></div>
             </div>
             <div class="flex justify-between items-start p-4 relative">
-              <div class="flex space-x-4">
-                <div
-                  id="choose-reaction"
-                  class="choose-reaction cursor-pointer"
-                >
-                  <svg width="24" height="24" viewBox="0 0 20 24" fill="none">
-                    <path
-                      d="M19.557 8.7152C19.0063 8.7152 18.5696 8.2595 18.5696 7.72786V5.44937H16.2722C15.7215 5.44937 15.2848 4.99368 15.2848 4.46203C15.2848 3.9114 15.7215 3.47469 16.2722 3.47469H18.5696V1.17722C18.5696 0.626589 19.0063 0.18988 19.557 0.18988C20.1076 0.18988 20.5443 0.626589 20.5443 1.17722V3.47469H22.8418C23.3924 3.47469 23.8291 3.9114 23.8291 4.46203C23.8291 5.03165 23.3354 5.44937 22.8418 5.44937H20.5443V7.74684C20.5443 8.29747 20.0506 8.7152 19.557 8.7152ZM10.6899 23.8101C4.87975 23.8101 0.189873 19.1203 0.189873 13.3101C0.189873 7.50001 4.87975 2.81013 10.6899 2.81013C11.5633 2.81013 12.1899 2.88608 12.4937 2.96203C12.9494 3.07596 13.3101 3.4557 13.3101 3.93039C13.3101 4.46203 12.8544 4.91773 12.3228 4.91773C12.1709 4.91773 11.3544 4.76583 10.6899 4.76583C5.98101 4.76583 2.16456 8.58229 2.16456 13.2911C2.16456 18 5.98101 21.8165 10.6899 21.8165C15.3987 21.8165 19.2152 18 19.2152 13.2911C19.2152 12.4557 19.0633 11.8671 19.0633 11.6582C19.0633 11.1266 19.519 10.6709 20.0506 10.6709C20.5253 10.6709 20.943 11.0317 21.019 11.4684C21.1329 12.076 21.1709 12.7025 21.1709 13.2911C21.1899 19.1203 16.5 23.8101 10.6899 23.8101ZM7.40506 12.6646C6.32278 12.6646 5.43038 11.7911 5.43038 10.6899C5.43038 9.58861 6.32278 8.7152 7.40506 8.7152C8.48734 8.7152 9.37975 9.58861 9.37975 10.6899C9.37975 11.7911 8.50633 12.6646 7.40506 12.6646ZM13.9747 12.6646C12.8924 12.6646 12 11.7911 12 10.6899C12 9.58861 12.8734 8.7152 13.9747 8.7152C15.0759 8.7152 15.9494 9.6076 15.9494 10.6899C15.9494 11.7722 15.057 12.6646 13.9747 12.6646ZM10.6899 19.8798C6.96835 19.8798 5.43038 17.0506 5.43038 15.6076C5.43038 15.076 5.82911 14.6203 6.41772 14.6203H14.943C15.5127 14.6203 15.9304 15.076 15.9304 15.6076C15.9494 16.9937 14.4494 19.8798 10.6899 19.8798Z"
-                      fill="black"
-                    />
-                  </svg>
-                </div>
-                <div
-                  id="available-reactions"
-                  class="available-reactions absolute opacity-0 bottom-14 left-0 bg-black rounded-xl space-x-2 md:space-x-4 h-12 flex justify-around px-3 items-center text-2xl transition-all duration-300"
-                >
-                  <span
-                    class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+              <div class="">
+                <div class="flex space-x-4">
+                  <div
+                    id="choose-reaction"
+                    class="choose-reaction cursor-pointer"
                   >
-                    🎉
-                  </span>
-                  <span
-                    class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
-                  >
-                    👏
-                  </span>
-                  <span
-                    class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
-                  >
-                    😀
-                  </span>
-                  <span
-                    class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
-                  >
-                    😍
-                  </span>
-                  <span
-                    class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
-                  >
-                    😂
-                  </span>
-                  <span
-                    class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
-                  >
-                    👍
-                  </span>
-                  <span
-                    class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
-                  >
-                    🔥
-                  </span>
-                  <span
-                    class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
-                  >
-                    😢
-                  </span>
-                  <span
-                    class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
-                  >
-                    🤩
-                  </span>
-                  <span
-                    class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
-                  >
-                    🤪
-                  </span>
-                </div>
-                <div class="">
-                  <div id="reactions-container" class="flex space-x-2">
-                    <!-- Dynamic reactions will be injected here -->
+                    <svg width="24" height="24" viewBox="0 0 20 24" fill="none">
+                      <path
+                        d="M19.557 8.7152C19.0063 8.7152 18.5696 8.2595 18.5696 7.72786V5.44937H16.2722C15.7215 5.44937 15.2848 4.99368 15.2848 4.46203C15.2848 3.9114 15.7215 3.47469 16.2722 3.47469H18.5696V1.17722C18.5696 0.626589 19.0063 0.18988 19.557 0.18988C20.1076 0.18988 20.5443 0.626589 20.5443 1.17722V3.47469H22.8418C23.3924 3.47469 23.8291 3.9114 23.8291 4.46203C23.8291 5.03165 23.3354 5.44937 22.8418 5.44937H20.5443V7.74684C20.5443 8.29747 20.0506 8.7152 19.557 8.7152ZM10.6899 23.8101C4.87975 23.8101 0.189873 19.1203 0.189873 13.3101C0.189873 7.50001 4.87975 2.81013 10.6899 2.81013C11.5633 2.81013 12.1899 2.88608 12.4937 2.96203C12.9494 3.07596 13.3101 3.4557 13.3101 3.93039C13.3101 4.46203 12.8544 4.91773 12.3228 4.91773C12.1709 4.91773 11.3544 4.76583 10.6899 4.76583C5.98101 4.76583 2.16456 8.58229 2.16456 13.2911C2.16456 18 5.98101 21.8165 10.6899 21.8165C15.3987 21.8165 19.2152 18 19.2152 13.2911C19.2152 12.4557 19.0633 11.8671 19.0633 11.6582C19.0633 11.1266 19.519 10.6709 20.0506 10.6709C20.5253 10.6709 20.943 11.0317 21.019 11.4684C21.1329 12.076 21.1709 12.7025 21.1709 13.2911C21.1899 19.1203 16.5 23.8101 10.6899 23.8101ZM7.40506 12.6646C6.32278 12.6646 5.43038 11.7911 5.43038 10.6899C5.43038 9.58861 6.32278 8.7152 7.40506 8.7152C8.48734 8.7152 9.37975 9.58861 9.37975 10.6899C9.37975 11.7911 8.50633 12.6646 7.40506 12.6646ZM13.9747 12.6646C12.8924 12.6646 12 11.7911 12 10.6899C12 9.58861 12.8734 8.7152 13.9747 8.7152C15.0759 8.7152 15.9494 9.6076 15.9494 10.6899C15.9494 11.7722 15.057 12.6646 13.9747 12.6646ZM10.6899 19.8798C6.96835 19.8798 5.43038 17.0506 5.43038 15.6076C5.43038 15.076 5.82911 14.6203 6.41772 14.6203H14.943C15.5127 14.6203 15.9304 15.076 15.9304 15.6076C15.9494 16.9937 14.4494 19.8798 10.6899 19.8798Z"
+                        fill="black"
+                      />
+                    </svg>
                   </div>
-                </div>
-                <div class="flex flex-col justify-center items-center">
-                  <img
-                    src="../assets/icons/comment.svg"
-                    alt="Comment icon"
-                    class="w-5"
-                  />
-                  <div id="brag-comments" class="text-xs/6">0</div>
+                  <div
+                    id="available-reactions"
+                    class="available-reactions absolute opacity-0 bottom-14 left-0 bg-black rounded-xl space-x-2 md:space-x-4 h-12 flex justify-around px-3 items-center text-2xl transition-all duration-300"
+                  >
+                    <span
+                      class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                    >
+                      🎉
+                    </span>
+                    <span
+                      class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                    >
+                      👏
+                    </span>
+                    <span
+                      class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                    >
+                      😀
+                    </span>
+                    <span
+                      class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                    >
+                      😍
+                    </span>
+                    <span
+                      class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                    >
+                      😂
+                    </span>
+                    <span
+                      class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                    >
+                      👍
+                    </span>
+                    <span
+                      class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                    >
+                      🔥
+                    </span>
+                    <span
+                      class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                    >
+                      😢
+                    </span>
+                    <span
+                      class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                    >
+                      🤩
+                    </span>
+                    <span
+                      class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                    >
+                      🤪
+                    </span>
+                  </div>
+                  <div class="">
+                    <div
+                      id="reactions-container"
+                      class="flex space-x-2 w-64 sm:w-80 md:w-fit overflow-scroll no-scrollbar"
+                    >
+                      <!-- Dynamic reactions will be injected here -->
+                    </div>
+                  </div>
                 </div>
               </div>
               <div
@@ -158,6 +155,16 @@
                   alt="Share icon"
                   class="w-5 -rotate-45"
                 />
+              </div>
+            </div>
+            <div class="flex px-4">
+              <div class="flex items-center space-x-2">
+                <img
+                  src="../assets/icons/comment.svg"
+                  alt="Comment icon"
+                  class="w-6"
+                />
+                <div id="brag-comments" class="text-xs/6">0</div>
               </div>
             </div>
           </div>

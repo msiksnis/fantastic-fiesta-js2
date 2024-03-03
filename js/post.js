@@ -92,7 +92,7 @@ function displayPost(data) {
     const reactionEl = document.createElement("div");
     reactionEl.className =
       "reaction cursor-pointer bg-gray-100 px-2 py-0.5 rounded-2xl flex justify-center items-center";
-    reactionEl.innerHTML = `${reaction.symbol} <div class="flex flex-col ml-2 text-xs/6">${reaction.count}</div>`;
+    reactionEl.innerHTML = `${reaction.symbol} <div class="flex ml-2 text-xs/6">${reaction.count}</div>`;
     reactionsContainer.appendChild(reactionEl);
   });
 

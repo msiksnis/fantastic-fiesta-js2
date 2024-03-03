@@ -51,9 +51,40 @@ export async function togglePostReaction(postId, reactionSymbol) {
   }
 }
 
+export function updateReactionUI(postId, reactionSymbol, isOptimistic = true) {
+  // Adjusted selector to ensure it targets the correct container
+  const reactionsContainer = document.querySelector(`#reactions-container`);
+
+  if (!reactionsContainer) {
+    console.error(`Reactions container not found for post ID: ${postId}`);
+    return; // Exit the function if the container is not found
+  }
+
+  let reactionElement = reactionsContainer.querySelector(
+    `.reaction[data-symbol="${reactionSymbol}"]`
+  );
+
+  if (!reactionElement && isOptimistic) {
+    reactionElement = document.createElement("div");
+    reactionElement.className =
+      "reaction bg-gray-100 px-2 py-0.5 rounded-2xl flex justify-center items-center cursor-pointer";
+    reactionElement.dataset.symbol = reactionSymbol;
+    reactionElement.innerHTML = `${reactionSymbol} <span class="count flex ml-2 text-xs/6">1</span>`;
+    reactionsContainer.prepend(reactionElement);
+  } else if (reactionElement) {
+    // If the reaction exists, update its count
+    const reactionCountElement = reactionElement.querySelector(".count");
+    const currentCount = parseInt(reactionCountElement.textContent, 10);
+    reactionCountElement.textContent = isOptimistic
+      ? currentCount + 1
+      : Math.max(0, currentCount - 1);
+  }
+}
+
 export function attachToggleListener(postId) {
   const chooseReactionIcon = document.querySelector("#choose-reaction");
   const availableReactions = document.querySelector("#available-reactions");
+  const reactionsContainer = document.querySelector("#reactions-container"); // Adjusted selector
 
   if (chooseReactionIcon && availableReactions) {
     chooseReactionIcon.addEventListener("click", function (event) {
@@ -64,30 +95,39 @@ export function attachToggleListener(postId) {
     });
   }
 
-  document
-    .querySelectorAll("#available-reactions .reaction")
-    .forEach((icon) => {
-      icon.addEventListener("click", function () {
-        const reactionSymbol = this.textContent.trim();
+  availableReactions.querySelectorAll(".reaction").forEach((icon) => {
+    icon.addEventListener("click", function () {
+      const reactionSymbol = this.textContent.trim();
 
-        togglePostReaction(postId, reactionSymbol);
+      // Call the function to toggle the reaction on the server
+      togglePostReaction(postId, reactionSymbol)
+        .then(() => {
+          // If the reaction toggle is successful, update the UI
+          updateReactionUI(reactionsContainer, reactionSymbol);
+          triggerConfetti();
+        })
+        .catch((error) => {
+          console.error("Error toggling reaction:", error);
+        });
 
-        availableReactions.classList.remove("opacity-100");
-        availableReactions.classList.remove("bottom-16");
-        availableReactions.classList.add("opacity-0");
-        availableReactions.classList.add("bottom-14");
-      });
+      // Close the reaction panel after selecting a reaction
+      availableReactions.classList.add("opacity-0");
+      availableReactions.classList.add("bottom-14");
+      availableReactions.classList.remove("opacity-100");
+      availableReactions.classList.remove("bottom-16");
     });
+  });
 
+  // Close the reaction panel when clicking outside
   document.addEventListener("click", function (event) {
     if (
       !chooseReactionIcon.contains(event.target) &&
       !availableReactions.contains(event.target)
     ) {
-      availableReactions.classList.remove("opacity-100");
-      availableReactions.classList.remove("bottom-16");
       availableReactions.classList.add("opacity-0");
       availableReactions.classList.add("bottom-14");
+      availableReactions.classList.remove("opacity-100");
+      availableReactions.classList.remove("bottom-16");
     }
   });
 }
