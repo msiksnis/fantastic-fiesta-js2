@@ -1,11 +1,11 @@
 import {
   copyPostUrlToClipboard,
   timeSince,
-  togglePostReaction,
 } from "../js/utils/helper-functions.js";
 import { displayError } from "./utils/toasts.js";
 import { API_BASE, API_POSTS, API_KEY, API_PARAMS } from "./constants.js";
 import { fetchConfirmationModal } from "./utils/fetchModals.js";
+import { togglePostReaction } from "./utils/reactions.js";
 
 const accessToken = localStorage.getItem("accessToken");
 

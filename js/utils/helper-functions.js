@@ -1,7 +1,4 @@
-import { API_BASE, API_KEY, API_POSTS } from "../constants.js";
 import { displaySuccess } from "./toasts.js";
-
-const accessToken = localStorage.getItem("accessToken");
 
 // This function formats the date to show how long ago it was posted
 export function timeSince(dateString) {
@@ -61,56 +58,4 @@ export function copyPostUrlToClipboard(id) {
     .catch((err) => {
       console.error("Failed to copy post URL.", err);
     });
-}
-
-export function triggerConfetti() {
-  console.log("Triggering confetti!");
-  confetti({
-    particleCount: 150,
-    spread: 70,
-    startVelocity: 90,
-    decay: 0.9,
-    shapes: ["square", "circle", "triangle", "line", "heart", "star"],
-    origin: { y: 1 },
-  });
-}
-
-export async function togglePostReaction(postId) {
-  const symbol = "🎉";
-
-  try {
-    const response = await fetch(
-      `${API_BASE}${API_POSTS}/${postId}/react/${encodeURIComponent(symbol)}`,
-      {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "X-Noroff-API-Key": API_KEY,
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to toggle reaction");
-    }
-
-    triggerConfetti();
-  } catch (error) {
-    console.error("Error toggling reaction:", error);
-  }
-}
-
-export function attachToggleListener() {
-  const chooseReactionIcon = document.querySelector("#choose-reaction");
-  const availableReactions = document.querySelector("#available-reactios");
-
-  if (chooseReactionIcon && availableReactions) {
-    chooseReactionIcon.addEventListener("click", () => {
-      availableReactions.classList.toggle("opacity-0");
-      availableReactions.classList.toggle("bottom-14");
-      availableReactions.classList.toggle("bottom-16");
-    });
-  } else {
-    console.error("Elements for toggling reactions not found.");
-  }
 }
