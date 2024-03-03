@@ -83,9 +83,13 @@ export function displayUserPosts(posts) {
       postMedia.remove();
     }
 
-    const formattedTags = post.tags
-      .map((tag) => "#" + tag.replace(/\s+/g, "").toLowerCase())
-      .join(" ");
+    const formattedTags =
+      post.tags.length > 1
+        ? post.tags
+            .map((tag) => `#${tag.replace(/\s+/g, "").toLowerCase()}`)
+            .join(" ")
+        : "";
+
     postClone.querySelector("#post-tags").textContent = formattedTags;
     postClone.querySelector("#post-date").textContent = timeSince(post.created);
 

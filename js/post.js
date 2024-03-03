@@ -75,9 +75,13 @@ function displayPost(data) {
   template.getElementById("brag-date").textContent = timeSince(
     new Date(data.created)
   );
-  const formattedTags = data.tags
-    .map((tag) => "#" + tag.replace(/\s+/g, "").toLowerCase())
-    .join(" ");
+
+  const formattedTags =
+    data.tags.length > 1
+      ? data.tags
+          .map((tag) => `#${tag.replace(/\s+/g, "").toLowerCase()}`)
+          .join(" ")
+      : "";
   template.getElementById("brag-tags").textContent = formattedTags;
 
   if (data.media && data.media.url) {

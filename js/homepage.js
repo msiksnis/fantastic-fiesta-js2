@@ -115,9 +115,12 @@ function displayPosts(posts) {
     bragClone.querySelector("#brag-date").textContent = timeSince(
       new Date(post.created)
     );
-    const formattedTags = post.tags
-      .map((tag) => "#" + tag.replace(/\s+/g, "").toLowerCase())
-      .join(" ");
+    const formattedTags =
+      post.tags.length > 1
+        ? post.tags
+            .map((tag) => `#${tag.replace(/\s+/g, "").toLowerCase()}`)
+            .join(" ")
+        : "";
     bragClone.querySelector("#brag-tags").textContent = formattedTags;
 
     if (post.media && post.media.url) {

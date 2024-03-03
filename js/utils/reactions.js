@@ -45,19 +45,17 @@ export async function togglePostReaction(postId, reactionSymbol) {
     triggerConfetti();
 
     console.log("Reaction toggled successfully!");
-    // Optionally, update the UI to reflect the new reaction count
   } catch (error) {
     console.error("Error toggling reaction:", error);
   }
 }
 
 export function updateReactionUI(postId, reactionSymbol, isOptimistic = true) {
-  // Adjusted selector to ensure it targets the correct container
   const reactionsContainer = document.querySelector(`#reactions-container`);
 
   if (!reactionsContainer) {
     console.error(`Reactions container not found for post ID: ${postId}`);
-    return; // Exit the function if the container is not found
+    return;
   }
 
   let reactionElement = reactionsContainer.querySelector(
@@ -72,7 +70,7 @@ export function updateReactionUI(postId, reactionSymbol, isOptimistic = true) {
     reactionElement.innerHTML = `${reactionSymbol} <span class="count flex ml-2 text-xs/6">1</span>`;
     reactionsContainer.prepend(reactionElement);
   } else if (reactionElement) {
-    // If the reaction exists, update its count
+    // Updates the count if the reaction exists
     const reactionCountElement = reactionElement.querySelector(".count");
     const currentCount = parseInt(reactionCountElement.textContent, 10);
     reactionCountElement.textContent = isOptimistic
@@ -84,7 +82,7 @@ export function updateReactionUI(postId, reactionSymbol, isOptimistic = true) {
 export function attachToggleListener(postId) {
   const chooseReactionIcon = document.querySelector("#choose-reaction");
   const availableReactions = document.querySelector("#available-reactions");
-  const reactionsContainer = document.querySelector("#reactions-container"); // Adjusted selector
+  const reactionsContainer = document.querySelector("#reactions-container");
 
   if (chooseReactionIcon && availableReactions) {
     chooseReactionIcon.addEventListener("click", function (event) {
