@@ -3,7 +3,7 @@ import { API_BASE, API_POSTS, API_KEY, API_PARAMS } from "./constants.js";
 import {
   copyPostUrlToClipboard,
   timeSince,
-  triggerConfetti,
+  togglePostReaction,
 } from "./utils/helper-functions.js";
 
 const accessToken = localStorage.getItem("accessToken");
@@ -87,7 +87,7 @@ function displayPost(data) {
   }
 
   const celebrateButton = template.getElementById("celebrate-button");
-  celebrateButton.addEventListener("click", triggerConfetti);
+  celebrateButton.addEventListener("click", () => togglePostReaction(data.id));
 
   container.appendChild(template);
 }

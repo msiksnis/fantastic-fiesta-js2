@@ -1,5 +1,7 @@
-import { API_KEY } from "../constants.js";
+import { API_BASE, API_KEY, API_POSTS } from "../constants.js";
 import { displaySuccess } from "./toasts.js";
+
+const accessToken = localStorage.getItem("accessToken");
 
 // This function formats the date to show how long ago it was posted
 export function timeSince(dateString) {
@@ -73,16 +75,17 @@ export function triggerConfetti() {
   });
 }
 
-export async function togglePostReaction(postId, symbol, accessToken) {
+export async function togglePostReaction(postId) {
+  const symbol = "🎉";
+
   try {
     const response = await fetch(
-      `/social/posts/${postId}/react/${encodeURIComponent(symbol)}`,
+      `${API_BASE}${API_POSTS}/${postId}/react/${encodeURIComponent(symbol)}`,
       {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "X-Noroff-API-Key": API_KEY,
-          "Content-Type": "application/json",
         },
       }
     );
@@ -91,12 +94,8 @@ export async function togglePostReaction(postId, symbol, accessToken) {
       throw new Error("Failed to toggle reaction");
     }
 
-    const data = await response.json();
-    console.log("Reaction toggled successfully:", data);
     triggerConfetti();
-    return data; // Return the data for further processing if needed
   } catch (error) {
     console.error("Error toggling reaction:", error);
-    throw error; // Rethrow to handle it in the calling context
   }
 }
