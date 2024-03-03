@@ -1,9 +1,9 @@
 // /js/post.js
 import { API_BASE, API_POSTS, API_KEY, API_PARAMS } from "./constants.js";
 import {
+  attachToggleListener,
   copyPostUrlToClipboard,
   timeSince,
-  togglePostReaction,
 } from "./utils/helper-functions.js";
 
 const accessToken = localStorage.getItem("accessToken");
@@ -39,9 +39,14 @@ async function fetchAndDisplayPost(id) {
 
 function displayPost(data) {
   const container = document.getElementById("brag-container");
-  const template = document
-    .getElementById("brag-template")
-    .content.cloneNode(true);
+  const templateScript = document.getElementById("brag-template");
+
+  if (!templateScript) {
+    console.error("Main post template not found");
+    return;
+  }
+
+  const template = document.importNode(templateScript.content, true);
 
   container.innerHTML = "";
 
@@ -69,7 +74,6 @@ function displayPost(data) {
 
   template.getElementById("brag-title").textContent = data.title;
   template.getElementById("brag-body").textContent = data.body;
-  template.getElementById("brag-reactions").textContent = data._count.reactions;
   template.getElementById("brag-comments").textContent = data._count.comments;
   template.getElementById("brag-date").textContent = timeSince(
     new Date(data.created)
@@ -86,8 +90,16 @@ function displayPost(data) {
     bragMedia.style.display = "block";
   }
 
-  const celebrateButton = template.getElementById("celebrate-button");
-  celebrateButton.addEventListener("click", () => togglePostReaction(data.id));
+  const reactionsContainer = template.querySelector("#reactions-container");
+  data.reactions.forEach((reaction) => {
+    const reactionEl = document.createElement("div");
+    reactionEl.className =
+      "reaction cursor-pointer bg-gray-100 px-2 py-0.5 rounded-2xl flex justify-center items-center";
+    reactionEl.innerHTML = `${reaction.symbol} <div class="flex flex-col ml-2 text-xs/6">${reaction.count}</div>`;
+    reactionsContainer.appendChild(reactionEl);
+  });
 
   container.appendChild(template);
+
+  attachToggleListener();
 }

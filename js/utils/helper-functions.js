@@ -99,3 +99,18 @@ export async function togglePostReaction(postId) {
     console.error("Error toggling reaction:", error);
   }
 }
+
+export function attachToggleListener() {
+  const chooseReactionIcon = document.querySelector("#choose-reaction");
+  const availableReactions = document.querySelector("#available-reactios");
+
+  if (chooseReactionIcon && availableReactions) {
+    chooseReactionIcon.addEventListener("click", () => {
+      availableReactions.classList.toggle("opacity-0");
+      availableReactions.classList.toggle("bottom-14");
+      availableReactions.classList.toggle("bottom-16");
+    });
+  } else {
+    console.error("Elements for toggling reactions not found.");
+  }
+}
