@@ -1,7 +1,10 @@
 // /js/post.js
 import { API_BASE, API_POSTS, API_KEY, API_PARAMS } from "./constants.js";
 import { copyPostUrlToClipboard, timeSince } from "./utils/helper-functions.js";
-import { attachToggleListener } from "./utils/reactions.js";
+import {
+  attachToggleListener,
+  handleExistingReactionClick,
+} from "./utils/reactions.js";
 
 const accessToken = localStorage.getItem("accessToken");
 
@@ -103,4 +106,5 @@ function displayPost(data) {
   container.appendChild(template);
 
   attachToggleListener(data.id);
+  handleExistingReactionClick(data.id);
 }

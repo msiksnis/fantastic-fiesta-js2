@@ -1,15 +1,14 @@
+// homepage.js
+
 import {
   copyPostUrlToClipboard,
   timeSince,
 } from "../js/utils/helper-functions.js";
-import { displayError } from "./utils/toasts.js";
-import { API_BASE, API_POSTS, API_KEY, API_PARAMS } from "./constants.js";
-import { fetchConfirmationModal } from "./utils/fetchModals.js";
+
 import { togglePostReaction } from "./utils/reactions.js";
+import { initializeTabs } from "./utils/filtering.js";
 
-const accessToken = localStorage.getItem("accessToken");
-
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
   const userProfile = JSON.parse(localStorage.getItem("userProfile"));
 
   const profileAvatarElement = document.getElementById("profile-avatar");
@@ -19,8 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     profileAvatarElement.alt = userProfile.avatar.alt || "User avatar";
   }
 
-  fetchPosts();
-  fetchConfirmationModal();
+  initializeTabs();
 
   document
     .getElementById("brags-container")
@@ -45,37 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-async function fetchPosts() {
-  if (!accessToken) {
-    console.log("No access token found. Please login.");
-    window.location.href = "/sign-in";
-    return;
-  }
-
-  try {
-    const response = await fetch(API_BASE + API_POSTS + API_PARAMS, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "X-Noroff-API-Key": API_KEY,
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch posts: ${response.statusText}`);
-    }
-
-    const { data } = await response.json();
-    console.log("Posts fetched successfully:", data);
-    displayPosts(data);
-  } catch (error) {
-    console.error("Error fetching posts:", error);
-    displayError("Could not fetch the posts. Please try again.");
-  }
-}
-
-function displayPosts(posts) {
+export function displayPosts(posts) {
   const bragsContainer = document.getElementById("brags-container");
   const bragTemplate = document.getElementById("brag-template").content;
 

@@ -1208,6 +1208,14 @@ html {
   top: 1rem;
 }
 
+.bottom-12 {
+  bottom: 3rem;
+}
+
+.bottom-10 {
+  bottom: 2.5rem;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -1300,6 +1308,11 @@ html {
   margin-bottom: 1.5rem;
 }
 
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 .\!mt-2 {
   margin-top: 0.5rem !important;
 }
@@ -1390,6 +1403,18 @@ html {
 
 .mt-8 {
   margin-top: 2rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.-mb-1 {
+  margin-bottom: -0.25rem;
+}
+
+.-mb-5 {
+  margin-bottom: -1.25rem;
 }
 
 .box-border {
@@ -2874,6 +2899,11 @@ html {
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
+.border-red-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity));
+}
+
 .bg-\[rgb\(255\2c 0\2c 0\)\] {
   --tw-bg-opacity: 1;
   background-color: rgb(255 0 0 / var(--tw-bg-opacity));
@@ -2938,6 +2968,14 @@ html {
 
 .bg-white\/85 {
   background-color: rgb(255 255 255 / 0.85);
+}
+
+.bg-accent-yellow\/50 {
+  background-color: rgb(254 253 0 / 0.5);
+}
+
+.bg-accent-yellow\/60 {
+  background-color: rgb(254 253 0 / 0.6);
 }
 
 .bg-gradient-to-r {
@@ -3106,6 +3144,14 @@ html {
 
 .p-5 {
   padding: 1.25rem;
+}
+
+.p-0 {
+  padding: 0px;
+}
+
+.p-0\.5 {
+  padding: 0.125rem;
 }
 
 .px-0 {
@@ -3375,6 +3421,11 @@ html {
   line-height: 1.5rem;
 }
 
+.text-sm\/6 {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -3623,6 +3674,18 @@ html {
   opacity: 0.9;
 }
 
+.opacity-70 {
+  opacity: 0.7;
+}
+
+.opacity-80 {
+  opacity: 0.8;
+}
+
+.opacity-10 {
+  opacity: 0.1;
+}
+
 .bg-blend-normal {
   background-blend-mode: normal;
 }
@@ -3789,6 +3852,11 @@ html {
   --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadow-accent-yellow {
+  --tw-shadow-color: #FEFD00;
+  --tw-shadow: var(--tw-shadow-colored);
 }
 
 .outline-none {
@@ -4169,6 +4237,10 @@ body {
 
 .hover\:opacity-100:hover {
   opacity: 1;
+}
+
+.hover\:opacity-80:hover {
+  opacity: 0.8;
 }
 
 .hover\:shadow:hover {
