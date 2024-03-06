@@ -5,7 +5,11 @@ import {
   timeSince,
 } from "../js/utils/helper-functions.js";
 
-import { togglePostReaction } from "./utils/reactions.js";
+import {
+  handleExistingReactionClick,
+  togglePostReaction,
+  triggerConfetti,
+} from "./utils/reactions.js";
 import { initializeTabs } from "./utils/filtering.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
@@ -19,28 +23,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   initializeTabs();
-
-  document
-    .getElementById("brags-container")
-    .addEventListener("click", async function (event) {
-      if (event.target.classList.contains("celebrate-button")) {
-        event.preventDefault();
-
-        // Correctly retrieve postId from the dataset of the clicked button
-        const postId = event.target.dataset.postId;
-        const symbol = "🎉"; // The emoji or symbol you want to use for the reaction
-
-        try {
-          // Call the function to toggle reaction and handle the response
-          const data = await togglePostReaction(postId, symbol, accessToken);
-          console.log("Reaction toggled successfully:", data);
-          // Optionally trigger confetti or update UI based on 'data.reactions'
-        } catch (error) {
-          console.error("Error toggling reaction:", error);
-          // Handle any errors, such as showing an error message
-        }
-      }
-    });
 });
 
 export function displayPosts(posts) {
@@ -76,8 +58,6 @@ export function displayPosts(posts) {
 
     bragClone.querySelector("#brag-title").textContent = post.title;
     bragClone.querySelector("#brag-body").textContent = post.body;
-    bragClone.querySelector("#brag-reactions").textContent =
-      post._count.reactions;
     bragClone.querySelector("#brag-comments").textContent =
       post._count.comments;
     bragClone.querySelector("#brag-date").textContent = timeSince(
@@ -102,9 +82,50 @@ export function displayPosts(posts) {
     const viewPostLink = bragClone.querySelector("#view-single-post");
     viewPostLink.href = `/post/?id=${post.id}`;
 
-    const celebrateButton = bragClone.querySelector(".celebrate-button");
-    celebrateButton.dataset.postId = post.id.toString();
+    const reactionsDisplay = bragClone.querySelector(".reactions-display");
+    reactionsDisplay.innerHTML = generateReactionsHtml(post.reactions);
 
     bragsContainer.appendChild(bragClone);
   });
+  attachToggleListenerForHomepage();
+}
+
+function attachToggleListenerForHomepage() {
+  document.querySelectorAll(".post").forEach((postElement) => {
+    const postId = postElement.getAttribute("data-post-id");
+    const reactionPanelBtn = postElement.querySelector(
+      ".open-reaction-panel-btn"
+    );
+    const availableReactions = postElement.querySelector(
+      ".available-reactions"
+    );
+
+    reactionPanelBtn.addEventListener("click", () => {
+      availableReactions.classList.toggle("hidden");
+    });
+
+    availableReactions
+      .querySelectorAll(".reaction-option")
+      .forEach((option) => {
+        option.addEventListener("click", async () => {
+          const symbol = option.textContent.trim();
+          await togglePostReaction(postId, symbol);
+          // Optionally: Update UI optimistically here
+          availableReactions.classList.add("hidden");
+          // Optionally: Refresh reactions display for this post
+        });
+      });
+  });
+}
+
+function generateReactionsHtml(reactions) {
+  let html = "";
+  reactions.forEach((reaction) => {
+    html += `
+      <div class="reaction cursor-pointer bg-gray-100 px-2 py-0.5 rounded-2xl flex items-center justify-center">
+        ${reaction.symbol} <span class="ml-2 text-xs">${reaction.count}</span>
+      </div>
+    `;
+  });
+  return html;
 }

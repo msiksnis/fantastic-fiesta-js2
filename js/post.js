@@ -75,9 +75,7 @@ function displayPost(data) {
   template.getElementById("brag-title").textContent = data.title;
   template.getElementById("brag-body").textContent = data.body;
   template.getElementById("brag-comments").textContent = data._count.comments;
-  template.getElementById("brag-date").textContent = timeSince(
-    new Date(data.created)
-  );
+  template.getElementById("brag-date").textContent = timeSince(data.created);
 
   const formattedTags =
     data.tags.length > 1
