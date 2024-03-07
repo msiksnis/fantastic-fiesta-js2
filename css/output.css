@@ -3949,7 +3949,7 @@ body {
   margin-right: auto;
   min-height: 100vh;
   max-width: 1536px;
-  background-image: url('/assets/bg-noice.png');
+  background-image: url('/assets/bg-noice.webp');
   background-size: cover;
   background-attachment: fixed;
 }
