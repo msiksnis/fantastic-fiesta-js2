@@ -82,50 +82,50 @@ export function displayPosts(posts) {
     const viewPostLink = bragClone.querySelector("#view-single-post");
     viewPostLink.href = `/post/?id=${post.id}`;
 
-    const reactionsDisplay = bragClone.querySelector(".reactions-display");
-    reactionsDisplay.innerHTML = generateReactionsHtml(post.reactions);
+    // Event listener for reaction panel button for post
+    const reactionPanelBtn = bragClone.querySelector(".choose-reaction");
+    const availableReactions = bragClone.querySelector(".available-reactions");
+
+    reactionPanelBtn.addEventListener("click", (event) => {
+      event.stopPropagation();
+      console.log("Toggling reaction panel visibility");
+      availableReactions.classList.toggle("opacity-0");
+      availableReactions.classList.toggle("bottom-10");
+      availableReactions.classList.toggle("bottom-12");
+    });
+
+    const reactionElements = bragClone.querySelectorAll(".reaction");
+    reactionElements.forEach((reactionElement) => {
+      reactionElement.addEventListener("click", () => {
+        // Extracts reaction symbol from the element
+        const reactionSymbol = reactionElement.dataset.symbol;
+        const postId = post.id; // Extracts the postId  from the element
+
+        // To toggle the reaction for postId and symbol
+        togglePostReaction(postId, reactionSymbol).then(() => {
+          // TODO: update UI
+        });
+        // Closes the reaction panel after selecting a reaction
+        availableReactions.classList.add("opacity-0");
+        availableReactions.classList.add("bottom-10");
+        availableReactions.classList.remove("opacity-100");
+        availableReactions.classList.remove("bottom-12");
+      });
+    });
+
+    // Closes the reaction panel when clicking outside
+    document.addEventListener("click", function (event) {
+      if (
+        !reactionPanelBtn.contains(event.target) &&
+        !availableReactions.contains(event.target)
+      ) {
+        availableReactions.classList.add("opacity-0");
+        availableReactions.classList.add("bottom-10");
+        availableReactions.classList.remove("opacity-100");
+        availableReactions.classList.remove("bottom-12");
+      }
+    });
 
     bragsContainer.appendChild(bragClone);
   });
-  attachToggleListenerForHomepage();
-}
-
-function attachToggleListenerForHomepage() {
-  document.querySelectorAll(".post").forEach((postElement) => {
-    const postId = postElement.getAttribute("data-post-id");
-    const reactionPanelBtn = postElement.querySelector(
-      ".open-reaction-panel-btn"
-    );
-    const availableReactions = postElement.querySelector(
-      ".available-reactions"
-    );
-
-    reactionPanelBtn.addEventListener("click", () => {
-      availableReactions.classList.toggle("hidden");
-    });
-
-    availableReactions
-      .querySelectorAll(".reaction-option")
-      .forEach((option) => {
-        option.addEventListener("click", async () => {
-          const symbol = option.textContent.trim();
-          await togglePostReaction(postId, symbol);
-          // Optionally: Update UI optimistically here
-          availableReactions.classList.add("hidden");
-          // Optionally: Refresh reactions display for this post
-        });
-      });
-  });
-}
-
-function generateReactionsHtml(reactions) {
-  let html = "";
-  reactions.forEach((reaction) => {
-    html += `
-      <div class="reaction cursor-pointer bg-gray-100 px-2 py-0.5 rounded-2xl flex items-center justify-center">
-        ${reaction.symbol} <span class="ml-2 text-xs">${reaction.count}</span>
-      </div>
-    `;
-  });
-  return html;
 }

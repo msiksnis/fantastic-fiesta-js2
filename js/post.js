@@ -47,6 +47,7 @@ async function fetchAndDisplayPost(id) {
 }
 
 function displayPost(data) {
+  document.title = `Brag! ${data.title}`;
   const container = document.getElementById("brag-container");
   const templateScript = document.getElementById("brag-template");
 
