@@ -9,7 +9,7 @@
 }
 
 body {
-  @apply max-w-[1536px] mx-auto min-h-screen bg-[url('/assets/bg.svg')] bg-repeat-y bg-cover;
+  @apply max-w-[1536px] mx-auto min-h-screen bg-[url('/assets/bg-noice.png')] bg-fixed bg-cover;
 }
 
 /* To hide the scrollbar */
