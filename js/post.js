@@ -8,6 +8,12 @@ import {
 
 const accessToken = localStorage.getItem("accessToken");
 
+const loader = document.querySelector(".loader");
+
+function toggleLoader(show) {
+  loader.style.display = show ? "block" : "none";
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   let queryParams = new URLSearchParams(window.location.search);
   let id = queryParams.get("id");
@@ -18,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function fetchAndDisplayPost(id) {
   const API_URL = `${API_BASE}${API_POSTS}/${id}/${API_PARAMS}`;
+  toggleLoader(true);
   try {
     const response = await fetch(API_URL, {
       method: "GET",
@@ -34,6 +41,8 @@ async function fetchAndDisplayPost(id) {
     displayPost(data);
   } catch (error) {
     console.error("Error fetching post:", error);
+  } finally {
+    toggleLoader(false);
   }
 }
 

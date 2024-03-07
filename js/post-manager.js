@@ -7,8 +7,15 @@ import { timeSince } from "./utils/helper-functions.js";
 const BASE_PROFILE_URL = `${API_BASE}${API_PROFILES}/`;
 const accessToken = localStorage.getItem("accessToken");
 
+const loader = document.querySelector(".loader");
+
+function toggleLoader(show) {
+  loader.style.display = show ? "block" : "none";
+}
+
 export async function fetchUserPosts(userName) {
   const postsAPIURL = `${BASE_PROFILE_URL}${userName}/posts${API_PARAMS}`;
+  toggleLoader(true);
   try {
     const response = await fetch(postsAPIURL, {
       method: "GET",
@@ -29,6 +36,8 @@ export async function fetchUserPosts(userName) {
   } catch (error) {
     console.error("Error fetching user posts:", error);
     displayError("Could not fetch user posts");
+  } finally {
+    toggleLoader(false);
   }
 }
 

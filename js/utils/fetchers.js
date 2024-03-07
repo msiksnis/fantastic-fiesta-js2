@@ -5,6 +5,12 @@ import { displayError } from "../utils/toasts.js";
 
 const accessToken = localStorage.getItem("accessToken");
 
+const loader = document.querySelector(".loader");
+
+function toggleLoader(show) {
+  loader.style.display = show ? "block" : "none";
+}
+
 export async function fetchAllPosts() {
   if (!accessToken) {
     console.log("No access token found. Please login.");
@@ -12,6 +18,7 @@ export async function fetchAllPosts() {
     return;
   }
 
+  toggleLoader(true);
   try {
     const response = await fetch(API_BASE + API_POSTS + API_PARAMS, {
       method: "GET",
@@ -32,6 +39,8 @@ export async function fetchAllPosts() {
     console.error("Error fetching posts:", error);
     displayError("Could not fetch the posts. Please try again.");
     return null;
+  } finally {
+    toggleLoader(false);
   }
 }
 
