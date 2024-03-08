@@ -54,6 +54,7 @@ export async function togglePostReaction(postId, reactionSymbol) {
     }
 
     triggerConfetti();
+    console.log("Reaction toggled successfully!");
     const data = await response.json();
 
     console.log("Reaction toggled successfully!");

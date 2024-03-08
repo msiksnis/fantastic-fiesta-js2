@@ -92,12 +92,14 @@ export function displayPosts(posts) {
     reactionElements.forEach((reactionElement) => {
       reactionElement.addEventListener("click", () => {
         // Extracts reaction symbol from the element
-        const reactionSymbol = reactionElement.dataset.symbol;
-        const postId = post.id; // Extracts the postId  from the element
+        const reactionSymbol = reactionElement.textContent.trim();
+        // Extracts the postId  from the element
+        const postId = post.id;
 
         // To toggle the reaction for postId and symbol
         togglePostReaction(postId, reactionSymbol).then(() => {
           // TODO: update UI
+          triggerConfetti();
         });
         // Closes the reaction panel after selecting a reaction
         availableReactions.classList.add("opacity-0");
@@ -121,5 +123,17 @@ export function displayPosts(posts) {
     });
 
     bragsContainer.appendChild(bragClone);
+  });
+}
+
+function triggerConfetti() {
+  console.log("Triggering confetti homepage!");
+  confetti({
+    particleCount: 100,
+    spread: 70,
+    startVelocity: 90,
+    decay: 0.9,
+    shapes: ["square"],
+    origin: { y: 1 },
   });
 }
