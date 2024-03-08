@@ -76,6 +76,12 @@ export function displayPosts(posts) {
     const viewPostLink = bragClone.querySelector("#view-single-post");
     viewPostLink.href = `/post/?id=${post.id}`;
 
+    const reactionsHtml = generateReactionsHtml(post.reactions); // Ensure you have reactions data in your post object
+    const reactionsDisplay = bragClone.querySelector(".reactions-display");
+    if (reactionsDisplay) {
+      reactionsDisplay.innerHTML = reactionsHtml;
+    }
+
     // Event listener for reaction panel button for post
     const reactionPanelBtn = bragClone.querySelector(".choose-reaction");
     const availableReactions = bragClone.querySelector(".available-reactions");
@@ -88,24 +94,96 @@ export function displayPosts(posts) {
       availableReactions.classList.toggle("bottom-12");
     });
 
+    availableReactions
+      .querySelectorAll(".reaction-option")
+      .forEach((option) => {
+        option.addEventListener("click", async () => {
+          const reactionSymbol = option.dataset.symbol;
+
+          const postId = post.id;
+          // Checks if this reaction already exists in the DOM
+          let existingReactionElement = reactionsDisplay.querySelector(
+            `[data-symbol="${reactionSymbol}"]`
+          );
+
+          if (!existingReactionElement) {
+            // If the reaction doesn't exist, creates a new element for it
+            const newReactionElement = document.createElement("span");
+            newReactionElement.className =
+              "reaction bg-gray-100 px-2 py-0.5 rounded-2xl flex items-center justify-center cursor-pointer";
+            newReactionElement.setAttribute("data-symbol", reactionSymbol);
+            newReactionElement.setAttribute("data-count", "1");
+            newReactionElement.innerHTML = `${reactionSymbol} <span class="reaction-count">1</span>`;
+            reactionsDisplay.appendChild(newReactionElement);
+
+            existingReactionElement = newReactionElement;
+          } else {
+            // If the reaction exists, update its count
+            const currentCount = parseInt(
+              existingReactionElement.getAttribute("data-count"),
+              10
+            );
+            const newCount = currentCount + 1;
+            existingReactionElement.setAttribute(
+              "data-count",
+              newCount.toString()
+            );
+            existingReactionElement.querySelector(
+              ".reaction-count"
+            ).textContent = newCount.toString();
+          }
+
+          // When UI is updated, it will attempt to toggle the reaction on the backend
+          try {
+            await togglePostReaction(postId, reactionSymbol);
+          } catch (error) {
+            console.error("Error toggling reaction:", error);
+          }
+        });
+      });
+
     const reactionElements = bragClone.querySelectorAll(".reaction");
     reactionElements.forEach((reactionElement) => {
-      reactionElement.addEventListener("click", () => {
-        // Extracts reaction symbol from the element
-        const reactionSymbol = reactionElement.textContent.trim();
-        // Extracts the postId  from the element
-        const postId = post.id;
+      reactionElement.addEventListener("click", async () => {
+        const reactionSymbol = reactionElement.dataset.symbol;
 
-        // To toggle the reaction for postId and symbol
-        togglePostReaction(postId, reactionSymbol).then(() => {
-          // TODO: update UI
-          triggerConfetti();
-        });
-        // Closes the reaction panel after selecting a reaction
-        availableReactions.classList.add("opacity-0");
-        availableReactions.classList.add("bottom-10");
-        availableReactions.classList.remove("opacity-100");
-        availableReactions.classList.remove("bottom-12");
+        const postId = post.id;
+        const currentUser = JSON.parse(
+          localStorage.getItem("userProfile")
+        ).name;
+        const reactionIndex = post.reactions.findIndex(
+          (r) => r.symbol === reactionSymbol
+        );
+
+        let hasReacted = false;
+        let currentCount = parseInt(reactionElement.dataset.count, 10) || 0;
+
+        if (reactionIndex !== -1) {
+          hasReacted =
+            post.reactions[reactionIndex].reactors.includes(currentUser);
+        }
+
+        // Checks if the user has already reacted with the same symbol
+        const newCount = hasReacted ? currentCount - 1 : currentCount + 1;
+
+        // Optimistic uodate
+        reactionElement.dataset.count = newCount;
+
+        if (hasReacted && newCount === 0) {
+          reactionElement.style.display = "none"; // Hides the reaction if the count is 0
+        } else {
+          reactionElement.style.display = ""; // Shows the reaction if the count is greater than 0
+        }
+
+        try {
+          await togglePostReaction(postId, reactionSymbol);
+        } catch (error) {
+          console.error("Error toggling reaction:", error);
+          // Reverts the optimistic UI update in case of an error
+          reactionElement.dataset.count = currentCount;
+
+          reactionElement.style.display = currentCount > 0 ? "" : "none";
+        }
       });
     });
 
@@ -126,14 +204,14 @@ export function displayPosts(posts) {
   });
 }
 
-function triggerConfetti() {
-  console.log("Triggering confetti homepage!");
-  confetti({
-    particleCount: 100,
-    spread: 70,
-    startVelocity: 90,
-    decay: 0.9,
-    shapes: ["square"],
-    origin: { y: 1 },
-  });
+function generateReactionsHtml(reactions) {
+  return reactions
+    .map(
+      (reaction) => `
+    <span class="reaction bg-gray-100 px-2 py-0.5 rounded-2xl flex justify-center items-center cursor-pointer" data-symbol="${reaction.symbol}" data-count="${reaction.count}">
+      ${reaction.symbol} <span class="reaction-count flex ml-2 text-xs/6">${reaction.count}</span>
+    </span>
+  `
+    )
+    .join("");
 }
