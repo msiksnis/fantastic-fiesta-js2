@@ -1,5 +1,3 @@
-// utils/fetchers.js
-
 import { API_BASE, API_POSTS, API_KEY, API_PARAMS } from "../constants.js";
 import { displayError } from "../utils/toasts.js";
 
@@ -55,7 +53,6 @@ export async function fetchFollowingPosts() {
   return followingPosts;
 }
 
-// filter popular posts by _count.reactions + _count.comments
 export async function fetchPopularPosts() {
   const allPosts = await fetchAllPosts();
   const popularPosts = allPosts.sort((a, b) => {

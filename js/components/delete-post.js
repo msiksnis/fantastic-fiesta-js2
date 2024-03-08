@@ -1,4 +1,5 @@
 import { API_BASE, API_POSTS, API_KEY } from "../constants.js";
+import { displayError } from "../utils/toasts.js";
 
 const accessToken = localStorage.getItem("accessToken");
 
@@ -35,9 +36,9 @@ async function deletePost(id) {
 
     console.log("Post deleted successfully");
     document.getElementById("confirm-delete-modal").classList.add("hidden");
-    // Refresh or manually remove the post element from the DOM
+    window.location.reload();
   } catch (error) {
     console.error("Error deleting post:", error);
-    // Show an error message to the user if needed
+    displayError("Failed to delete post. Please try again.");
   }
 }

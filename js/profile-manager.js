@@ -1,5 +1,3 @@
-// profile-manager.js
-
 import { API_BASE, API_PROFILES, API_KEY } from "./constants.js";
 import { fetchUserPosts } from "./post-manager.js";
 import { displayError } from "./utils/toasts.js";
@@ -102,11 +100,11 @@ export async function unfollowProfile(profileName) {
     localStorage.setItem("userProfile", JSON.stringify(currentUserProfile));
 
     updateUserProfileInLocalStorage((userProfile) => {
-      // Remove the profile from the following array
+      // Removes the profile from the following array
       userProfile.following = userProfile.following.filter(
         (profile) => profile.name !== profileName
       );
-      // Decrement the following count
+      // Decrements the following count
       return adjustFollowingCount(userProfile, false);
     });
 

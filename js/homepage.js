@@ -1,15 +1,9 @@
-// homepage.js
-
 import {
   copyPostUrlToClipboard,
   timeSince,
 } from "../js/utils/helper-functions.js";
 
-import {
-  handleExistingReactionClick,
-  togglePostReaction,
-  triggerConfetti,
-} from "./utils/reactions.js";
+import { togglePostReaction } from "./utils/reactions.js";
 import { initializeTabs } from "./utils/filtering.js";
 
 document.addEventListener("DOMContentLoaded", async function () {

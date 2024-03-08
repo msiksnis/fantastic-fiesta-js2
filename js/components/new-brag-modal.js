@@ -1,4 +1,5 @@
 import { API_BASE, API_POSTS, API_KEY } from "../constants.js";
+import { displayError } from "../utils/toasts.js";
 
 const accessToken = localStorage.getItem("accessToken");
 
@@ -15,7 +16,6 @@ async function loadModal() {
     initializeNewBragModal();
   } catch (error) {
     console.error("Error loading modal:", error);
-    // Optionally, handle this error in the UI.
   }
 }
 
@@ -42,19 +42,29 @@ async function submitNewBragForm(e) {
   e.preventDefault();
   const title = document.getElementById("new-brag-title").value;
   const body = document.getElementById("new-brag-body").value;
-  const tags = document
-    .getElementById("new-brag-tags")
-    .value.split(",")
-    .map((tag) => tag.trim());
+  const tagsInput = document.getElementById("new-brag-tags").value;
   const mediaUrl = document.getElementById("new-brag-media-url").value;
   const mediaAlt = document.getElementById("new-brag-media-alt").value;
 
   const postData = {
     title,
-    body,
-    tags,
-    media: { url: mediaUrl, alt: mediaAlt },
+    media: {},
   };
+
+  if (body) postData.body = body;
+
+  if (tagsInput) {
+    const tags = tagsInput.split(",").map((tag) => tag.trim());
+    if (tags.length > 0) postData.tags = tags;
+  }
+
+  if (mediaUrl) postData.media.url = mediaUrl;
+  if (mediaAlt) postData.media.alt = mediaAlt;
+
+  // Removes media object if it's empty
+  if (Object.keys(postData.media).length === 0) {
+    delete postData.media;
+  }
 
   try {
     const response = await fetch(API_BASE + API_POSTS, {
@@ -79,10 +89,9 @@ async function submitNewBragForm(e) {
     const result = await response.json();
     console.log("New Brag Posted: ", result);
     document.getElementById("new-brag-modal").classList.add("hidden");
-    // Optionally, refresh or update the UI here instead of reloading the page
-    // window.location.reload();
+    window.location.reload();
   } catch (error) {
     console.error("Error posting new brag: ", error);
-    // Show error message to user
+    displayError("Failed to post new brag. Please try again.");
   }
 }

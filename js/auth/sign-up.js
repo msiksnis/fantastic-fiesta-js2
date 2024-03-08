@@ -2,8 +2,7 @@ import { updatePasswordStrength } from "./password-strength.js";
 import { togglePasswordVisibility } from "./toggle-password.js";
 import { login } from "./sign-in.js";
 import { displayError } from "../utils/toasts.js";
-
-const BASE_URL = "https://v2.api.noroff.dev";
+import { API_BASE } from "../constants.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector("form");
@@ -12,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const errorMessage = document.getElementById("error-message");
 
   async function registerUser(name, email, password) {
-    const registerUrl = `${BASE_URL}/auth/register`;
+    const registerUrl = `${API_BASE}/auth/register`;
 
     try {
       const response = await fetch(registerUrl, {
@@ -24,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
           name: name,
           email: email,
           password: password,
-          // Other optional fields can be added
         }),
       });
 

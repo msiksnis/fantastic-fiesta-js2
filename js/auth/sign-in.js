@@ -1,11 +1,9 @@
+import { API_BASE, API_KEY, API_PROFILES } from "../constants.js";
 import { displayError } from "../utils/toasts.js";
 import { togglePasswordVisibility } from "./toggle-password.js";
 
-const BASE_URL = "https://v2.api.noroff.dev";
-const API_KEY = "4e529365-1137-49dd-b777-84c28348625f";
-
 export async function login(email, password) {
-  const loginUrl = `${BASE_URL}/auth/login`;
+  const loginUrl = `${API_BASE}/auth/login`;
 
   try {
     const response = await fetch(loginUrl, {
@@ -77,7 +75,7 @@ function setupTogglePasswordVisibility(password, toggPasswordVisibility) {
 setupTogglePasswordVisibility("password", "toggPasswordVisibility");
 
 async function fetchFollowers(userName) {
-  const url = `${BASE_URL}/social/profiles/${userName}/?_followers=true`;
+  const url = `${BASE_URL}${API_PROFILES}/${userName}/?_followers=true`;
   try {
     const response = await fetch(url, {
       headers: {
@@ -97,7 +95,7 @@ async function fetchFollowers(userName) {
 }
 
 async function fetchFollowing(userName) {
-  const url = `${BASE_URL}/social/profiles/${userName}/?_following=true`;
+  const url = `${BASE_URL}${API_PROFILES}/${userName}/?_following=true`;
   try {
     const response = await fetch(url, {
       headers: {
@@ -119,7 +117,7 @@ async function fetchFollowing(userName) {
 async function fetchProfileDataWithCounts(userName) {
   try {
     const response = await fetch(
-      `${BASE_URL}/social/profiles/${userName}?_count=true`,
+      `${BASE_URL}${API_PROFILES}/${userName}?_count=true`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

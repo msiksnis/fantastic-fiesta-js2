@@ -19,7 +19,7 @@ export function getStrength(password) {
   return strength[score];
 }
 
-// Function to update the UI based on the password strength
+// To update the UI based on the password strength
 export function updatePasswordStrength(password) {
   const strength = getStrength(password);
   const barsDiv = document.getElementById("bars");

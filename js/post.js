@@ -1,4 +1,3 @@
-// /js/post.js
 import { API_BASE, API_POSTS, API_KEY, API_PARAMS } from "./constants.js";
 import { copyPostUrlToClipboard, timeSince } from "./utils/helper-functions.js";
 import {

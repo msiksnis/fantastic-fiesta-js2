@@ -1,5 +1,7 @@
+import { API_BASE, API_KEY, API_PROFILES } from "../constants";
+import { displayError } from "../utils/toasts";
+
 const accessToken = localStorage.getItem("accessToken");
-const API_KEY = "4e529365-1137-49dd-b777-84c28348625f";
 const userName = JSON.parse(localStorage.getItem("userProfile")).name;
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -65,23 +67,20 @@ async function submitProfileForm(e) {
   const bio = document.getElementById("edit-bio").value;
 
   try {
-    const response = await fetch(
-      `https://v2.api.noroff.dev/social/profiles/${userName}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-          "X-Noroff-API-Key": API_KEY,
-        },
-        body: JSON.stringify({
-          banner: { url: bannerUrl, alt: bannerAlt },
-          avatar: { url: avatarUrl, alt: avatarAlt },
-          name,
-          bio,
-        }),
-      }
-    );
+    const response = await fetch(`${API_BASE}${API_PROFILES}/${userName}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": API_KEY,
+      },
+      body: JSON.stringify({
+        banner: { url: bannerUrl, alt: bannerAlt },
+        avatar: { url: avatarUrl, alt: avatarAlt },
+        name,
+        bio,
+      }),
+    });
 
     if (!response.ok) {
       throw new Error("Failed to update profile");
@@ -91,12 +90,12 @@ async function submitProfileForm(e) {
     console.log("Profile updated successfully", updatedProfile);
     // Update local storage with new profile data
     localStorage.setItem("userProfile", JSON.stringify(updatedProfile.data));
-    // Close the modal
+    // Close modal
     closeModal();
-    // Refresh the profile data on the page
     window.location.reload();
     refreshProfileDataOnPage(updatedProfile.data);
   } catch (error) {
     console.error("Error updating profile:", error);
+    displayError("Failed to update profile. Please try again.");
   }
 }
