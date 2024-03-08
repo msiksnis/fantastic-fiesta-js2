@@ -75,7 +75,7 @@ function setupTogglePasswordVisibility(password, toggPasswordVisibility) {
 setupTogglePasswordVisibility("password", "toggPasswordVisibility");
 
 async function fetchFollowers(userName) {
-  const url = `${BASE_URL}${API_PROFILES}/${userName}/?_followers=true`;
+  const url = `${API_BASE}${API_PROFILES}/${userName}/?_followers=true`;
   try {
     const response = await fetch(url, {
       headers: {
@@ -95,7 +95,7 @@ async function fetchFollowers(userName) {
 }
 
 async function fetchFollowing(userName) {
-  const url = `${BASE_URL}${API_PROFILES}/${userName}/?_following=true`;
+  const url = `${API_BASE}${API_PROFILES}/${userName}/?_following=true`;
   try {
     const response = await fetch(url, {
       headers: {
@@ -117,7 +117,7 @@ async function fetchFollowing(userName) {
 async function fetchProfileDataWithCounts(userName) {
   try {
     const response = await fetch(
-      `${BASE_URL}${API_PROFILES}/${userName}?_count=true`,
+      `${API_BASE}${API_PROFILES}/${userName}?_count=true`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -127,9 +127,9 @@ async function fetchProfileDataWithCounts(userName) {
     );
     if (!response.ok) throw new Error("Failed to fetch profile counts");
     const { data } = await response.json();
-    return data; // Assuming this includes the counts
+    return data;
   } catch (error) {
     console.error("Error fetching profile data with counts:", error);
-    return null; // Handle error appropriately
+    return null;
   }
 }
