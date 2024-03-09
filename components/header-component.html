@@ -7,7 +7,7 @@
     />
   </a>
   <div
-    class="fixed bottom-0 left-1/2 -translate-x-1/2 backdrop-blur transition-colors duration-500 bg-white/85 rounded-t-2xl py-4 md:py-0 md:bg-transparent w-full md:w-fit grid grid-cols-4 gap-10 z-40 md:sticky md:top-4"
+    class="fixed bottom-0 left-1/2 -translate-x-1/2 backdrop-blur md:backdrop-blur-none transition-colors duration-500 bg-white/85 rounded-t-2xl py-4 md:py-0 md:bg-transparent w-full md:w-fit grid grid-cols-4 gap-10 z-40 md:sticky md:top-4"
   >
     <a href="/" class="flex flex-col items-center">
       <img
@@ -39,16 +39,13 @@
         class="w-2 h-2 rounded-full bg-accent-yellow border border-black mt-0.5 active-icon hidden"
       ></div>
     </a>
-    <a href="/search/" class="flex flex-col items-center">
+    <div id="search-icon" class="flex flex-col items-center">
       <img
-        src="../assets/icons/search.svg "
+        src="../assets/icons/search.svg"
         alt="Search icon"
-        class="w-6 cursor-pointer hover:scale-110 transition-all duration-500 ease-in-out"
+        class="size-[22px] mt-[1px] cursor-pointer hover:scale-110 transition-all duration-500 ease-in-out"
       />
-      <div
-        class="w-2 h-2 rounded-full bg-accent-yellow border border-black mt-0.5 active-icon hidden"
-      ></div>
-    </a>
+    </div>
   </div>
   <div
     class="hidden md:flex items-center md:p-0.5 bg-white border border-black md:border-slate-300 rounded-full cursor-pointer hover:shadow-md transition-all duration-200 ease-in-out hover:border-black group"
