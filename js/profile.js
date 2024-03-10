@@ -1,3 +1,5 @@
+// profile.js
+
 import { copyProfileUrlToClipboard } from "./utils/helper-functions.js";
 import {
   fetchConfirmationModal,

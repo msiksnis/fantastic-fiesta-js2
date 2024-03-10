@@ -1,3 +1,5 @@
+// post-manager.js is responsible for fetching and displaying user posts
+
 import { API_BASE, API_KEY, API_PARAMS, API_PROFILES } from "./constants.js";
 import { displayError } from "./utils/toasts.js";
 import { confirmDeletePost } from "./components/delete-post.js";
@@ -45,6 +47,7 @@ export function displayUserPosts(posts) {
   const postsContainer = document.getElementById(
     "dynamic-profile-posts-container"
   );
+
   const postTemplate = document.getElementById("post-template").content;
   const currentUser = JSON.parse(localStorage.getItem("userProfile"));
 
@@ -107,5 +110,18 @@ export function displayUserPosts(posts) {
     viewPostLink.href = `/post/?id=${post.id}`;
 
     postsContainer.appendChild(postClone);
+  });
+
+  // Masonry layout for the posts
+  imagesLoaded(postsContainer, function () {
+    // if (!window.masonryInstance) {
+    window.masonryInstance = new Masonry(postsContainer, {
+      itemSelector: ".grid-item",
+      gutter: 20,
+    });
+    // } else {
+    //   window.masonryInstance.reloadItems();
+    //   window.masonryInstance.layout();
+    // }
   });
 }

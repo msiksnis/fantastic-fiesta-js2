@@ -1,4 +1,5 @@
 import { API_BASE, API_KEY, API_POSTS, API_PROFILES } from "../constants.js";
+import { displayError } from "../utils/toasts.js";
 
 const accessToken = localStorage.getItem("accessToken");
 const searchForm = document.querySelector("#search-form");
@@ -17,9 +18,9 @@ if (searchForm) {
  * Fetch search results for posts and profiles.
  * @param {string} query
  * @returns {Promise<void>}
+ * @description This function fetches search results for posts and profiles using the provided query.
  */
 async function fetchSearchResults(query) {
-  console.log("Fetching search results for query:", query);
   const headers = {
     Authorization: `Bearer ${accessToken}`,
     "X-Noroff-API-Key": API_KEY,
@@ -32,7 +33,6 @@ async function fetchSearchResults(query) {
       { headers }
     );
     const postsData = await postsResponse.json();
-    console.log("Posts:", postsData);
 
     // Fetching profiles
     const profilesResponse = await fetch(
@@ -40,12 +40,12 @@ async function fetchSearchResults(query) {
       { headers }
     );
     const profilesData = await profilesResponse.json();
-    console.log("Profiles:", profilesData);
 
     displayPostResults(postsData.data);
     displayProfileResults(profilesData.data);
   } catch (error) {
     console.error("Failed to fetch search results:", error);
+    displayError("Failed to fetch search results.");
   }
 }
 
@@ -109,13 +109,14 @@ function displayProfileResults(profiles) {
       profile.name
     )}`;
     profileContainer.className =
-      "group flex items-end space-x-4 cursor-pointer mb-1";
+      "group flex items-center space-x-4 cursor-pointer mb-1";
 
     // Profile Image
     const profileImgElement = document.createElement("img");
     profileImgElement.src = profile.avatar.url;
     profileImgElement.alt = `Avatar for ${profile.name}`;
-    profileImgElement.className = "size-8 rounded-full";
+    profileImgElement.className =
+      "size-8 rounded-full group-hover:-rotate-12 transition-all duration-300 ease-in-out";
 
     // Profile Name
     const profileNameElement = document.createElement("span");
@@ -138,11 +139,16 @@ function displayProfileResults(profiles) {
  * Clear search results.
  */
 function clearSearchResults() {
-  console.log("Clearing search results");
   document.querySelector("#matched-posts").innerHTML = "";
   document.querySelector("#matched-profiles").innerHTML = "";
 }
 
+/**
+ * Initialize search functionality.
+ * @returns {void}
+ * @description This function initializes the search functionality by adding an event listener to the search input.
+ * It debounces the input event to prevent excessive API calls and fetches search results when the query length is greater than 3.
+ */
 export function initializeSearch() {
   const searchInput = document.querySelector("#search-input");
 
@@ -172,7 +178,6 @@ function debounce(func, delay) {
   return function (...args) {
     if (timerId) clearTimeout(timerId);
     timerId = setTimeout(() => {
-      console.log("Debounced function executing");
       func.apply(this, args);
     }, delay);
   };

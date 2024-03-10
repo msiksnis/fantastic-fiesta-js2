@@ -100,13 +100,10 @@
       <div id="success-toast" class="success-toast"></div>
 
       <div class="px-4 sm:px-6 md:px-10">
-        <div
-          id="dynamic-profile-posts-container"
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-14 md:mt-20"
-        >
+        <div id="dynamic-profile-posts-container" class="grid">
           <template id="post-template">
             <div
-              class="bg-card w-full h-fit border border-slate-300 hover:border-slate-400 shadow-md hover:shadow-xl transition-all duration-300 rounded-2xl cursor-pointer"
+              class="grid-item bg-card h-fit border border-slate-300 hover:border-slate-400 shadow-md hover:shadow-xl transition-all duration-300 rounded-2xl cursor-pointer mb-5 w-full sm:w-[calc(50vw-40px)] md:w-[calc(33vw-40px)]"
             >
               <div class="flex items-center justify-between py-4 px-4">
                 <div class="flex flex-col">
@@ -169,20 +166,23 @@
                   alt="Post media"
                   class="hidden h-fit max-h-80 w-full object-cover"
                 />
-                <p id="post-body" class="truncate p-4 peer">Post body</p>
+                <p id="post-body" class="truncate p-4">Post body</p>
               </a>
             </div>
           </template>
         </div>
-        <div id="error-toast" class="error-toast"></div>
       </div>
+      <div id="error-toast" class="error-toast"></div>
     </main>
 
     <script type="module" src="../js/profile.js"></script>
     <script type="module" src="../js/components/header-component.js"></script>
-    <script type="module" src="../js/components/edit-profile-modal.js"></script>
-    <script type="module" src="../js/components/delete-post.js"></script>
-    <script type="module" src="../js/components/edit-post.js"></script>
-    <script type="module" src="../js/components/view-post.js"></script>
+    <!-- <script type="module" src="../js/components/edit-profile-modal.js"></script> -->
+    <!-- <script type="module" src="../js/components/delete-post.js"></script> -->
+    <!-- <script type="module" src="../js/components/edit-post.js"></script> -->
+    <!-- <script type="module" src="../js/components/view-post.js"></script> -->
+    <!-- <script type="module" src="../js/post-manager.js"></script> -->
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
   </body>
 </html>

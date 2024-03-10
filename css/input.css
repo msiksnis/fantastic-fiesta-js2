@@ -12,6 +12,10 @@ body {
   @apply max-w-[1536px] mx-auto min-h-screen bg-[url('/assets/bg-noice.webp')] bg-fixed bg-cover;
 }
 
+#dynamic-profile-posts-container {
+  margin: 0 auto;
+}
+
 /* To hide the scrollbar */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
