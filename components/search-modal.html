@@ -1,0 +1,40 @@
+<div id="search-modal" class="hidden">
+  <div class="fixed inset-0 bg-gray-600/70 flex justify-center items-center">
+    <div class="absolute top-[4.75rem] md:top-28 p-0 z-50 bg-transparent">
+      <form role="search" class="relative">
+        <div
+          class="absolute right-0.5 top-1/2 -translate-y-1/2 cursor-pointer p-2 bg-card rounded-e-full"
+        >
+          <img
+            id="close-search-modal"
+            src="/assets/icons/close.svg"
+            class="size-5"
+          />
+        </div>
+        <input
+          id="search-input"
+          type="search"
+          placeholder="Search for a Bragger or a Brag..."
+          class="rounded-full flex justify-center w-[calc(100vw-2rem)] md:w-full md:min-w-[500px] pl-4 border-0 ring-1 ring-inset ring-slate-300 placeholder:text-sm placeholder:text-gray-500 sm:text-sm sm:leading-6 focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
+        />
+      </form>
+      <div
+        id="search-results"
+        class="rounded-2xl w-[calc(100vw-2rem)] md:w-full md:max-w-[500px] px-4 bg-card"
+      >
+        <div
+          id="matched-profiles"
+          class="hidden mb-2 min-h-28 max-h-64 overflow-scroll no-scrollbar"
+        >
+          <!-- matched profile name here -->
+        </div>
+        <div
+          id="matched-posts"
+          class="hidden pb-4 min-h-28 max-h-64 overflow-scroll no-scrollbar"
+        >
+          <!-- matched post title here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
