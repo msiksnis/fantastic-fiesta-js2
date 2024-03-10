@@ -1,5 +1,5 @@
-import { API_BASE, API_KEY, API_PROFILES } from "../constants";
-import { displayError } from "../utils/toasts";
+import { API_BASE, API_KEY, API_PROFILES } from "../constants.js";
+import { displayError } from "../utils/toasts.js";
 
 const accessToken = localStorage.getItem("accessToken");
 const userName = JSON.parse(localStorage.getItem("userProfile")).name;
