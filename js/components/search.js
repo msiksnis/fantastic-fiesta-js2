@@ -1,7 +1,6 @@
 import { API_BASE, API_KEY, API_POSTS, API_PROFILES } from "../constants.js";
 
 const accessToken = localStorage.getItem("accessToken");
-const searchInput = document.querySelector("#search-input");
 const searchForm = document.querySelector("#search-form");
 
 /**
@@ -58,14 +57,24 @@ function displayPostResults(posts) {
   const postList = document.querySelector("#matched-posts");
   postList.innerHTML = "";
 
+  const searchResults = document.querySelector("#search-results");
+  searchResults.classList.add("pb-4");
+
   if (posts.length === 0) {
-    postList.innerHTML = "<p>No posts found.</p>";
+    postList.classList.add("hidden");
     return;
   }
+  const headerElement = document.createElement("div");
+  headerElement.className =
+    "sticky top-0 bg-card py-2 border-t border-b border-gray-200 mb-2 font-bold";
+  headerElement.textContent = "Brags";
+  postList.appendChild(headerElement);
 
   posts.forEach((post) => {
-    const postElement = document.createElement("div");
-    postElement.className = "matched-post-title";
+    const postElement = document.createElement("a");
+    postElement.href = `post/?id=${post.id}`;
+    postElement.className =
+      "flex flex-col hover:underline underline-offset-2 cursor-pointer";
     postElement.textContent = post.title;
     postList.appendChild(postElement);
   });
@@ -82,15 +91,44 @@ function displayProfileResults(profiles) {
   profileList.innerHTML = "";
 
   if (profiles.length === 0) {
-    profileList.innerHTML = "<p>No profiles found.</p>";
+    profileList.classList.add("hidden");
     return;
   }
 
+  // Header Element
+  const headerElement = document.createElement("div");
+  headerElement.className =
+    "sticky top-0 bg-card py-2 border-b border-gray-200 mb-2 font-bold";
+  headerElement.textContent = "Profiles";
+  profileList.appendChild(headerElement);
+
+  // Profile Container
   profiles.forEach((profile) => {
-    const profileElement = document.createElement("div");
-    profileElement.className = "matched-profiles-name";
-    profileElement.textContent = profile.name;
-    profileList.appendChild(profileElement);
+    const profileContainer = document.createElement("a");
+    profileContainer.href = `profile/?profile=${encodeURIComponent(
+      profile.name
+    )}`;
+    profileContainer.className =
+      "group flex items-end space-x-4 cursor-pointer mb-1";
+
+    // Profile Image
+    const profileImgElement = document.createElement("img");
+    profileImgElement.src = profile.avatar.url;
+    profileImgElement.alt = `Avatar for ${profile.name}`;
+    profileImgElement.className = "size-8 rounded-full";
+
+    // Profile Name
+    const profileNameElement = document.createElement("span");
+    profileNameElement.textContent = profile.name;
+    profileNameElement.className =
+      "group-hover:underline underline-offset-2 font-medium";
+
+    // Append Image and Name to the Container
+    profileContainer.appendChild(profileImgElement);
+    profileContainer.appendChild(profileNameElement);
+
+    // Append Container to the List
+    profileList.appendChild(profileContainer);
   });
 
   profileList.classList.remove("hidden");

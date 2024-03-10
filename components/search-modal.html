@@ -20,23 +20,19 @@
       </form>
       <div
         id="search-results"
-        class="rounded-2xl mt-4 w-[calc(100vw-2rem)] md:w-full md:max-w-[500px] px-4 bg-card"
+        class="rounded-2xl w-[calc(100vw-2rem)] md:w-full md:max-w-[500px] px-4 bg-card"
       >
-        <div id="matched-profiles" class="hidden pt-2 pb-1 mb-2">
-          <div class="border-b mb-1">Profiles</div>
-          <div
-            class="matched-profiles-name hover:underline underline-offset-2 cursor-pointer"
-          >
-            <!-- matched profile name here -->
-          </div>
+        <div
+          id="matched-profiles"
+          class="hidden mb-2 min-h-28 max-h-64 overflow-scroll no-scrollbar"
+        >
+          <!-- matched profile name here -->
         </div>
-        <div id="matched-posts" class="hidden pb-2 pt-1">
-          <div class="border-b mb-1">Brags</div>
-          <div
-            class="matched-post-title hover:underline underline-offset-2 cursor-pointer"
-          >
-            <!-- matched post title here -->
-          </div>
+        <div
+          id="matched-posts"
+          class="hidden pb-4 min-h-28 max-h-64 overflow-scroll no-scrollbar"
+        >
+          <!-- matched post title here -->
         </div>
       </div>
     </div>

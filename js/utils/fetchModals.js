@@ -42,11 +42,15 @@ function toggleSearchModal() {
   const searchIcon = document.getElementById("search-icon");
   const searchModal = document.getElementById("search-modal");
   const closeSearch = document.getElementById("close-search-modal");
+  const searchInput = document.getElementById("search-input");
 
   // Toggles modal when search icon clicked
   if (searchIcon && searchModal) {
     searchIcon.addEventListener("click", () => {
       searchModal.classList.toggle("hidden");
+      if (!searchModal.classList.contains("hidden")) {
+        searchInput.focus();
+      }
     });
   }
 
