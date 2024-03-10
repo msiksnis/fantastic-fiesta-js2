@@ -28,6 +28,7 @@ async function fetchUsers() {
   }
 }
 
+// Displays a random selection of users with custom avatar
 async function displayFriends() {
   const container = document.getElementById("online-friends-container");
   const template = document.getElementById("online-friend-template").content;
@@ -36,29 +37,35 @@ async function displayFriends() {
 
   try {
     const response = await fetchUsers();
-    // Filter out users with the default avatar
-    const customAvatarUsers = response.data.filter(
-      (user) => user.avatar.url !== DEFAULT_AVATAR_URL
-    );
-    const usersToShow = customAvatarUsers.slice(0, 25);
+    if (response && response.data) {
+      // Filter out users with the default avatar
+      const customAvatarUsers = response.data.filter(
+        (user) => user.avatar.url !== DEFAULT_AVATAR_URL
+      );
 
-    usersToShow.forEach((user) => {
-      const instance = document.importNode(template, true);
-      instance.querySelector("img").src = user.avatar.url;
-      instance.querySelector("img").alt = `${user.name}'s avatar`;
-      instance.querySelector("#friends-name").textContent = user.name;
+      // Randomizes the array of users to show
+      const usersToShow = customAvatarUsers
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 25);
 
-      const onlineFriendsAnchor = instance.querySelector("#online-friends");
-      onlineFriendsAnchor.href = `/profile/?profile=${encodeURIComponent(
-        user.name
-      )}`;
-      onlineFriendsAnchor.addEventListener("click", function (event) {
-        event.preventDefault();
-        window.location.href = this.href;
+      usersToShow.forEach((user) => {
+        const instance = document.importNode(template, true);
+        instance.querySelector("img").src = user.avatar.url;
+        instance.querySelector("img").alt = `${user.name}'s avatar`;
+        instance.querySelector("#friends-name").textContent = user.name;
+
+        const onlineFriendsAnchor = instance.querySelector("#online-friends");
+        onlineFriendsAnchor.href = `/profile/?profile=${encodeURIComponent(
+          user.name
+        )}`;
+        onlineFriendsAnchor.addEventListener("click", function (event) {
+          event.preventDefault();
+          window.location.href = this.href;
+        });
+
+        container.appendChild(instance);
       });
-
-      container.appendChild(instance);
-    });
+    }
   } catch (error) {
     console.error("Error populating online friends:", error);
   }
