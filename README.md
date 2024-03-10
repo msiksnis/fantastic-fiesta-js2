@@ -1,4 +1,4 @@
-![Brag! Logo](/assets/logo.svg)
+![Brag! Logo](/assets/yellow-logo.svg)
 
 # Brag! Social Media Platform
 
