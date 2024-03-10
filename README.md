@@ -28,7 +28,7 @@
 1. Clone the repository:
 
 ```bash
-git clone [https://github.com/yourusername/social-media-js2.git](https://github.com/msiksnis/fantastic-fiesta-js2)
+git clone [https://github.com/msiksnis/fantastic-fiesta-js2](https://github.com/msiksnis/fantastic-fiesta-js2)
 ```
 
 2. cd social-media-js2
