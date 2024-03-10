@@ -1,5 +1,3 @@
-// post-manager.js is responsible for fetching and displaying user posts
-
 import { API_BASE, API_KEY, API_PARAMS, API_PROFILES } from "./constants.js";
 import { displayError } from "./utils/toasts.js";
 import { confirmDeletePost } from "./components/delete-post.js";
@@ -33,7 +31,6 @@ export async function fetchUserPosts(userName) {
     }
 
     const { data } = await response.json();
-    console.log("User posts data:", data);
     displayUserPosts(data);
   } catch (error) {
     console.error("Error fetching user posts:", error);
@@ -114,14 +111,9 @@ export function displayUserPosts(posts) {
 
   // Masonry layout for the posts
   imagesLoaded(postsContainer, function () {
-    // if (!window.masonryInstance) {
     window.masonryInstance = new Masonry(postsContainer, {
       itemSelector: ".grid-item",
       gutter: 20,
     });
-    // } else {
-    //   window.masonryInstance.reloadItems();
-    //   window.masonryInstance.layout();
-    // }
   });
 }

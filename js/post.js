@@ -4,6 +4,7 @@ import {
   attachToggleListener,
   handleExistingReactionClick,
 } from "./utils/reactions.js";
+import { displayError } from "./utils/toasts.js";
 
 const accessToken = localStorage.getItem("accessToken");
 
@@ -36,10 +37,10 @@ async function fetchAndDisplayPost(id) {
       throw new Error("Failed to fetch post");
     }
     const { data } = await response.json();
-    console.log("Post fetched successfully:", data);
     displayPost(data);
   } catch (error) {
     console.error("Error fetching post:", error);
+    displayError("Could not fetch post");
   } finally {
     toggleLoader(false);
   }

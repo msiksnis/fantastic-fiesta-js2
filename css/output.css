@@ -1428,6 +1428,10 @@ html {
   margin-right: auto;
 }
 
+.mt-40 {
+  margin-top: 10rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -4700,6 +4704,10 @@ body {
     --tw-space-y-reverse: 0;
     margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+  }
+
+  .md\:border-none {
+    border-style: none;
   }
 
   .md\:border-slate-300 {

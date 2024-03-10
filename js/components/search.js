@@ -72,7 +72,7 @@ function displayPostResults(posts) {
 
   posts.forEach((post) => {
     const postElement = document.createElement("a");
-    postElement.href = `post/?id=${post.id}`;
+    postElement.href = `/post/?id=${post.id}`;
     postElement.className =
       "flex flex-col hover:underline underline-offset-2 cursor-pointer";
     postElement.textContent = post.title;
@@ -105,7 +105,7 @@ function displayProfileResults(profiles) {
   // Profile Container
   profiles.forEach((profile) => {
     const profileContainer = document.createElement("a");
-    profileContainer.href = `profile/?profile=${encodeURIComponent(
+    profileContainer.href = `/profile/?profile=${encodeURIComponent(
       profile.name
     )}`;
     profileContainer.className =
