@@ -1,0 +1,188 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brag!</title>
+    <meta
+      name="description"
+      content="Explore the Brag! profile to discover and share accomplishments, connect with friends, and make new ones. Dive into a world where every achievement is celebrated, from the small victories to the major milestones. Your journey, your brags, all in one place."
+    />
+    <link rel="icon" href="/assets/favicon.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link href="../css/output.css" rel="stylesheet" />
+  </head>
+  <body>
+    <span class="loader"></span>
+    <header>
+      <div id="header-container">
+        <!-- Header component -->
+      </div>
+    </header>
+    <main class="pb-40">
+      <div
+        id="dynamic-profile-container"
+        class="px-4 md:px-6 lg:px-10 mt-4 md:mt-6"
+      >
+        <div class="relative">
+          <img
+            id="dynamic-profile-cover"
+            src=""
+            alt="User's Cover Image"
+            class="w-full h-52 md:h-[30rem] object-cover bg-card border border-slate-400 rounded-3xl"
+          />
+          <img
+            src=""
+            alt="User's Avatar"
+            class="dynamic-profile-avatar absolute bottom-0 left-6 md:left-14 transform translate-y-1/2 w-28 md:w-44 h-28 md:h-44 object-cover rounded-full border-4 border-card bg-card hover:-rotate-[6deg] transition-all duration-500 shadow-lg cursor-pointer"
+          />
+        </div>
+
+        <div class="flex flex-col items-center justify-between mt-16">
+          <div class="flex flex-col w-full mt-2 mb-6">
+            <h1
+              id="dynamic-profile-name"
+              class="text-2xl md:text-3xl/10 mx-10 md:font-semibold text-start md:text-center whitespace-nowrap truncate"
+            >
+              User Name
+            </h1>
+            <p id="dynamic-profile-bio" class="py-4 text-center">Bio</p>
+          </div>
+
+          <div
+            class="flex w-full md:w-fit justify-around md:mt-6 space-x-6 md:space-x-10 lg:space-x-10 xl:space-x-20 text-sm/4 md:text-base/5"
+          >
+            <div
+              class="flex space-x-1 items-center justify-center w-28 md:w-32 border border-slate-400 px-4 pb-1 pt-1.5 rounded-full hover:border-slate-700 hover:shadow-md transition-all cursor-pointer"
+            >
+              <p id="dynamic-profile-posts" class="font-semibold"></p>
+              <div class="">Posts</div>
+            </div>
+            <div
+              class="flex space-x-1 items-center justify-center w-28 md:w-32 border border-slate-400 px-4 pb-1 pt-1.5 rounded-full hover:border-slate-700 hover:shadow-md transition-all cursor-pointer"
+            >
+              <p id="dynamic-profile-followers" class="font-semibold"></p>
+              <div class="">Followers</div>
+            </div>
+            <div
+              class="flex space-x-1 items-center justify-center w-28 md:w-32 border border-slate-400 px-4 pb-1 pt-1.5 rounded-full hover:border-slate-700 hover:shadow-md transition-all cursor-pointer"
+            >
+              <p id="dynamic-profile-following" class="font-semibold"></p>
+              <div class="">Following</div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="flex justify-center items-center space-x-6 md:space-x-10 lg:space-x-10 xl:space-x-20 my-6 md:my-10 text-sm/4 md:text-base/5"
+        >
+          <button
+            id="edit-user-button"
+            class="flex items-center justify-center w-28 md:w-32 border border-slate-400 px-4 pb-1 pt-1.5 rounded-full hover:border-slate-700 hover:shadow-md transition-all cursor-pointer whitespace-nowrap"
+          >
+            Edit Profile
+          </button>
+          <button
+            id="follow-button"
+            class="hidden items-center justify-center w-28 md:w-32 border border-slate-400 px-4 pb-1 pt-1.5 rounded-full hover:border-slate-700 hover:shadow-md transition-all cursor-pointer whitespace-nowrap"
+          >
+            Follow
+          </button>
+          <button
+            id="share-profile-button"
+            class="flex items-center justify-center w-28 md:w-32 border border-slate-400 px-4 pb-1 pt-1.5 rounded-full hover:border-slate-700 hover:shadow-md transition-all cursor-pointer whitespace-nowrap"
+          >
+            Share Profile
+          </button>
+        </div>
+      </div>
+      <!-- This is a success toast -->
+      <div id="success-toast" class="success-toast"></div>
+
+      <div class="px-4 sm:px-6 md:px-10">
+        <div id="dynamic-profile-posts-container" class="grid">
+          <template id="post-template">
+            <div
+              class="grid-item bg-card h-fit border border-slate-300 hover:border-slate-400 shadow-md hover:shadow-xl transition-all duration-300 rounded-2xl cursor-pointer mb-5 w-full sm:w-[calc(50vw-40px)] md:w-[calc(33vw-40px)]"
+            >
+              <div class="flex items-center justify-between py-4 px-4">
+                <div class="flex flex-col">
+                  <div class="flex space-x-2 group">
+                    <img
+                      id="post-author-avatar"
+                      src=""
+                      alt="Author's Avatar"
+                      class="w-8 h-8 rounded-full object-cover group-hover:-rotate-[10deg] transition-all duration-500"
+                    />
+                    <div class="flex items-center justify-between w-full">
+                      <p
+                        id="post-author-name"
+                        class="text-base/5 font-medium group-hover:underline underline-offset-2"
+                      >
+                        Author's name
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    id="post-date"
+                    class="text-[0.65rem] opacity-60 ml-9 pl-1"
+                  >
+                    Post date
+                  </div>
+                </div>
+                <div class="">
+                  <button
+                    id="edit-post"
+                    class="hidden -mt-4 p-1.5 rounded-full opacity-85 bg-transparent hover:bg-green-50 hover:scale-105 hover:opacity-100 transition-all duration-300"
+                  >
+                    <img
+                      src="../assets/icons/edit.svg"
+                      alt="edit post"
+                      class="w-5"
+                    />
+                  </button>
+                  <button
+                    id="delete-post"
+                    class="hidden -mt-4 p-1.5 rounded-full opacity-85 bg-transparent hover:bg-red-50 hover:scale-105 hover:opacity-100 transition-all duration-300"
+                  >
+                    <img
+                      src="../assets/icons/delete.svg"
+                      alt="delete post"
+                      class="w-5"
+                    />
+                  </button>
+                </div>
+              </div>
+              <a href="#" id="view-single-post">
+                <div class="px-4 pb-2">
+                  <h2 id="post-title" class="text-base">Post Title</h2>
+                  <div id="post-tags" class="text-xs lowercase opacity-50">
+                    Post tags
+                  </div>
+                </div>
+                <img
+                  id="post-media"
+                  src=""
+                  alt="Post media"
+                  class="hidden h-fit max-h-80 w-full object-cover"
+                />
+                <p id="post-body" class="truncate p-4">Post body</p>
+              </a>
+            </div>
+          </template>
+        </div>
+      </div>
+      <div id="error-toast" class="error-toast"></div>
+    </main>
+
+    <script type="module" src="../js/profile.js"></script>
+    <script type="module" src="../js/components/header-component.js"></script>
+    <script type="module" src="../js/components/edit-profile-modal.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+  </body>
+</html>

@@ -2,24 +2,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Brag'bout | Sign Up'</title>
+    <title>Brag! | Sign Up'</title>
+    <link rel="icon" href="/assets/favicon.png" type="image/png" />
+    <meta
+      name="description"
+      content="Join Brag! today and become part of an empowering community that celebrates each other's successes. Sign up now to share your unique achievements, connect with like-minded individuals, and discover inspiring stories from around the world. Your next great adventure starts here."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
     <link href="../css/output.css" rel="stylesheet" />
   </head>
   <body>
+    <header>
+      <div class="mx-4 md:ml-40 lg:ml-80 mt-10 md:mt-6 -rotate-12">
+        <img
+          src="../assets/yellow-logo.svg"
+          alt="Brag'bout logo"
+          class="w-72 object-cover"
+        />
+      </div>
+    </header>
     <div
-      class="flex min-h-full flex-col justify-center px-6 lg:px-8 text-slate-900"
+      class="flex min-h-full flex-col mt-6 md:mt-20 px-6 py-12 lg:px-8 text-slate-900"
     >
       <div class="flex flex-col">
-        <h2 class="mb-6 text-center text-2xl tracking-tight">
+        <h1 class="mt-0 text-center text-xl md:text-2xl tracking-tight">
           Register for a new account
-        </h2>
+        </h1>
       </div>
 
       <div class="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form class="space-y-6" action="#" method="POST">
+        <form class="space-y-4 md:space-y-6" action="#" method="POST">
           <div>
             <label for="name" class="text-sm font-medium">Name</label>
-            <div class="mt-2">
+            <div class="mt-1 md:mt-2">
               <input
                 id="name"
                 name="name"
@@ -27,14 +47,14 @@
                 required
                 placeholder="Your name"
                 aria-label="Name"
-                class="w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                class="w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-sm placeholder:text-slate-400 sm:text-sm sm:leading-6 focus:outline-none focus:border-black focus:ring-1 focus:ring-black invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
               />
             </div>
           </div>
 
           <div>
             <label for="email" class="text-sm font-medium">Email address</label>
-            <div class="mt-2">
+            <div class="mt-1 md:mt-2">
               <input
                 id="email"
                 name="email"
@@ -43,7 +63,7 @@
                 autocomplete="email"
                 required
                 placeholder="Email address"
-                class="w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                class="w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-sm placeholder:text-slate-400 sm:text-sm sm:leading-6 focus:outline-none focus:border-black focus:ring-1 focus:ring-black invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
               />
             </div>
           </div>
@@ -52,8 +72,7 @@
             <div class="flex items-center justify-between">
               <label for="password" class="text-sm font-medium">Password</label>
             </div>
-
-            <div class="mt-2 relative">
+            <div class="mt-1 md:mt-2 relative">
               <input
                 id="password"
                 name="password"
@@ -62,7 +81,7 @@
                 autocomplete="new-password"
                 required
                 placeholder="Password"
-                class="w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                class="w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-sm placeholder:text-slate-400 sm:text-sm sm:leading-6 focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
               />
               <button
                 type="button"
@@ -87,7 +106,7 @@
               </span>
             </div>
 
-            <div class="mt-2 relative">
+            <div class="mt-1 md:mt-2 relative">
               <input
                 id="repeatPassword"
                 name="repeatPassword"
@@ -96,7 +115,7 @@
                 autocomplete="new-password"
                 required
                 placeholder="Repeat password"
-                class="w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                class="w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-sm placeholder:text-slate-400 sm:text-sm sm:leading-6 focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
               />
               <button
                 type="button"
@@ -112,7 +131,7 @@
 
           <div
             id="strengthWrapper"
-            class="flex items-center h-1.5 rounded-full bg-slate-300 relative border"
+            class="relative flex items-center h-1.5 rounded-full bg-slate-300"
           >
             <div
               id="bars"
@@ -124,38 +143,34 @@
             ></div>
           </div>
 
-          <div class="h-3">
-            <div
-              id="error-message"
-              class="hidden text-red-500 text-sm pt-1"
-            ></div>
-          </div>
+          <!-- Spacer -->
+          <div class="pb-0.5"></div>
 
-          <div>
-            <button
-              type="submit"
-              class="relative overflow-hidden flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm transition duration-700"
+          <button
+            type="submit"
+            class="group relative overflow-hidden flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold shadow transition duration-700"
+          >
+            <span class="z-10 relative">Sign Up</span>
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-yellow-200 via-accent-yellow to-yellow-200"
+            ></div>
+            <div
+              class="hover-target absolute inset-0 bg-gradient-to-r from-accent-yellow via-yellow-400 to-accent-yellow opacity-0 group-hover:opacity-100 transition-all duration-700"
+            ></div>
+          </button>
+          <div class="text-sm !mt-2 text-center">
+            <a
+              href="/sign-in"
+              class="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-all duration-200 ease-in-out"
             >
-              <span class="z-10 relative">Sign up</span>
-              <div
-                class="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
-              ></div>
-              <div
-                class="hover-target absolute inset-0 bg-gradient-to-r from-indigo-400 via-purple-700 to-pink-400 opacity-0 transition-opacity duration-700"
-              ></div>
-            </button>
-            <div class="text-sm mt-2 text-center">
-              <a
-                href="/sign-in"
-                class="text-slate-700 hover:text-slate-900 hover:underline underline-offset-4 transition-all duration-200 ease-in-out"
-              >
-                Already have an account? Sign In
-              </a>
-            </div>
+              Already have an account? Sign In
+            </a>
           </div>
         </form>
       </div>
     </div>
+
+    <div id="error-toast" class="error-toast"></div>
 
     <script type="module" src="/js/auth/sign-up.js"></script>
   </body>

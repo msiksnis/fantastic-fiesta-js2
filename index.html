@@ -2,10 +2,312 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Brag!</title>
+    <meta
+      name="description"
+      content="Discover Brag!, the vibrant social media platform where creativity shines. Share your achievements, explore inspiring stories, and connect with a community that celebrates success. Join the excitement and start bragging about your extraordinary moments today!"
+    />
+    <link rel="canonical" href="https://msiksnis-social-media.netlify.app/" />
+    <link rel="icon" href="/assets/favicon.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
     <link href="./css/output.css" rel="stylesheet" />
   </head>
   <body>
-    <script type="module" src="js/script.js"></script>
+    <span class="loader"></span>
+    <div id="success-toast" class="success-toast"></div>
+    <header>
+      <div id="header-container">
+        <!-- Header component -->
+      </div>
+    </header>
+
+    <main
+      class="flex justify-center w-full gap-x-5 mt-8 sm:px-4 lg:px-8 xl:px-10"
+    >
+      <div
+        id="mini-profile-container"
+        class="hidden sm:block w-2/5 md:w-2/6 lg:w-1/4 bg-card shadow rounded-2xl h-fit"
+      >
+        <!-- Mini profile component -->
+      </div>
+      <div class="grid w-full sm:w-3/5 md:w-4/6 lg:w-2/4 h-fit">
+        <template id="online-friend-template">
+          <a
+            href="#"
+            id="online-friends"
+            class="flex flex-col items-center justify-center w-16 mr-2 first-of-type:ml-3 first-of-type:sm:ml-0 mb-5"
+          >
+            <img
+              src=""
+              alt="profile picture"
+              class="h-14 w-14 object-cover rounded-2xl border border-black opacity-90"
+            />
+            <div
+              id="friends-name"
+              class="text-xs w-16 truncate text-center mt-1 opacity-60"
+            >
+              Name
+            </div>
+          </a>
+        </template>
+
+        <div
+          id="online-friends-container"
+          class="flex flex-row overflow-scroll no-scrollbar"
+        ></div>
+
+        <div class="px-4 sm:px-0">
+          <div
+            id="open-new-brag-modal"
+            class="bg-card border hover:border-slate-300 shadow hover:shadow-md transition-all duration-300 rounded-2xl p-3"
+          >
+            <div class="flex justify-center space-x-4">
+              <div
+                class="relative h-[3.4rem] aspect-square bg-accent-yellow border border-slate-700 rounded-full"
+              >
+                <img
+                  id="profile-avatar"
+                  src=""
+                  alt=""
+                  class="absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 rounded-full h-12 w-12"
+                />
+              </div>
+              <div
+                class="w-full rounded-xl border border-slate-300 focus:outline-none py-2 h-fit text-sm hover:border-slate-700 transition-all duration-200 px-3 cursor-pointer"
+              >
+                <div class="opacity-70">Add a Brag!</div>
+              </div>
+            </div>
+            <div class="flex justify-around space-x-4 mt-4">
+              <div
+                class="flex items-center space-x-2 text-sm border border-slate-300 hover:border-slate-700 transition-all duration-200 cursor-pointer py-0.5 px-2 rounded-lg"
+              >
+                <img
+                  src="./assets/icons/photo.svg"
+                  alt="photo icon"
+                  class="w-5"
+                />
+                <div class="">Photo</div>
+              </div>
+              <div
+                class="flex items-center space-x-2 text-sm border border-slate-300 hover:border-slate-700 transition-all duration-200 cursor-pointer py-0.5 px-2 rounded-lg"
+              >
+                <img
+                  src="./assets/icons/video.svg"
+                  alt="video icon"
+                  class="w-5"
+                />
+                <div class="">Video</div>
+              </div>
+              <div
+                class="flex items-center space-x-2 text-sm border border-slate-300 hover:border-slate-700 transition-all duration-200 cursor-pointer py-0.5 px-2 rounded-lg"
+              >
+                <img
+                  src="./assets/icons/camera.svg"
+                  alt="camera icon"
+                  class="w-5"
+                />
+                <div class="">Camera</div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="flex justify-between mt-4 mb-2 rounded-full p-0.5 bg-card border border-gray-300 shadow text-sm/4"
+          >
+            <div
+              class="tab py-0.5 px-6 md:px-10 rounded-full opacity-60 hover:opacity-80 transition-alldeu300 cursor-pointer transition-all duration-300 border border-transparent"
+            >
+              Latest
+            </div>
+            <div
+              class="tab py-0.5 px-6 md:px-10 rounded-full opacity-60 hover:opacity-80 transition-alldeu300 cursor-pointer transition-all duration-300 border border-transparent"
+            >
+              Following
+            </div>
+            <div
+              class="tab py-0.5 px-6 md:px-10 rounded-full opacity-60 hover:opacity-80 transition-alldeu300 cursor-pointer transition-all duration-300 border border-transparent"
+            >
+              Popular
+            </div>
+          </div>
+
+          <div id="brags-container" class="grid grid-cols-1 gap-y-4"></div>
+          <template id="brag-template">
+            <div
+              data-post-id="${post.id}"
+              class="bg-card w-full h-fit border hover:border-slate-300 shadow hover:shadow-md transition-all duration-300 rounded-2xl pb-4"
+            >
+              <div class="flex items-center py-4 px-4">
+                <div class="flex items-center justify-between w-full">
+                  <a
+                    href="#"
+                    id="brag-author"
+                    class="flex items-center space-x-2 group"
+                  >
+                    <img
+                      id="brag-author-avatar"
+                      src=""
+                      alt="Author's Avatar"
+                      class="w-8 h-8 rounded-full object-cover group-hover:-rotate-[10deg] transition-all duration-500"
+                    />
+                    <p
+                      id="brag-author-name"
+                      class="text-base/5 font-medium group-hover:underline underline-offset-4"
+                    >
+                      Author's name
+                    </p>
+                  </a>
+                  <div id="brag-date" class="text-xs/6 opacity-60">
+                    Post date
+                  </div>
+                </div>
+              </div>
+              <a href="#" id="view-single-post">
+                <div class="px-4 pb-2">
+                  <h2 id="brag-title" class="text-base">Post Title</h2>
+                  <div
+                    id="brag-tags"
+                    class="text-xs lowercase opacity-50 italic"
+                  >
+                    Post tags
+                  </div>
+                </div>
+                <img
+                  id="brag-media"
+                  src=""
+                  alt="Brag media"
+                  class="hidden h-fit max-h-80 w-full object-cover"
+                />
+                <p id="brag-body" class="truncate p-4 peer">Post body</p>
+              </a>
+              <div class="px-4">
+                <div class="border-t"></div>
+              </div>
+              <div class="flex justify-between items-start p-4 relative">
+                <div class="">
+                  <div class="flex space-x-4">
+                    <div
+                      id="choose-reaction"
+                      class="choose-reaction cursor-pointer"
+                    >
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 20 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M19.557 8.7152C19.0063 8.7152 18.5696 8.2595 18.5696 7.72786V5.44937H16.2722C15.7215 5.44937 15.2848 4.99368 15.2848 4.46203C15.2848 3.9114 15.7215 3.47469 16.2722 3.47469H18.5696V1.17722C18.5696 0.626589 19.0063 0.18988 19.557 0.18988C20.1076 0.18988 20.5443 0.626589 20.5443 1.17722V3.47469H22.8418C23.3924 3.47469 23.8291 3.9114 23.8291 4.46203C23.8291 5.03165 23.3354 5.44937 22.8418 5.44937H20.5443V7.74684C20.5443 8.29747 20.0506 8.7152 19.557 8.7152ZM10.6899 23.8101C4.87975 23.8101 0.189873 19.1203 0.189873 13.3101C0.189873 7.50001 4.87975 2.81013 10.6899 2.81013C11.5633 2.81013 12.1899 2.88608 12.4937 2.96203C12.9494 3.07596 13.3101 3.4557 13.3101 3.93039C13.3101 4.46203 12.8544 4.91773 12.3228 4.91773C12.1709 4.91773 11.3544 4.76583 10.6899 4.76583C5.98101 4.76583 2.16456 8.58229 2.16456 13.2911C2.16456 18 5.98101 21.8165 10.6899 21.8165C15.3987 21.8165 19.2152 18 19.2152 13.2911C19.2152 12.4557 19.0633 11.8671 19.0633 11.6582C19.0633 11.1266 19.519 10.6709 20.0506 10.6709C20.5253 10.6709 20.943 11.0317 21.019 11.4684C21.1329 12.076 21.1709 12.7025 21.1709 13.2911C21.1899 19.1203 16.5 23.8101 10.6899 23.8101ZM7.40506 12.6646C6.32278 12.6646 5.43038 11.7911 5.43038 10.6899C5.43038 9.58861 6.32278 8.7152 7.40506 8.7152C8.48734 8.7152 9.37975 9.58861 9.37975 10.6899C9.37975 11.7911 8.50633 12.6646 7.40506 12.6646ZM13.9747 12.6646C12.8924 12.6646 12 11.7911 12 10.6899C12 9.58861 12.8734 8.7152 13.9747 8.7152C15.0759 8.7152 15.9494 9.6076 15.9494 10.6899C15.9494 11.7722 15.057 12.6646 13.9747 12.6646ZM10.6899 19.8798C6.96835 19.8798 5.43038 17.0506 5.43038 15.6076C5.43038 15.076 5.82911 14.6203 6.41772 14.6203H14.943C15.5127 14.6203 15.9304 15.076 15.9304 15.6076C15.9494 16.9937 14.4494 19.8798 10.6899 19.8798Z"
+                          fill="black"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      id="available-reactions"
+                      class="available-reactions absolute opacity-0 bottom-10 left-0 bg-black rounded-xl space-x-2 md:space-x-4 h-12 flex justify-around px-3 items-center text-2xl transition-all duration-300"
+                    >
+                      <span
+                        data-symbol="🎉"
+                        class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                        >🎉</span
+                      >
+                      <span
+                        data-symbol="👏"
+                        class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                        >👏</span
+                      >
+                      <span
+                        data-symbol="😀"
+                        class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                        >😀</span
+                      >
+                      <span
+                        data-symbol="😍"
+                        class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                        >😍</span
+                      >
+                      <span
+                        data-symbol="😂"
+                        class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                        >😂</span
+                      >
+                      <span
+                        data-symbol="👍"
+                        class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                        >👍</span
+                      >
+                      <span
+                        data-symbol="🔥"
+                        class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                        >🔥</span
+                      >
+                      <span
+                        data-symbol="😢"
+                        class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                        >😢</span
+                      >
+                      <span
+                        data-symbol="🤩"
+                        class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                        >🤩</span
+                      >
+                      <span
+                        data-symbol="🤪"
+                        class="reaction cursor-pointer hover:-rotate-12 hover:scale-110 transition-all duration-300"
+                        >🤪</span
+                      >
+                    </div>
+                    <div class="">
+                      <div
+                        id="reactions-container"
+                        class="reactions-display flex space-x-2 w-64 sm:w-80 md:w-fit overflow-scroll no-scrollbar"
+                      >
+                        <!-- Dynamic reactions will be injected here -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  id="brag-share"
+                  class="brag-share cursor-pointer hover:scale-105 hover:translate-x-1 hover:-translate-y-1 transition-all transform origin-center duration-500"
+                >
+                  <img
+                    src="../assets/icons/share.svg"
+                    alt="Share icon"
+                    class="w-5 -rotate-45"
+                  />
+                </div>
+              </div>
+              <div class="flex px-4">
+                <div class="flex items-center space-x-2">
+                  <img
+                    src="../assets/icons/comment.svg"
+                    alt="Comment icon"
+                    class="w-6"
+                  />
+                  <div id="brag-comments" class="text-xs/6">0</div>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="js/components/new-brag-modal.js"></script>
+    <script type="module" src="js/fetch-users.js"></script>
+    <script
+      type="module"
+      src="js/components/mini-profile-component.js"
+    ></script>
+    <script type="module" src="js/components/header-component.js"></script>
+    <script type="module" src="js/homepage.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   </body>
 </html>

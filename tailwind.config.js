@@ -3,7 +3,16 @@
 module.exports = {
   content: ["./**/*.{html,js}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "accent-yellow": "#FEFD00",
+        bg: "#F4F4F5",
+        card: "#FFFEFE",
+      },
+    },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/container-queries"),
+  ],
 };

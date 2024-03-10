@@ -2,6 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-button:hover .hover-target {
-  opacity: 1;
+@layer base {
+  html {
+    font-family: "Poppins", sans-serif;
+  }
+}
+
+body {
+  @apply max-w-[1536px] mx-auto min-h-screen bg-[url('/assets/bg-noice.webp')] bg-fixed bg-cover;
+}
+
+#dynamic-profile-posts-container {
+  margin: 0 auto;
+}
+
+/* To hide the scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar.overflow-auto {
+  scrollbar-width: none; /* Firefox */
+}
+
+@layer components {
+  .error-toast {
+    @apply z-50 rounded-lg px-2 sm:px-4 md:px-6 lg:px-10 py-4 bg-red-100/90 border-2 border-red-500 text-center shadow-md text-sm md:text-base w-full sm:w-auto max-w-[95%] sm:max-w-[90%] md:max-w-[85%] fixed bottom-6 left-1/2 transform -translate-x-1/2 translate-y-24 transition-all duration-300 opacity-0;
+  }
+
+  .success-toast {
+    @apply z-50 rounded-lg px-2 sm:px-4 md:px-6 lg:px-10 py-4 bg-white border-2 border-green-500 text-center shadow-md text-sm md:text-base w-full sm:w-auto max-w-[95%] sm:max-w-[90%] md:max-w-[85%] fixed top-4 left-1/2 transform -translate-x-1/2 -translate-y-24 transition-all duration-300 opacity-0;
+  }
+}
+
+/* loader */
+.loader {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: block;
+  margin: 15px auto;
+  position: relative;
+  color: #fff;
+  box-sizing: border-box;
+  animation: animloader 1s linear infinite alternate;
+}
+
+@keyframes animloader {
+  0% {
+    box-shadow: -38px -6px, -14px 6px, 14px -6px;
+  }
+  33% {
+    box-shadow: -38px 6px, -14px -6px, 14px 6px;
+  }
+  66% {
+    box-shadow: -38px -6px, -14px 6px, 14px -6px;
+  }
+  100% {
+    box-shadow: -38px 6px, -14px -6px, 14px 6px;
+  }
 }
