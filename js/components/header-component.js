@@ -3,6 +3,24 @@ import {
   getUserProfile,
   logoutUser,
 } from "../profile-data.js";
+import { fetchSearchModal } from "../utils/fetchModals.js";
+
+document.addEventListener("DOMContentLoaded", function () {
+  fetch("../../components/header-component.html")
+    .then((response) => response.text())
+    .then((data) => {
+      const headerContainer = document.getElementById("header-container");
+      headerContainer.innerHTML = data;
+
+      const userProfile = getUserProfile();
+      updateProfileLink(userProfile);
+      displayUserProfile(headerContainer);
+      setActiveLink();
+      addProfileToggle();
+      logout();
+      fetchSearchModal();
+    });
+});
 
 function setActiveLink() {
   const icons = document.querySelectorAll(".active-icon");
@@ -42,22 +60,6 @@ function updateProfileLink(userProfile) {
     )}`;
   }
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  fetch("../../components/header-component.html")
-    .then((response) => response.text())
-    .then((data) => {
-      const headerContainer = document.getElementById("header-container");
-      headerContainer.innerHTML = data;
-
-      const userProfile = getUserProfile();
-      updateProfileLink(userProfile);
-      displayUserProfile(headerContainer);
-      setActiveLink();
-      addProfileToggle();
-      logout();
-    });
-});
 
 function logout() {
   const logoutText = document.querySelector(".log-out-text");
