@@ -1,3 +1,5 @@
+![Brag! Logo](/assets/logo.svg)
+
 # Brag! Social Media Platform
 
 ## Description
