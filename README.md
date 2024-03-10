@@ -28,7 +28,7 @@
 1. Clone the repository:
 
 ```bash
-git clone [https://github.com/msiksnis/fantastic-fiesta-js2](https://github.com/msiksnis/fantastic-fiesta-js2)
+git clone https://github.com/msiksnis/fantastic-fiesta-js2
 ```
 
 2. cd social-media-js2
@@ -73,7 +73,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Contact
 
 - **Project Owner**: [Marty](devmarty@gmail.com)
-- **Portfolio**: [devmarty](https://devmarty.com/)
+- **Portfolio**: [devmarty.com](https://devmarty.com/)
 - **Project Link**: [https://github.com/msiksnis/fantastic-fiesta-js2](https://github.com/msiksnis/fantastic-fiesta-js2)
 
 Thank you for your interest in "Brag!" We're excited to see how the platform grows with your help and participation!
